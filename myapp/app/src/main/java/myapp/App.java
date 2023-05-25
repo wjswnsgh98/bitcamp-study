@@ -18,6 +18,6 @@ public class App {
     System.out.printf("성별(남자(M), 여자(W)): %c\n", 'M');
 
     System.out.printf("좌우시력: %.1f,%.1f\n", 1.5f, 1.0f);
-    System.out.println(" 흑흑흑");
+    System.out.println(" 흑흑흑111");
   }
 }
