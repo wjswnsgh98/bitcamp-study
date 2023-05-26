@@ -49,5 +49,32 @@
 - Git 사용법
   - .gitignore 파일 소개
   - `gitignore.io` 사이트에서 .gitignore 설정 내용 만들기
+- 자바 프로그래밍
+  - 문자열, 문자, 논리, 정수, 부동소수점 표기법
+  - 정수 리터럴
+    - 각 진수별 표현방법
+    - 2진수로 변환하는 다양한 방법
+      - Sign-Magnitude, 1's Complement, 2's Complement, Excess-k
+    - 부동소수점 리터럴
+      - 32비트 크기의 2진수로 바꾸는 방법
+      - 64비트 크기의 2진수로 바꾸는 방법
 - 프로젝트 실습
   - 1. 자바 프로젝트 준비하기
+  - 2. 리터럴을 사용하여 데이터 출력하기
+
+### 5일(5/26, 금)
+
+  - 자바 프로그래밍
+    - 문자 리터럴
+      - 2진수로 변환하는 방법 
+          - ASCII, ISO-8859-1, KSC-5601(완성형), 조합형, MS-949, Unicode, UTF-8
+  - 변수 사용법
+    - JVM이 관리하는 메모리 영역 소개
+    - 변수 선언, 변수에 값 할당
+    - Primitive Data Type 소개 : byte, short, int, long, char,  float, double, boolean
+  - 프로젝트 실습
+    - c. 변수를 사용하여 데이터를 저장하기
+
+
+## 구글 미트 접속
+https://meet.google.com/sya-jckw-ivq
