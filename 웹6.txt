@@ -1,0 +1,55 @@
+웹 6일차
+
+computer 구성 
+1. cpu : 계산 수정
+2. RAM : Data 임시 보관
+3. HDD(Hard disk) : Data 영구 보관    track / sector(512byte)
+SDD(Solid State Disk)
+
+Actor : 사람일수도 있고 S/W(Process), H/W
+App : 제작
+Actor에서 App으로 Data 전송
+App에서 OS로 전송
+OS에서 컴퓨터로 전송후
+다시 컴퓨터 -> OS -> App -> Actor
+
+Literal : Data 표현 -> Variables, Array : 저장 
+-> 조건문, 반복문 : 제어 -> 함수(메서드), 클래스, 패키지, 모듈 : 명령순, 조직적으로 관리
++ 알파 <- 외부에서 제작한 명령문(Application Programming Interface -> API)
+
+System.out.println(20);
+System : 클래스(메서드 묶음, 다루는 데이터 설계도 한마디로 도구함)
+out : 표준출력장치의 정보 / 표준출력장치 : 콘솔; console
+println : 메서드, 함수 -> 특정 기능을 수행하는 명령어 묶음, 작업을 끝낸 후 값을 리턴할 수 있다.
+20 : 메서드를 실행할 때 사용할 값 => argument(인자), parameter(매개변수)라고 부르기도 함 엄연히 따지면 다름.
+
+* 값 변수와 주소변수(reference)
+int a;
+int : primitive Data Type
+a = 100;
+a는 4byte, 2진수(2의 보수) 안에 100(값)이 들어감
+
+Date today = new Date();
+Date : primitive data type이 아니다.
+today(메모리주소 2진수) : 레퍼런스(메모리 시작주소를 저장하는 변수), C언어에서는 pointer라고 불림
+200(날짜 및 시간 데이터, 메모리의 주소)
+
+java.io.InputStream keyboard = System.in
+in : 키보드 정보
+new java.util.Scanner();
+
+사용자 ->(입력) 나이? 123 엔터후
+123 -> nextInt() ->(리턴) 123
+엔터 -> nextLine()으로 읽기후 리턴할 때 리턴값을 변수에 저장 안함 = 버린다
+
+이름?
+읽을 문자열이 들어올때(사용자가 입력할 때)까지 기다린다 그 후 nextLine() ->(리턴) 
+
+사용자 입력 -> 나이, 이름, 취업여부?
+20 aaa false
+20 : nextInt()
+aaa : nextLine()
+false : boolean
+
+
+
