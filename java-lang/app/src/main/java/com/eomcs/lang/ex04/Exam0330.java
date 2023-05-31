@@ -10,6 +10,6 @@ public class Exam0330 {
     int age;
     
     //값이 저장되지 않은 변수를 사용하면 문법 오류이다.
-    System.out.println(age);
+    // System.out.println(age);
   }
 }

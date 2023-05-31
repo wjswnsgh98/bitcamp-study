@@ -10,6 +10,6 @@ public class Exam0340 {
     int age1;
     
     //값이 저장되지 않은 변수를 사용하면 문법 오류이다!
-    int age2 = age1;
+    // int age2 = age1;
   }
 }

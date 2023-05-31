@@ -13,7 +13,7 @@ public class Exam0950 {
 
     // 예) 정수, 부동소수점 ==/==> boolean
     boolean bool;
-    //    bool = (boolean) 1; // 컴파일 오류!
+    //   bool = (boolean) 1; // 컴파일 오류!
 
     // 예) 문자열 ==/==> 정수, 부동소수점, 문자, boolean
     //    boolean v1 = (boolean) "true"; // 컴파일 오류!

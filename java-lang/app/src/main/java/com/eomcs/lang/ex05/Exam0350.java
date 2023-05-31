@@ -8,9 +8,9 @@ public class Exam0350 {
     int b = 0b0101_0101;
 
     // 정수 값에 대해서는 &&와 ||, !을 사용할 수 없다.
-    //System.out.println(a && b); // 컴파일 오류!
-    //System.out.println(a || b); // 컴파일 오류!
-    //System.out.println(!a); // 컴파일 오류!
+    // System.out.println(a && b); // 컴파일 오류!
+    // System.out.println(a || b); // 컴파일 오류!
+    // System.out.println(!a); // 컴파일 오류!
 
     
     // 그러나 &, |, ^, ~는 사용할 수 있다.
