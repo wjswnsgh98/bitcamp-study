@@ -1,11 +1,14 @@
 package bitcamp.myapp;
 
+import bitcamp.myapp.handler.MemberHandler;
+import bitcamp.util.Prompt; 
+
 public class App {  
   public static void main(String[] args) {
 
     printTitle();
 
-    while (MemberHandler.length < MemberHandler.MAX_SIZE) {
+    while (MemberHandler.available()) {
       MemberHandler.inputMember();
       if (!promptContinue()) {
         break;
@@ -14,7 +17,7 @@ public class App {
 
     MemberHandler.printMembers();
 
-    Prompt.scanner.close();
+    Prompt.close();
   }
 
   static void printTitle() {

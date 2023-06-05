@@ -1,4 +1,6 @@
-package bitcamp.myapp;
+package bitcamp.myapp.handler;
+
+import bitcamp.util.Prompt;
 
 public class MemberHandler {
   static final int MAX_SIZE = 100;
@@ -13,7 +15,7 @@ public class MemberHandler {
   static final char MALE = 'M';
   static final char FEMALE = 'W';
 
-  static void inputMember() {
+  public static void inputMember() {
     name[length] = Prompt.inputString("이름? ");
     email[length] = Prompt.inputString("이메일? ");    
     password[length] = Prompt.inputString("암호? ");
@@ -40,7 +42,7 @@ public class MemberHandler {
     length++;
   }
 
-  static void printMembers() {
+  public static void printMembers() {
     System.out.println("---------------------------------------");
     System.out.println("번호, 이름, 이메일, 성별");
     System.out.println("---------------------------------------");
@@ -48,5 +50,9 @@ public class MemberHandler {
     for (int i = 0; i < length; i++) {
       System.out.printf("%d, %s, %s, %c\n", no[i], name[i], email[i], gender[i]);
     }
+  }
+
+  public static boolean available(){
+    return length < MAX_SIZE;
   }
 }
