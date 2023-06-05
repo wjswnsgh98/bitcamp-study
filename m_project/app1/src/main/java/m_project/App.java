@@ -1,4 +1,4 @@
-package bitcamp.myapp;
+package m_project;
 
 public class App {
   public static void main(String[] args) {
@@ -11,7 +11,7 @@ public class App {
     System.out.printf("이름: %s", "홍길동");
     System.out.println();
 
-    System.out.println("핸드폰번호: %s", "01033333333");
+    System.out.printf("핸드폰번호: %s\n", "01033333333");
     
     System.out.printf("학교재직여부: %b\n", true);
 
