@@ -38,22 +38,15 @@ public class App {
 
   static void inputMember() {
 
-    System.out.print("이름? ");
-    name[length] = scanner.next();
-
-    System.out.print("이메일? ");
-    email[length] = scanner.next();
-
-    System.out.print("암호? ");
-    password[length] = scanner.next();
+    name[length] = prompt("이름? ");
+    email[length] = prompt("이메일? ");    
+    password[length] = prompt("암호? ");
 
     loop: while (true) {
-      System.out.println("성별: ");
-      System.out.println("  1. 남자");
-      System.out.println("  2. 여자");
-      System.out.print("> ");
-      String menuNo = scanner.next();
-      scanner.nextLine(); // 입력 값(token)을 읽고 난 후에 남아 있는 줄바꿈 코드를 제거한다.
+      String menuNo = prompt("성별:\n" +
+      "  1. 남자\n" +
+      "  2. 여자\n" +
+      "> ");
 
       switch (menuNo) {
         case "1":
@@ -88,6 +81,11 @@ public class App {
     for (int i = 0; i < length; i++) {
       System.out.printf("%d, %s, %s, %c\n", no[i], name[i], email[i], gender[i]);
     }
+  }
+
+  String prompt(String title){
+    System.out.print(title);
+    return scanner.nextLine();
   }
 }
   
