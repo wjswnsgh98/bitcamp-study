@@ -1,7 +1,7 @@
 package m_project.handler;
 
-import util.Prompt;
 import m_project.vo.Member;
+import util.Prompt;
 
 public class MemberHandler {
 
@@ -33,7 +33,7 @@ public class MemberHandler {
 
   public static void printMembers(){
     System.out.println("-----------------------------------------------");
-    System.out.println("도서번호, 도서제목, 글쓴이, 이름, 핸드폰번호, 성벌");
+    System.out.println("도서번호, 도서제목, 글쓴이, 이름, 핸드폰번호, 성별");
     System.out.println("-----------------------------------------------");
 
     for(int i=0; i<length; i++){
@@ -91,10 +91,10 @@ public class MemberHandler {
     }
 
     loop: while(true){
-      String menuNo = Prompt.inputString(label + 
-      " 1. 남자\n" + 
-      " 2. 여자\n" + 
-      "> ");
+      String menuNo = Prompt.inputString(label +
+          " 1. 남자\n" +
+          " 2. 여자\n" +
+          "> ");
 
       switch(menuNo){
         case "1":
@@ -131,7 +131,7 @@ public class MemberHandler {
     }
     return -1;
   }
-  
+
   public static boolean available(){
     return length < MAX_SIZE;
   }
