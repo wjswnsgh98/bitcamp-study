@@ -151,5 +151,22 @@
         - 이름, url
       - to: jinyoung.eom@gmail.com
 
+### 13일(6/9, 금)
+
+- 자바 프로그래밍
+  - 클래스 사용법(계속)
+    - 스태틱 필드와 스태틱 메서드 사용법
+    - 인스턴스 필드와 인스턴스 메서드 사용법
+    - 패키지 사용법: import, public 접근 제어
+    - GRASP 패턴: Information Expert 패턴 소개
+    - GOF의 Design Patterns: Factory Method 패턴 소개
+    - 생성자 사용법
+    - private/public, setter, getter 사용법
+
+### 14일(6/12, 월)
+  - 
+
 ## 구글 미트 접속
 https://meet.google.com/sya-jckw-ivq
+
+## 웨일즈 화상회의
