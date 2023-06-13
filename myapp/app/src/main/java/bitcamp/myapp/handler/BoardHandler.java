@@ -41,62 +41,80 @@ public class BoardHandler {
   }
 
   public static void viewBoard(){
-    //    String memberNo = Prompt.inputString("번호? ");
-    //    // 입력받은 번호를 가지고 배열에서 해당 회원을 찾아야한다.
-    //    for(int i=0; i<length; i++){
-    //      Board m = boards[i];
-    //      if(m.no == Integer.parseInt(memberNo)){
-    //        // i번째 항목에 저장된 회원 정보 출력
-    //        System.out.printf("이름: %s\n", m.getName());
-    //        System.out.printf("이메일: %s\n", m.getEmail());
-    //        System.out.printf("성별: %s\n", toGenderString(m.getGender()));
-    //        return;
-    //      }
-    //    }
-    //    System.out.println("해당 번호의 회원이 없습니다!");
+    String boardNo = Prompt.inputString("번호? ");
+    // 입력받은 번호를 가지고 배열에서 해당 회원을 찾아야한다.
+    for(int i=0; i<length; i++){
+      Board board = boards[i];
+      if(board.getNo() == Integer.parseInt(boardNo)){
+        // i번째 항목에 저장된 회원 정보 출력
+        System.out.printf("제목: %s\n", board.getTitle());
+        System.out.printf("작성자: %s\n", board.getWriter());
+        System.out.printf("조회수: %s\n", board.getViewCount());
+        System.out.printf("등록일: %tY-%5$tm-%5$td\n", board.getCreatedDate());
+        return;
+      }
+    }
+    System.out.println("해당 번호의 회원이 없습니다!");
   }
 
   public static void updateBoard(){
-    //    String memberNo = Prompt.inputString("번호? ");
-    //    for(int i=0; i<length; i++){
-    //      Board m = boards[i];
-    //      if(m.getNo() == Integer.parseInt(memberNo)){
-    //        // i번째 항목에 저장된 회원 정보 출력
-    //        System.out.printf("이름(%s)? ", m.getName());
-    //        m.setName(Prompt.inputString("> "));
-    //        System.out.printf("이메일(%s)? ", m.getEmail());
-    //        m.setEmail(Prompt.inputString("> "));
-    //        System.out.printf("새암호? ");
-    //        m.setPassword(Prompt.inputString("> "));
-    //        m.setGender(inputGender(m.getGender()));
-    //        return;
-    //      }
-    //    }
-    //    System.out.println("해당 번호의 회원이 없습니다!");
+    String boardNo = Prompt.inputString("번호? ");
+    for(int i=0; i<length; i++){
+      Board board = boards[i];
+      if(board.getNo() == Integer.parseInt(boardNo)){
+        String inputPassword = Prompt.inputString("암호? ");
+        if(board.getPassword().equals(inputPassword)) {
+          // i번째 항목에 저장된 회원 정보 출력
+          System.out.printf("제목(%s)? ", board.getTitle());
+          board.setTitle(Prompt.inputString("> "));
+          System.out.printf("암호(%s)? ", board.getPassword());
+          board.setPassword(Prompt.inputString("> "));
+          return;
+        }
+        else {
+          System.out.println("비밀번호가 틀렸습니다!");
+          updateBoard();
+        }
+      }
+      else {
+        System.out.println("해당 번호의 회원이 없습니다!");
+        updateBoard();
+      }
+    }
   }
 
-  public static void deleteBoard(){
-    //    // 삭제하려는 회원의 정보가 들어있는 인덱스를 알아낸다.
-    //    int memberNo = Prompt.inputInt("번호? ");
-    //
-    //    int deleteIndex = indexOf(memberNo);
-    //    if(deleteIndex == -1){
-    //      System.out.println("해당 번호의 회원이 없습니다!");
-    //      return;
-    //    }
-    //
-    //    for(int i=deleteIndex; i<length - 1; i++){
-    //      boards[i] = boards[i+1];
-    //    }
-    //
-    //    boards[--length] = null;
+  public static void deleteBoard() {
+    // 삭제하려는 회원의 정보가 들어있는 인덱스를 알아낸다.
+    int memberNo = Prompt.inputInt("번호? ");
+
+    int deleteIndex = indexOf(memberNo);
+    if(deleteIndex == -1){
+      System.out.println("해당 번호의 회원이 없습니다!");
+      return;
+    }
+    else if(deleteIndex == -2) {
+      System.out.println("비밀번호가 틀렸습니다!");
+      return;
+    }
+
+    for(int i=deleteIndex; i<length - 1; i++){
+      boards[i] = boards[i+1];
+    }
+
+    boards[--length] = null;
   }
 
   private static int indexOf(int memberNo){
     for(int i=0; i<length; i++){
       Board board = boards[i];
       if(board.getNo() == memberNo){
-        return i;
+        String inputPassword = Prompt.inputString("암호? ");
+        if(board.getPassword().equals(inputPassword)) {
+          return i;
+        }
+        else {
+          return -2;
+        }
       }
     }
     return -1;
