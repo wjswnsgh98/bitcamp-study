@@ -50,7 +50,7 @@ public class BoardHandler {
         System.out.printf("제목: %s\n", board.getTitle());
         System.out.printf("작성자: %s\n", board.getWriter());
         System.out.printf("조회수: %s\n", board.getViewCount());
-        System.out.printf("등록일: %tY-%5$tm-%5$td\n", board.getCreatedDate());
+        //System.out.printf("등록일: %tY-%5$tm-%5$td\n", board.getCreatedDate());
         return;
       }
     }

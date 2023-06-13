@@ -11,7 +11,7 @@ public class Prompt {
   }
 
   public static int inputInt(String title){
-    System.out.print(title);
+    //System.out.print(title);
     return Integer.parseInt(inputString(title));
   }
 
