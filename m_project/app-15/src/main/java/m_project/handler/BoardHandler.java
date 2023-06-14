@@ -1,8 +1,7 @@
-package bitcamp.myapp.handler;
+package m_project.handler;
 
-import java.util.Date;
-import bitcamp.myapp.vo.Board;
-import bitcamp.util.Prompt;
+import m_project.vo.Board;
+import util.Prompt;
 
 public class BoardHandler {
   // 인스턴스에 상관없이 공통으로 사용하는 필드라면 스태틱 필드로 선언한다.
@@ -10,16 +9,16 @@ public class BoardHandler {
 
   // 인스턴스마다 별개로 관리해야 할 데이터라면 논스태틱 필드(인스턴스 필드)로 선언한다.
   private Prompt prompt;
-  private static Board[] boards = new Board[MAX_SIZE];
-  private static int length = 0;
+  private Board[] boards = new Board[MAX_SIZE];
+  private int length = 0;
 
-  public BoardHandler(Prompt prompt) {
+  public BoardHandler(Prompt prompt){
     this.prompt = prompt;
   }
 
   // 인스턴스 멤버(필드나 메서드)를 사용하는 경우 인스턴스 메서드로 정의해야 한다.
   public void inputBoard() {
-    if(!this.available()){
+    if (!this.available()) {
       System.out.println("더이상 입력할 수 없습니다!");
       return;
     }
@@ -41,21 +40,20 @@ public class BoardHandler {
     for (int i = 0; i < this.length; i++) {
       Board board = this.boards[i];
 
-      // 게시글의 등록일 값을 가져와서 Date 인스턴스에 저장한다.
-      Date date = new Date(board.getCreatedDate());
-
-      System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n", board.getNo(), board.getTitle(),
-          board.getWriter(),board.getViewCount(), date);
+      System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n",
+          board.getNo(),
+          board.getTitle(),
+          board.getWriter(),
+          board.getViewCount(),
+          board.getCreatedDate());
     }
   }
 
-  public void viewBoard(){
+  public void viewBoard() {
     String boardNo = this.prompt.inputString("번호? ");
-    // 입력받은 번호를 가지고 배열에서 해당 회원을 찾아야한다.
-    for(int i=0; i<this.length; i++){
+    for (int i = 0; i < this.length; i++) {
       Board board = this.boards[i];
-      if(board.getNo() == Integer.parseInt(boardNo)){
-        // i번째 항목에 저장된 회원 정보 출력
+      if (board.getNo() == Integer.parseInt(boardNo)) {
         System.out.printf("제목: %s\n", board.getTitle());
         System.out.printf("내용: %s\n", board.getContent());
         System.out.printf("작성자: %s\n", board.getWriter());
@@ -68,12 +66,12 @@ public class BoardHandler {
     System.out.println("해당 번호의 게시글이 없습니다!");
   }
 
-  public void updateBoard(){
+  public void updateBoard() {
     String boardNo = this.prompt.inputString("번호? ");
-    for(int i=0; i<this.length; i++){
+    for (int i = 0; i < this.length; i++) {
       Board board = this.boards[i];
-      if(board.getNo() == Integer.parseInt(boardNo)){
-        if(!this.prompt.inputString("암호? ").equals(board.getPassword())) {
+      if (board.getNo() == Integer.parseInt(boardNo)) {
+        if (!this.prompt.inputString("암호? ").equals(board.getPassword())) {
           System.out.println("암호가 일치하지 않습니다!");
           return;
         }
@@ -81,35 +79,36 @@ public class BoardHandler {
         board.setContent(this.prompt.inputString("내용(%s)? ", board.getContent()));
         return;
       }
-      System.out.println("해당 번호의 게시글이 없습니다!");
     }
+    System.out.println("해당 번호의 게시글이 없습니다!");
   }
 
+
   public void deleteBoard() {
-    int deleteIndex = indexOf(this.prompt.inputInt("번호? "));
-    if(deleteIndex == -1){
+    int deletedIndex = indexOf(this.prompt.inputInt("번호? "));
+    if (deletedIndex == -1) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
     }
 
-    for(int i=deleteIndex; i<this.length - 1; i++){
-      this.boards[i] = this.boards[i+1];
+    for (int i = deletedIndex; i < this.length - 1; i++) {
+      this.boards[i] = this.boards[i + 1];
     }
 
     this.boards[--this.length] = null;
   }
 
-  private int indexOf(int memberNo){
-    for(int i=0; i<this.length; i++){
+  private int indexOf(int boardNo) {
+    for (int i = 0; i < this.length; i++) {
       Board board = this.boards[i];
-      if(board.getNo() == memberNo){
+      if (board.getNo() == boardNo) {
         return i;
       }
     }
     return -1;
   }
 
-  public boolean available(){
+  private boolean available() {
     return this.length < MAX_SIZE;
   }
 }

@@ -13,15 +13,4 @@ plugins {
 }
 
 rootProject.name = 'm_project'
-include('app11')
-// include('app10')
-// include('app9')
-// include('app8')
-// include('app7')
-// include('app6')
-// include('app5')
-// include('app4')
-// include('app3')
-// include('app2')
-// include('app1')
-// include('app')
+include('app-15')
