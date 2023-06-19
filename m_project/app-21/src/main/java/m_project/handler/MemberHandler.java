@@ -1,17 +1,18 @@
 package m_project.handler;
 
 import m_project.vo.Member;
-import util.ArrayList;
+import util.List;
 import util.Prompt;
 
 public class MemberHandler implements Handler{
-  private ArrayList list = new ArrayList();
+  private List list;
   private Prompt prompt;
   private String title;
 
-  public MemberHandler(Prompt prompt, String title){
+  public MemberHandler(Prompt prompt, String title, List list){
     this.prompt = prompt;
     this.title = title;
+    this.list = list;
   }
 
   public void execute(){
@@ -56,9 +57,7 @@ public class MemberHandler implements Handler{
     m.setP_num(this.prompt.inputString("핸드폰번호? "));
     m.setGender(inputGender((char)0));
 
-    if(!this.list.add(m)){
-      System.out.println("입력 실패입니다!");
-    }
+    this.list.add(m);
   }
 
   public void printMembers(){
@@ -66,9 +65,8 @@ public class MemberHandler implements Handler{
     System.out.println("도서번호, 도서제목, 글쓴이, 이름, 핸드폰번호, 성별");
     System.out.println("-----------------------------------------------");
 
-    Object[] arr = this.list.list();
-    for(Object obj : arr){
-      Member m = (Member) obj;
+    for(int i = 0; i < this.list.size(); i++){
+      Member m = (Member) this.list.get(i);
       System.out.printf("%d, %s, %s, %s, %s, %s\n", m.getBook_no(), m.getB_title(), m.getAuthor(),
           m.getName(), m.getP_num(), toGenderString(m.getGender()));
     }
@@ -77,7 +75,7 @@ public class MemberHandler implements Handler{
   public void viewMember(){
     int memberNo = this.prompt.inputInt("도서번호? ");
 
-    Member m = (Member) this.list.get(new Member(memberNo));
+    Member m = this.findBy(memberNo);
     if(m == null){
       System.out.println("해당 번호의 책을 빌려간 사람이 없습니다");
       return;
@@ -97,7 +95,7 @@ public class MemberHandler implements Handler{
   public void updateMember(){
     int memberNo = this.prompt.inputInt("번호? ");
 
-    Member m = (Member) this.list.get(new Member(memberNo));
+    Member m = this.findBy(memberNo);
     if(m == null){
       System.out.println("해당 번호의 책을 빌려간 사람이 없습니다");
       return;
@@ -136,8 +134,18 @@ public class MemberHandler implements Handler{
   }
 
   public void deleteMember(){
-    if(!this.list.delete(new Member(this.prompt.inputInt("번호? ")))){
+    if(!this.list.remove(new Member(this.prompt.inputInt("번호? ")))){
       System.out.println("해당 번호의 책을 빌려간 사람이 없습니다!");
     }
+  }
+
+  private Member findBy(int no){
+    for(int i = 0; i < this.list.size(); i++){
+      Member m = (Member) this.list.get(i);
+      if(m.getBook_no() == no){
+        return m;
+      }
+    }
+    return null;
   }
 }

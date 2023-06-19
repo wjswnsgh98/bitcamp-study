@@ -1,17 +1,18 @@
 package m_project.handler;
 
 import m_project.vo.Board;
-import util.ArrayList;
+import util.List;
 import util.Prompt;
 
 public class BoardHandler implements Handler{
-  private ArrayList list = new ArrayList();
+  private List list;
   private Prompt prompt;
   private String title;
 
-  public BoardHandler(Prompt prompt, String title){
+  public BoardHandler(Prompt prompt, String title, List list){
     this.prompt = prompt;
     this.title = title;
+    this.list = list;
   }
 
   public void execute(){
@@ -63,9 +64,8 @@ public class BoardHandler implements Handler{
     System.out.println("번호, 제목, 작성자, 조회수, 등록일");
     System.out.println("---------------------------------------");
 
-    Object[] arr = this.list.list();
-    for (Object obj : arr) {
-      Board board = (Board) obj;
+    for (int i = 0; i < this.list.size(); i++) {
+      Board board = (Board) this.list.get(i);
       System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n",
           board.getNo(),
           board.getTitle(),
@@ -78,7 +78,7 @@ public class BoardHandler implements Handler{
   public void viewBoard() {
     int boardNo = this.prompt.inputInt("번호? ");
 
-    Board board = (Board) this.list.get(new Board(boardNo));
+    Board board = this.findBy(boardNo);
     if (board == null) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
@@ -95,7 +95,7 @@ public class BoardHandler implements Handler{
   public void updateBoard() {
     int boardNo = this.prompt.inputInt("번호? ");
 
-    Board board = (Board) this.list.get(new Board(boardNo));
+    Board board = this.findBy(boardNo);
     if (board == null) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
@@ -112,9 +112,19 @@ public class BoardHandler implements Handler{
 
 
   public void deleteBoard() {
-    if (!this.list.delete(new Board(this.prompt.inputInt("번호? ")))) {
+    if (!this.list.remove(new Board(this.prompt.inputInt("번호? ")))) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
     }
+  }
+
+  private Board findBy(int no){
+    for(int i = 0; i < this.list.size(); i++){
+      Board b = (Board) this.list.get(i);
+      if(b.getNo() == no){
+        return b;
+      }
+    }
+    return null;
   }
 }

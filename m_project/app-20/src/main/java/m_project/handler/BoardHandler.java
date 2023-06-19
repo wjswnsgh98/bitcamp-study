@@ -1,11 +1,11 @@
 package m_project.handler;
 
 import m_project.vo.Board;
-import util.ArrayList;
+import util.LinkedList;
 import util.Prompt;
 
 public class BoardHandler implements Handler{
-  private ArrayList list = new ArrayList();
+  private LinkedList list = new LinkedList();
   private Prompt prompt;
   private String title;
 
@@ -63,7 +63,7 @@ public class BoardHandler implements Handler{
     System.out.println("번호, 제목, 작성자, 조회수, 등록일");
     System.out.println("---------------------------------------");
 
-    Object[] arr = this.list.list();
+    Object[] arr = this.list.getList();
     for (Object obj : arr) {
       Board board = (Board) obj;
       System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n",
@@ -78,7 +78,7 @@ public class BoardHandler implements Handler{
   public void viewBoard() {
     int boardNo = this.prompt.inputInt("번호? ");
 
-    Board board = (Board) this.list.get(new Board(boardNo));
+    Board board = (Board) this.list.retrieve(new Board(boardNo));
     if (board == null) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
@@ -95,7 +95,7 @@ public class BoardHandler implements Handler{
   public void updateBoard() {
     int boardNo = this.prompt.inputInt("번호? ");
 
-    Board board = (Board) this.list.get(new Board(boardNo));
+    Board board = (Board) this.list.retrieve(new Board(boardNo));
     if (board == null) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
@@ -112,7 +112,7 @@ public class BoardHandler implements Handler{
 
 
   public void deleteBoard() {
-    if (!this.list.delete(new Board(this.prompt.inputInt("번호? ")))) {
+    if (!this.list.remove(new Board(this.prompt.inputInt("번호? ")))) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
     }
