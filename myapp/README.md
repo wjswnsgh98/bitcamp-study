@@ -132,7 +132,8 @@
 - 목록 관리 객체의 사용 규칙을 인터페이스 정의
   - List 인터페이스 정의
   - ArrayList, LinkedList에 List 인터페이스 적용
-- MemberHandler와 Boardhandlerㅇ네 적용
+- MemberHandler와 Boardhandler에 적용
+  - List 구현체를 생성자를 통해 주입: DI(Dependency Injection) 적용
 
 ## 22. Stack, Queue 자료구조 구현하기
 
