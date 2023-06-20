@@ -221,6 +221,11 @@
   - 20. LinkedList 자료구조 구현하기
   - 21. 인터페이스를 이용하여 List 사용 규칙 정의하기
 
+## 20일(6/20, 화)
+
+- 프로젝트 실습
+  - 22. Stack, Queue 자료구조 구현하기
+
 ## 구글 미트 접속
 https://meet.google.com/sya-jckw-ivq
 
