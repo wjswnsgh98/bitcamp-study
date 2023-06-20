@@ -13,4 +13,4 @@ plugins {
 }
 
 rootProject.name = 'm_project'
-include('app-21')
+include('app-22')
