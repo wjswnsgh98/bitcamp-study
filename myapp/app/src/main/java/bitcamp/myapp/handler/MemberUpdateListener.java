@@ -25,33 +25,4 @@ public class MemberUpdateListener extends AbstractMemberListener{
     m.setPassword(prompt.inputString("새암호? "));
     m.setGender(inputGender(m.getGender(), prompt));
   }
-
-  private char inputGender(char gender, BreadcrumbPrompt prompt){
-    String label;
-    if(gender == 0){
-      label = "성별?\n";
-    } else{
-      label = String.format("성별(%s)?\n", toGenderString(gender));
-    }
-
-    while (true) {
-      String menuNo = prompt.inputString(label +
-          "  1. 남자\n" +
-          "  2. 여자\n" +
-          "> ");
-
-      switch (menuNo) {
-        case "1":
-          return Member.MALE;
-        case "2":
-          return Member.FEMALE;
-        default:
-          System.out.println("무효한 번호입니다.");
-      }
-    }
-  }
-
-  public static String toGenderString(char gender){
-    return gender == 'M' ? "남성" : "여성";
-  }
 }

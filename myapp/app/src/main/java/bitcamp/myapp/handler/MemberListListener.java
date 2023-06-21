@@ -21,8 +21,4 @@ public class MemberListListener extends AbstractMemberListener{
       System.out.printf("%d, %s, %s, %s\n", m.no, m.name, m.email, toGenderString(m.gender));
     }
   }
-
-  public static String toGenderString(char gender){
-    return gender == 'M' ? "남성" : "여성";
-  }
 }
