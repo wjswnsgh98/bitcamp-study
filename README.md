@@ -186,7 +186,7 @@
     - 12. 생성자, 셋터, 겟터 도입하기
 
 ## 15일(6/13, 화)
-  - 자바 프로그래밍
+  - 자바 프로그래밍(com.eomcs.oop.ex03.*)
     - 클래스 로딩과 스태틱 필드: Method Area 영역
     - new 연산자와 인스턴스 필드: Heap 메모리 영역
     - 메서드와 로컬 변수: JVM Stack 메모리 영역
@@ -201,7 +201,7 @@
 
 ## 17일(6/15, 목)
 
-- 자바 프그래밍
+- 자바 프그래밍(com.eomcs.oop.ex03.*)
   - Eclipse IDE로 디버깅하는 방법
 - 프로젝트 실습
   - 16. GRASP 패턴: Information Expert 적용
@@ -210,7 +210,7 @@
 
 ## 18일(6/16, 금)
 
-- 자바 프로그래밍
+- 자바 프로그래밍(com.eomcs.basic.ex01.*)
   - java.lang.Object 클래스 사용법
 - 프로젝트 실습
   - 19. 다형성을 이용하여 범용으로 사용할 수 있는 목록 클래스 만들기
@@ -228,11 +228,26 @@
 
 ## 21일(6/21, 수)
 
-- 자바 프로그래밍
+- 자바 프로그래밍(com.eomcs.oop)
   - 상속: Specialization vs Generalization
   - 추상 클래스와 추상 메서드
 - 프로젝트 실습
   - 23. Composite, Command, Observer 디자인 패턴, 추상 클래스/메서드 활용하기
+
+## 22일(6/22, 목)
+
+- 자바 프로그래밍(com.eomcs.oop)
+  - ex03: 스태틱 필드/블록, 인스턴스 필드/블록/생성자 사용법
+  - ex05: 상속 사용법
+  - ex06: 다형성 사용법
+
+## 23일(6/23, 금)
+
+- 자바 프그래밍(com.eomcs.oop)
+  - ex06: 다형성 사용법(계속)
+  - com.eomcs.basic
+    - ex01: Object 클래스 사용법
+    - ex02: String, Wrapper, Date, Calender 클래스 사용법
 
 ## 구글 미트 접속
 https://meet.google.com/sya-jckw-ivq

@@ -46,8 +46,8 @@ public class Exam0142 {
       My other = (My) obj;
       return age == other.age && Objects.equals(name, other.name);
     }
-  }
 
+  }
 }
 
 
