@@ -165,8 +165,16 @@
 ## 24. 제너릭을 사용하여 타입을 파라미터로 다루기
 
   - ArrayList, LinkedList, Stack, Queue에 제너릭 적용하기
+  - T[] toArray(T[]) 메서드 추가하기
 
 ## 25. Iterator 디자인 패턴을 활용하여 목록 조회 기능을 캡슐화하기
 
   - GOF의 디자인 패턴 중 Iterator 패턴의 동작원리 이해 및 구현
   - ArrayList, LinkedList, Stack, Queue에 적용
+  - 중첩 클래스 문법을 이용하여 Iterator 구현하기
+    - static/non-static nested 클래스 문법을 활용하는 방법
+    - local/anonymous 클래스 문법을 활용하는 방법
+
+## 26. 자바 컬렉션 API 사용하기
+
+  - 목록을 다루는 기존 클래스를 자바 컬렉션 API로 교체 
