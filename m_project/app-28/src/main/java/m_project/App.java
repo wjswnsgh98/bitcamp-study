@@ -25,9 +25,9 @@ import util.Menu;
 import util.MenuGroup;
 
 public class App {
-  ArrayList<Member> memberList = new ArrayList();
-  LinkedList<Board> boardList = new LinkedList();
-  LinkedList<Board> readingList = new LinkedList();
+  ArrayList<Member> memberList = new ArrayList<>();
+  LinkedList<Board> boardList = new LinkedList<>();
+  LinkedList<Board> readingList = new LinkedList<>();
 
   BreadcrumbPrompt prompt = new BreadcrumbPrompt();
 
@@ -153,7 +153,7 @@ public class App {
     try{
       DataOutputStream out = new DataOutputStream("member.data");
 
-      out.write(memberList.size());
+      out.writeShort(memberList.size());
 
       for(Member member : memberList){
         out.writeInt(member.getBook_no());
@@ -173,7 +173,7 @@ public class App {
     try{
       DataOutputStream out = new DataOutputStream(filename);
 
-      out.write(list.size());
+      out.writeShort(list.size());
 
       for(Board board : list){
         out.writeInt(board.getNo());

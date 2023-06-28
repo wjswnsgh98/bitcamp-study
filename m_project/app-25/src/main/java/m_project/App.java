@@ -23,9 +23,9 @@ import util.MenuGroup;
 
 public class App {
   public static void main(String[] args) {
-    ArrayList<Member> memberList = new ArrayList();
-    LinkedList<Board> boardList = new LinkedList();
-    LinkedList<Board> readingList = new LinkedList();
+    ArrayList<Member> memberList = new ArrayList<>();
+    LinkedList<Board> boardList = new LinkedList<>();
+    LinkedList<Board> readingList = new LinkedList<>();
 
     BreadcrumbPrompt prompt = new BreadcrumbPrompt();
 
