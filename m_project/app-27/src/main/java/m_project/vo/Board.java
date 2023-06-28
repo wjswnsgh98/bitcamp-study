@@ -1,6 +1,7 @@
-package bitcamp.myapp.vo;
+package m_project.vo;
 
 public class Board {
+
   public static int boardNo = 1;
 
   private int no;
@@ -16,22 +17,22 @@ public class Board {
     this.createdDate = System.currentTimeMillis();
   }
 
-  public Board(int no) {
+  public Board(int no){
     this.no = no;
   }
 
-  public boolean equals(Object obj) {
-    if(obj == null) {
+  public boolean equals(Object obj){
+    if(obj == null){
       return false;
     }
 
-    if(this.getClass() != obj.getClass()) {
+    if(this.getClass() != obj.getClass()){
       return false;
     }
 
     Board b = (Board) obj;
 
-    if(this.getNo() != b.getNo()) {
+    if(this.getNo() != b.getNo()){
       return false;
     }
 
@@ -41,6 +42,7 @@ public class Board {
   public int getNo() {
     return no;
   }
+
   public void setNo(int no) {
     this.no = no;
   }
