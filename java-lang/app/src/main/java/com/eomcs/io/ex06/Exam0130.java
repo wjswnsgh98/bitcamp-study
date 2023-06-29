@@ -1,10 +1,11 @@
 // BufferedFileInputStream 사용 후 - 데이터 읽는데 걸린 시간 측정
 package com.eomcs.io.ex06;
 
+
 public class Exam0130 {
 
   public static void main(String[] args) throws Exception {
-    BufferedFileInputStream in = new BufferedFileInputStream("temp/jls11.pdf");
+    BufferedFileInputStream in = new BufferedFileInputStream("temp/jls17.pdf");
 
     int b;
 
