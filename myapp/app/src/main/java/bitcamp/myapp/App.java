@@ -1,5 +1,6 @@
 package bitcamp.myapp;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -103,7 +104,8 @@ public class App {
   private void loadMember(){
     try {
       FileInputStream in0 = new FileInputStream("member.data");
-      DataInputStream in = new DataInputStream(in0); // <== Decorator 역할을 수행!
+      BufferedInputStream in1 = new BufferedInputStream(in0); // <== Decorator(장식품) 역할 수행!
+      DataInputStream in = new DataInputStream(in1); // <== Decorator 역할을 수행!
       int size = in.readShort();
 
       for(int i = 0; i < size; i++) {
@@ -127,7 +129,8 @@ public class App {
   private void loadBoard(String filename, List<Board> list){
     try {
       FileInputStream in0 = new FileInputStream(filename);
-      DataInputStream in = new DataInputStream(in0); // <== Decorator 역할을 수행!
+      BufferedInputStream in1 = new BufferedInputStream(in0); // <== Decorator(장식품) 역할 수행!
+      DataInputStream in = new DataInputStream(in1); // <== Decorator 역할을 수행!
       int size = in.readShort();
 
       for(int i = 0; i < size; i++) {

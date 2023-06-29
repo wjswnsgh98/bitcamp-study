@@ -1,14 +1,10 @@
 package m_project;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import io.BufferedDataInputStream;
+import io.BufferedDataOutputStream;
 import m_project.handler.BoardAddListener;
 import m_project.handler.BoardDeleteListener;
 import m_project.handler.BoardDetailListener;
@@ -104,10 +100,7 @@ public class App {
 
   private void loadMember(){
     try{
-      FileInputStream in0 = new FileInputStream("member.data");
-      BufferedInputStream in1 = new BufferedInputStream(in0); // <== Decorator 역할을 수행!
-      DataInputStream in = new DataInputStream(in1); // <== Decorator 역할을 수행!
-
+      BufferedDataInputStream in = new BufferedDataInputStream("member.data");
       int size = in.readShort();
 
       for(int i = 0; i < size; i++){
@@ -132,10 +125,7 @@ public class App {
 
   private void loadBoard(String filename, List<Board> list){
     try{
-      FileInputStream in0 = new FileInputStream(filename);
-      BufferedInputStream in1 = new BufferedInputStream(in0); // <== Decorator 역할을 수행!
-      DataInputStream in = new DataInputStream(in1); // <== Decorator 역할을 수행!
-
+      BufferedDataInputStream in = new BufferedDataInputStream(filename);
       int size = in.readShort();
 
       for(int i = 0; i < size; i++){
@@ -161,9 +151,7 @@ public class App {
 
   private void saveMember(){
     try{
-      FileOutputStream out0 = new FileOutputStream("member.data");
-      BufferedOutputStream out1 = new BufferedOutputStream(out0); // <== Decorator 역할을 수행!
-      DataOutputStream out = new DataOutputStream(out1); // <== Decorator 역할을 수행!
+      BufferedDataOutputStream out = new BufferedDataOutputStream("member.data");
 
       out.writeShort(memberList.size());
 
@@ -183,9 +171,7 @@ public class App {
 
   private void saveBoard(String filename, List<Board> list){
     try{
-      FileOutputStream out0 = new FileOutputStream(filename);
-      BufferedOutputStream out1 = new BufferedOutputStream(out0); // <== Decorator 역할을 수행!
-      DataOutputStream out = new DataOutputStream(out1); // <== Decorator 역할을 수행!
+      BufferedDataOutputStream out = new BufferedDataOutputStream(filename);
 
       out.writeShort(list.size());
 
