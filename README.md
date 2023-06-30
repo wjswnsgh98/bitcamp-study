@@ -295,6 +295,13 @@
   - 30. 입출력 기능 확장에 상속 대신 Decorator 패턴을 적용하기
   - 31. Java Stream API 로 교체하기
 
+## 28일(6/30, 금)
+
+- 프로젝트 실습
+  - 32. 인스턴스 통째로 입출력하기(객체 직렬화)
+  - 33. character stream API를 사용하여 CSV 텍스트 형식으로 입출력하기
+  - 34. 리팩토링: Factory Method 패턴(GoF), Information Expert 패턴(GRASP)
+
 ## 구글 미트 접속
 https://meet.google.com/sya-jckw-ivq
 
