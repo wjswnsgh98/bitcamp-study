@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +22,6 @@ import m_project.handler.MemberDetailListener;
 import m_project.handler.MemberListListener;
 import m_project.handler.MemberUpdateListener;
 import m_project.vo.Board;
-import m_project.vo.CsvObject;
 import m_project.vo.Member;
 import util.BreadcrumbPrompt;
 import util.Menu;
@@ -60,15 +58,15 @@ public class App {
   }
 
   public void loadData(){
-    loadCsv("member.csv", memberList, Member.class);
-    loadCsv("board.csv", boardList, Board.class);
-    loadCsv("reading.csv", readingList, Board.class);
+    loadMember("member.csv", memberList);
+    loadBoard("board.csv", boardList);
+    loadBoard("reading.csv", readingList);
   }
 
   public void saveData(){
-    saveCsv("member.csv", memberList);
-    saveCsv("board.csv", boardList);
-    saveCsv("reading.csv", readingList);
+    saveMember("member.csv", memberList);
+    saveBoard("board.csv", boardList);
+    saveBoard("reading.csv", readingList);
   }
 
   private void prepareMenu(){
@@ -103,42 +101,105 @@ public class App {
     mainMenu.add(helloMenu);
   }
 
-  @SuppressWarnings("unchecked")
-  private <T extends CsvObject> void loadCsv(String filename, List<T> list, Class<T> clazz){
+  private void loadMember(String filename, List<Member> list){
     try{
-      Method factoryMethod = clazz.getDeclaredMethod("fromCsv", String.class);
-
       FileReader in0 = new FileReader(filename);
       BufferedReader in = new BufferedReader(in0); // <== Decorator 역할을 수행!
 
       String line = null;
 
       while((line = in.readLine()) != null){
-        list.add((T)factoryMethod.invoke(null, line)); // Reflection API를 사용하여 스태틱 메서드 호출
-        // list.add(Member.fromCsv(line)); // 직접 스태틱 메서드 호출
+        String[] values = line.split(",");
+        Member member = new Member();
+        member.setBook_no(Integer.parseInt(values[0]));
+        member.setB_title(values[1]);
+        member.setAuthor(values[2]);
+        member.setName(values[3]);
+        member.setP_num(values[4]);
+        member.setGender(values[5].charAt(0));
+        list.add(member);
       }
 
+      if(list.size() > 0) {
+        // 데이터를 로딩한 이후에 추가할 회원의 번호를 설정한다.
+        Member.userId = memberList.get(memberList.size() - 1).getBook_no() + 1;
+      }
+
+      in.close();
+    } catch(Exception e){
+      System.out.println("회원 정보를 읽는 중 오류 발생!");
+    }
+  }
+
+  private void loadBoard(String filename, List<Board> list){
+    try{
+      FileReader in0 = new FileReader(filename);
+      BufferedReader in = new BufferedReader(in0); // <== Decorator 역할을 수행!
+
+      String line = null;
+
+      while((line = in.readLine()) != null){
+        String[] values = line.split(",");
+
+        Board board = new Board();
+        board.setNo(Integer.parseInt(values[0]));
+        board.setTitle(values[1]);
+        board.setContent(values[2]);
+        board.setWriter(values[3]);
+        board.setPassword(values[4]);
+        board.setViewCount(Integer.parseInt(values[5]));
+        board.setCreatedDate(Long.parseLong(values[6]));
+        list.add(board);
+      }
+
+      if(list.size() > 0) {
+        Board.boardNo = Math.max(
+            Board.boardNo,
+            list.get(list.size() - 1).getNo() + 1);
+      }
       in.close();
     } catch(Exception e){
       System.out.println(filename + "파일을 읽는 중 오류 발생!");
     }
   }
 
-  private void saveCsv(String filename, List<? extends CsvObject> list){
+  private void saveMember(String filename, List<Member> list){
     try{
       FileWriter out0 = new FileWriter(filename);
       BufferedWriter out1 = new BufferedWriter(out0); // <== Decorator 역할을 수행!
       PrintWriter out = new PrintWriter(out1); // <== Decorator 역할을 수행!
 
-      for(CsvObject obj : list){
-        out.println(obj.toCsvString());
-        // Board나 Member 클래스에 필드가 추가/변경/삭제 되더라도
-        // 여기 코드를 변경할 필요가 없다.
-        // 이것이 Information Expert 설계를 적용하는 이유다!
-        // 설계를 어떻게 하느냐에 따라 유지보수가 쉬워질 수도 있고,
-        // 어려워질 수도 있다.
+      for(Member member : list){
+        out.printf("%d,%s,%s,%s,%s,%c\n",
+            member.getBook_no(),
+            member.getB_title(),
+            member.getAuthor(),
+            member.getName(),
+            member.getP_num(),
+            member.getGender());
       }
+      out.close();
+    } catch(Exception e){
+      System.out.println("회원 정보를 저장하는 중 오류 발생!");
+    }
+  }
 
+  private void saveBoard(String filename, List<Board> list){
+    try{
+      FileWriter out0 = new FileWriter(filename);
+      BufferedWriter out1 = new BufferedWriter(out0); // <== Decorator 역할을 수행!
+      PrintWriter out = new PrintWriter(out1); // <== Decorator 역할을 수행!
+
+      for(Board board : list){
+        out.printf("%d,%s,%s,%s,%s,%d,%d\n",
+            board.getNo(),
+            board.getTitle(),
+            board.getContent(),
+            board.getWriter(),
+            board.getPassword(),
+            board.getViewCount(),
+            board.getCreatedDate());
+      }
       out.close();
     } catch(Exception e){
       System.out.println(filename + "파일을 저장하는 중 오류 발생!");
