@@ -2,7 +2,7 @@ package m_project.vo;
 
 import java.io.Serializable;
 
-public class Member implements Serializable, CsvObject{
+public class Member implements Serializable, CsvObject, AutoIncrement{
   private static final long serialVersionUID = 1L;
 
   public static int userId = 1;
@@ -17,9 +17,7 @@ public class Member implements Serializable, CsvObject{
   public String p_num; // 대여자 핸드폰 번호
   public char gender; // 대여자 성별
 
-  public Member() {
-    this.book_no = userId++;
-  }
+  public Member() {}
 
   public Member(int no){
     this.book_no = no;
@@ -40,6 +38,13 @@ public class Member implements Serializable, CsvObject{
     }
 
     return member;
+  }
+
+  @Override
+  public void updateKey() {
+    if(Member.userId <= this.book_no) {
+      Member.userId = this.book_no + 1;
+    }
   }
 
   @Override
