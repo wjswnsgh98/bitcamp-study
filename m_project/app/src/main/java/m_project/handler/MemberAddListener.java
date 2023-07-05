@@ -1,13 +1,14 @@
 package m_project.handler;
 
-import java.util.List;
+import m_project.dao.MemberDao;
 import m_project.vo.Member;
 import util.BreadcrumbPrompt;
 
-public class MemberAddListener extends AbstractMemberListener{
+public class MemberAddListener implements MemberActionListener{
+  MemberDao memberDao;
 
-  public MemberAddListener(List<Member> list){
-    super(list);
+  public MemberAddListener(MemberDao memberDao){
+    this.memberDao = memberDao;
   }
 
   @Override
@@ -18,8 +19,8 @@ public class MemberAddListener extends AbstractMemberListener{
     m.setAuthor(prompt.inputString("글쓴이? "));
     m.setName(prompt.inputString("이름? "));
     m.setP_num(prompt.inputString("핸드폰번호? "));
-    m.setGender(inputGender((char)0, prompt));
+    m.setGender(MemberActionListener.inputGender((char)0, prompt));
 
-    this.list.add(m);
+    memberDao.insert(m);
   }
 }

@@ -1,14 +1,16 @@
 package m_project.handler;
 
-import m_project.vo.Member;
-import util.BreadcrumbPrompt;
-import java.util.Iterator;
 import java.util.List;
+import m_project.dao.MemberDao;
+import m_project.vo.Member;
+import util.ActionListener;
+import util.BreadcrumbPrompt;
 
-public class MemberListListener extends AbstractMemberListener{
+public class MemberListListener implements ActionListener{
+  MemberDao memberDao;
 
-  public MemberListListener(List<Member> list){
-    super(list);
+  public MemberListListener(MemberDao memberDao){
+    this.memberDao = memberDao;
   }
 
   @Override
@@ -17,12 +19,10 @@ public class MemberListListener extends AbstractMemberListener{
     System.out.println("도서번호, 도서제목, 글쓴이, 이름, 핸드폰번호, 성별");
     System.out.println("-----------------------------------------------");
 
-    // 목록에서 데이터를 대신 꺼내주는 객체를 얻는다.
-    Iterator<Member> iterator = list.iterator();
-    while(iterator.hasNext()){
-      Member m = iterator.next();
+    List<Member> list = memberDao.list();
+    for(Member m : list){
       System.out.printf("%d, %s, %s, %s, %s, %s\n", m.getBook_no(), m.getB_title(), m.getAuthor(),
-          m.getName(), m.getP_num(), toGenderString(m.getGender()));
+          m.getName(), m.getP_num(), m.getGender() == 'M' ? "남성" : "여성");
     }
   }
 }

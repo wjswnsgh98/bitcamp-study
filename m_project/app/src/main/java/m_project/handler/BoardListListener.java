@@ -1,14 +1,16 @@
 package m_project.handler;
 
-import m_project.vo.Board;
-import util.BreadcrumbPrompt;
-import java.util.Iterator;
 import java.util.List;
+import m_project.dao.BoardDao;
+import m_project.vo.Board;
+import util.ActionListener;
+import util.BreadcrumbPrompt;
 
-public class BoardListListener extends AbstractBoardListener{
+public class BoardListListener implements ActionListener{
+  BoardDao boardDao;
 
-  public BoardListListener(List<Board> list){
-    super(list);
+  public BoardListListener(BoardDao boardDao){
+    this.boardDao = boardDao;
   }
 
   @Override
@@ -17,10 +19,8 @@ public class BoardListListener extends AbstractBoardListener{
     System.out.println("번호, 제목, 작성자, 조회수, 등록일");
     System.out.println("---------------------------------------");
 
-    Iterator<Board> iterator = list.iterator();
-
-    while (iterator.hasNext()) {
-      Board board = iterator.next();
+    List<Board> list = boardDao.list();
+    for (Board board : list) {
       System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n",
           board.getNo(),
           board.getTitle(),
