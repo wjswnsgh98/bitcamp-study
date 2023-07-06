@@ -1,5 +1,5 @@
 plugins {
-    id 'application'
+    id 'java-library'
     id 'eclipse'
 }
 
@@ -8,9 +8,6 @@ repositories {
 }
 
 dependencies {
-    // 서브 프로젝트의 클래스를 사용하기
-    implementation project(':app-common')
-    
     // Google JSON 라이브러리
     implementation 'com.google.code.gson:gson:2.10.1'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
@@ -21,10 +18,6 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
     }
-}
-
-application {
-    mainClass = 'bitcamp.myapp.ClientApp'
 }
 
 tasks.named('test') {
@@ -47,7 +40,7 @@ tasks.withType(JavaCompile) {
 // eclipse 프로젝트 이름을 설정하기
 eclipse {
     project {
-        name = "myapp-client"
+        name = "myapp-common"
     }
     jdt {
       sourceCompatibility = 17

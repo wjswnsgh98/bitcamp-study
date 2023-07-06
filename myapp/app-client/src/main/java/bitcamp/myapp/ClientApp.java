@@ -20,6 +20,7 @@ import bitcamp.myapp.handler.MemberDeleteListener;
 import bitcamp.myapp.handler.MemberDetailListener;
 import bitcamp.myapp.handler.MemberListListener;
 import bitcamp.myapp.handler.MemberUpdateListener;
+import bitcamp.net.RequestEntity;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.Menu;
 import bitcamp.util.MenuGroup;
@@ -77,14 +78,15 @@ public class ClientApp {
     mainMenu.execute(prompt);
 
     try {
-      out.writeUTF("quit");
+      out.writeUTF(new RequestEntity().command("quit").toJson());
+
     } catch (Exception e) {
       System.out.println("종료 오류!");
       e.printStackTrace();
     }
   }
 
-  public void prepareMenu() {
+  private void prepareMenu() {
     MenuGroup memberMenu = new MenuGroup("회원");
     memberMenu.add(new Menu("등록", new MemberAddListener(memberDao)));
     memberMenu.add(new Menu("목록", new MemberListListener(memberDao)));

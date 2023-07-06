@@ -4,12 +4,14 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
-import com.google.gson.Gson;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.BoardListDao;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.MemberListDao;
+import bitcamp.myapp.vo.Board;
+import bitcamp.myapp.vo.Member;
+import bitcamp.net.RequestEntity;
+import bitcamp.net.ResponseEntity;
 
 public class ServerApp {
   int port;
@@ -48,23 +50,70 @@ public class ServerApp {
     DataInputStream in = new DataInputStream(socket.getInputStream());
     DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 
-    Gson gson = new Gson();
-    while(true) {
-      String command = in.readUTF();
-      System.out.println(command);
-      HashMap<String,String> response = new HashMap<>();
+    while (true) {
+      RequestEntity request = RequestEntity.fromJson(in.readUTF());
 
-      if(command.equals("quit")) {
+      String command = request.getCommand();
+      System.out.println(command);
+
+      ResponseEntity response = new ResponseEntity();
+
+      if (command.equals("quit")) {
         break;
-      } else if(command.equals("board/list")) {
-        response.put("status", "success");
-        response.put("data", gson.toJson(boardDao.list()));
-      } else {
-        response.put("status", "failure");
-        response.put("message", "nono!");
       }
 
-      out.writeUTF(gson.toJson(response));
+      switch (command) {
+        case "board/list":
+          response.status(ResponseEntity.SUCCESS).result(boardDao.list());
+          break;
+        case "board/insert":
+          boardDao.insert(request.getObject(Board.class));
+          response.status(ResponseEntity.SUCCESS);
+          break;
+        case "board/findBy":
+          Board board = boardDao.findBy(request.getObject(Integer.class));
+          if(board == null) {
+            response.status(ResponseEntity.FAILURE).result("해당 번호의 게시글이 없습니다!");
+          } else {
+            response.status(ResponseEntity.SUCCESS).result(board);
+          }
+          break;
+        case "board/update":
+          int value = boardDao.update(request.getObject(Board.class));
+          response.status(ResponseEntity.SUCCESS).result(value);
+          break;
+        case "board/delete":
+          value = boardDao.delete(request.getObject(Integer.class));
+          response.status(ResponseEntity.SUCCESS).result(value);
+          break;
+        case "member/list":
+          response.status(ResponseEntity.SUCCESS).result(memberDao.list());
+          break;
+        case "member/insert":
+          memberDao.insert(request.getObject(Member.class));
+          response.status(ResponseEntity.SUCCESS);
+          break;
+        case "member/findBy":
+          Member member = memberDao.findBy(request.getObject(Integer.class));
+          if(member == null) {
+            response.status(ResponseEntity.FAILURE).result("해당 번호의 게시글이 없습니다!");
+          } else {
+            response.status(ResponseEntity.SUCCESS).result(member);
+          }
+          break;
+        case "member/update":
+          int value1 = memberDao.update(request.getObject(Member.class));
+          response.status(ResponseEntity.SUCCESS).result(value1);
+          break;
+        case "member/delete":
+          value1 = memberDao.delete(request.getObject(Integer.class));
+          response.status(ResponseEntity.SUCCESS).result(value1);
+          break;
+        default:
+          response.status(ResponseEntity.ERROR).result("해당 명령을 지원하지 않습니다!");
+      }
+
+      out.writeUTF(response.toJson());
     }
 
     in.close();

@@ -37,30 +37,12 @@
   },
   {
     "no": 9,
-    "title": "제목2",
-    "content": "내용2",
+    "title": "okok",
+    "content": "nono",
     "writer": "임꺽정",
     "password": "1111",
     "viewCount": 0,
     "createdDate": 1688023189880
-  },
-  {
-    "no": 10,
-    "title": "제목3",
-    "content": "내용3",
-    "writer": "유관순",
-    "password": "1111",
-    "viewCount": 0,
-    "createdDate": 1688023189880
-  },
-  {
-    "no": 37,
-    "title": "4",
-    "content": "4",
-    "writer": "안중근",
-    "password": "1111",
-    "viewCount": 0,
-    "createdDate": 1688107005423
   },
   {
     "no": 40,
@@ -79,5 +61,23 @@
     "password": "1111",
     "viewCount": 0,
     "createdDate": 1688373478202
+  },
+  {
+    "no": 43,
+    "title": "zzz",
+    "content": "zzzzzz",
+    "writer": "zzz",
+    "password": "1111",
+    "viewCount": 0,
+    "createdDate": 1688622409946
+  },
+  {
+    "no": 44,
+    "title": "ok",
+    "content": "ok",
+    "writer": "ok",
+    "password": "1111",
+    "viewCount": 0,
+    "createdDate": 1688622424008
   }
 ]
