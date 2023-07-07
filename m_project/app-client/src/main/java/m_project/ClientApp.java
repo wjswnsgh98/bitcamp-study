@@ -3,10 +3,9 @@ package m_project;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
+import dao.DaoBuilder;
 import m_project.dao.BoardDao;
-import m_project.dao.BoardNetworkDao;
 import m_project.dao.MemberDao;
-import m_project.dao.MemberNetworkDao;
 import m_project.handler.BoardAddListener;
 import m_project.handler.BoardDeleteListener;
 import m_project.handler.BoardDetailListener;
@@ -43,9 +42,10 @@ public class ClientApp {
     this.out = new DataOutputStream(socket.getOutputStream());
     this.in = new DataInputStream(socket.getInputStream());
 
-    this.memberDao = new MemberNetworkDao("member", in, out);
-    this.boardDao = new BoardNetworkDao("board", in, out);
-    this.readingDao = new BoardNetworkDao("reading", in, out);
+    DaoBuilder daoBuilder = new DaoBuilder(in, out);
+    this.memberDao = daoBuilder.build("member", MemberDao.class);
+    this.boardDao = daoBuilder.build("board", BoardDao.class);
+    this.readingDao = daoBuilder.build("reading", BoardDao.class);
 
     prepareMenu();
   }

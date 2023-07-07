@@ -69,10 +69,11 @@ public class ServerApp {
         case "board/insert":
           boardDao.insert(request.getObject(Board.class));
           response.status(ResponseEntity.SUCCESS);
+          break;
         case "board/findBy":
           Board board = boardDao.findBy(request.getObject(Integer.class));
           if(board == null) {
-            response.status(ResponseEntity.FAILURE).result("해당 번호의 게시글이 없습니다!");
+            response.status(ResponseEntity.SUCCESS);
           } else {
             response.status(ResponseEntity.SUCCESS).result(board);
           }
@@ -91,10 +92,11 @@ public class ServerApp {
         case "member/insert":
           memberDao.insert(request.getObject(Member.class));
           response.status(ResponseEntity.SUCCESS);
+          break;
         case "member/findBy":
           Member member = memberDao.findBy(request.getObject(Integer.class));
           if(member == null) {
-            response.status(ResponseEntity.FAILURE).result("해당 번호의 게시글이 없습니다!");
+            response.status(ResponseEntity.SUCCESS);
           } else {
             response.status(ResponseEntity.SUCCESS).result(member);
           }
@@ -113,10 +115,11 @@ public class ServerApp {
         case "reading/insert":
           boardDao.insert(request.getObject(Board.class));
           response.status(ResponseEntity.SUCCESS);
+          break;
         case "reading/findBy":
           board = boardDao.findBy(request.getObject(Integer.class));
           if(board == null) {
-            response.status(ResponseEntity.FAILURE).result("해당 번호의 게시글이 없습니다!");
+            response.status(ResponseEntity.SUCCESS);
           } else {
             response.status(ResponseEntity.SUCCESS).result(board);
           }
