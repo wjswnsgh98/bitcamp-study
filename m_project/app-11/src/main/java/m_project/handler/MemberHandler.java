@@ -19,13 +19,13 @@ public class MemberHandler {
       return;
     }
 
-    Member m = new Member();
-    m.b_title = Prompt.inputString("도서제목? ");
+    Member m = new Member(); // 멤버 객체 생성
+    m.bookTitle = Prompt.inputString("도서제목? ");
     m.author = Prompt.inputString("글쓴이? ");
     m.name = Prompt.inputString("이름? ");
-    m.p_num = Prompt.inputString("핸드폰번호? ");
+    m.phoneNum = Prompt.inputString("핸드폰번호? ");
     m.gender = inputGender((char)0);
-    m.book_no = userId++;
+    m.bookId = userId++;
 
     // 위에서 만든 Member 인스턴스의 주소를 잃어버리지 않게 레퍼런스 배열에 담는다.
     members[length++] = m;
@@ -38,7 +38,7 @@ public class MemberHandler {
 
     for(int i=0; i<length; i++){
       Member m = members[i];
-      System.out.printf("%d, %s, %s, %s, %s, %s\n", m.book_no, m.b_title, m.author, m.name, m.p_num, toGenderString(m.gender));
+      System.out.printf("%d, %s, %s, %s, %s, %s\n", m.bookId, m.bookTitle, m.author, m.name, m.phoneNum, toGenderString(m.gender));
     }
   }
 
@@ -46,11 +46,11 @@ public class MemberHandler {
     String memberNo = Prompt.inputString("도서번호? ");
     for(int i=0; i < length; i++){
       Member m = members[i];
-      if(m.book_no == Integer.parseInt(memberNo)){
-        System.out.printf("도서제목: %s\n", m.b_title);
+      if(m.bookId == Integer.parseInt(memberNo)){
+        System.out.printf("도서제목: %s\n", m.bookTitle);
         System.out.printf("글쓴이: %s\n", m.author);
         System.out.printf("이름: %s\n", m.name);
-        System.out.printf("핸드폰번호: %s\n", m.p_num);
+        System.out.printf("핸드폰번호: %s\n", m.phoneNum);
         System.out.printf("성별: %s\n", toGenderString(m.gender));
         return;
       }
@@ -66,15 +66,15 @@ public class MemberHandler {
     String memberNo = Prompt.inputString("번호? ");
     for(int i=0; i < length; i++){
       Member m = members[i];
-      if(m.book_no == Integer.parseInt(memberNo)){
-        System.out.printf("도서제목(%s)? ", m.b_title);
-        m.b_title = Prompt.inputString("");
+      if(m.bookId == Integer.parseInt(memberNo)){
+        System.out.printf("도서제목(%s)? ", m.bookTitle);
+        m.bookTitle = Prompt.inputString("");
         System.out.printf("글쓴이(%s)? ", m.author);
         m.author = Prompt.inputString("");
         System.out.printf("이름(%s)? ", m.name);
         m.name = Prompt.inputString("");
-        System.out.printf("핸드폰번호(%s)? ", m.p_num);
-        m.p_num = Prompt.inputString("");
+        System.out.printf("핸드폰번호(%s)? ", m.phoneNum);
+        m.phoneNum = Prompt.inputString("");
         m.gender = inputGender(m.gender);
         return;
       }
@@ -125,7 +125,7 @@ public class MemberHandler {
   public static int indexOf(int memberNo){
     for(int i=0; i<length; i++){
       Member m = members[i];
-      if(m.book_no == memberNo){
+      if(m.bookId == memberNo){
         return i;
       }
     }
