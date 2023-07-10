@@ -13,7 +13,7 @@ plugins {
 }
 
 rootProject.name = 'm_project'
-// include('app')
+// include('app-5')
 include('app-client')
 include('app-server')
 include('app-common')

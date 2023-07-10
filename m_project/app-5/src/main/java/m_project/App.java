@@ -9,19 +9,19 @@ public class App {
 
     Scanner sc = new Scanner(System.in);
 
-    final int SIZE = 2;
+    final int SIZE = 2; // final로 선언, 변하지 않는 상수라는 의미
 
-    int[] book_no = new int[SIZE];
+    int[] bookId = new int[SIZE];
     String[] title = new String[SIZE];
     String[] author = new String[SIZE];
     String[] name = new String[SIZE];
-    String[] p_num = new String[SIZE];
-    boolean[] sch_person = new boolean[SIZE];
+    String[] phoneNum = new String[SIZE];
+    boolean[] schPerson = new boolean[SIZE];
     char[] gender = new char[SIZE];
     
     for(int i=0; i<SIZE; i++){
     System.out.print("도서번호? ");
-    book_no[i] = sc.nextInt();
+    bookId[i] = sc.nextInt();
     System.out.print("도서제목? ");
     title[i] = sc.next();
     System.out.print("글쓴이? ");
@@ -29,9 +29,9 @@ public class App {
     System.out.print("이름? ");
     name[i] = sc.next();
     System.out.print("핸드폰번호? ");
-    p_num[i] = sc.next();
+    phoneNum[i] = sc.next();
     System.out.print("학교재직여부(true/false)? ");
-    sch_person[i] = sc.nextBoolean();
+    schPerson[i] = sc.nextBoolean();
     System.out.print("성별(남자(M), 여자(W))? ");
     String str = sc.next(); 
     gender[i] = str.charAt(0);
@@ -41,12 +41,12 @@ public class App {
     System.out.println("-------------------------");
 
     for(int i=0; i<SIZE; i++){
-    System.out.printf("도서번호: %d\n", book_no[i]);
+    System.out.printf("도서번호: %d\n", bookId[i]);
     System.out.printf("도서제목: %s\n", title[i]);
     System.out.printf("글쓴이: %s\n", author[i]);
     System.out.printf("이름: %s\n", name[i]);
-    System.out.printf("핸드폰번호: %s\n", p_num[i]);
-    System.out.printf("학교재직여부(true/false): %b\n", sch_person[i]);
+    System.out.printf("핸드폰번호: %s\n", phoneNum[i]);
+    System.out.printf("학교재직여부(true/false): %b\n", schPerson[i]);
     System.out.printf("성별(남자(M), 여자(W)): %c\n", gender[i]);
     }
     sc.close();
