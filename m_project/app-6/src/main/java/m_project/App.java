@@ -10,20 +10,20 @@ public class App {
     Scanner sc = new Scanner(System.in);
 
     final int MAX_SIZE = 100;
-    int bookId = 1;
+    int userId = 1; 
     int length = 0;
 
-    int[] book_no = new int[MAX_SIZE];
+    int[] bookId = new int[MAX_SIZE];
     String[] title = new String[MAX_SIZE];
     String[] author = new String[MAX_SIZE];
     String[] name = new String[MAX_SIZE];
-    String[] p_num = new String[MAX_SIZE];
-    boolean[] sch_person = new boolean[MAX_SIZE];
+    String[] phoneNum = new String[MAX_SIZE];
+    boolean[] schPerson = new boolean[MAX_SIZE];
     char[] gender = new char[MAX_SIZE];
     
     for(int i=0; i<MAX_SIZE; i++){
       System.out.print("도서번호? ");
-      book_no[i] = sc.nextInt();
+      bookId[i] = sc.nextInt();
       System.out.print("도서제목? ");
       title[i] = sc.next();
       System.out.print("글쓴이? ");
@@ -31,7 +31,7 @@ public class App {
       System.out.print("이름? ");
       name[i] = sc.next();
       System.out.print("핸드폰번호? ");
-      p_num[i] = sc.next();
+      phoneNum[i] = sc.next();
       loop: while(true){
         System.out.println("성별: ");
         System.out.println(" 1. 남자");
@@ -50,13 +50,13 @@ public class App {
             System.out.println("무효한 번호입니다.");
         }
       }
-      book_no[i]=bookId++;
-      length++;
+      bookId[i]=userId++; // 사람이 책을 빌릴 때마다 1씩 증가
+      length++; // 입력 받은 개수 세기
 
       System.out.print("계속 하시겠습니까?(Y/n) ");
       sc.nextLine();
       String response = sc.nextLine();
-      if(!response.equals("") && !response.equalsIgnoreCase("Y")){
+      if(!response.equals("") && !response.equalsIgnoreCase("Y")){ // 대소문자 구분X
         break;
       }
     }
@@ -66,7 +66,7 @@ public class App {
     System.out.println("-------------------------------------------");
 
     for(int i=0; i<length; i++){
-      System.out.printf("%d, %s, %s, %s, %s, %c\n", book_no[i], title[i], author[i], name[i], p_num[i], gender[i]);
+      System.out.printf("%d, %s, %s, %s, %s, %c\n", bookId[i], title[i], author[i], name[i], phoneNum[i], gender[i]);
     }
     sc.close();
   }

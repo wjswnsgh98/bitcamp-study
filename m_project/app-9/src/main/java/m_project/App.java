@@ -15,7 +15,7 @@ public class App {
       }
     }
 
-    MemberHandler.printMember();
+    MemberHandler.printMembers();
     Prompt.close();
   }
 

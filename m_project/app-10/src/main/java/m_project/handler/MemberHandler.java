@@ -5,11 +5,11 @@ import util.Prompt;
 public class MemberHandler {
 
   static final int MAX_SIZE = 100;
-  static int[] book_no = new int[MAX_SIZE];
-  static String[] b_title = new String[MAX_SIZE];
+  static int[] bookId = new int[MAX_SIZE];
+  static String[] bookTitle = new String[MAX_SIZE];
   static String[] author = new String[MAX_SIZE];
   static String[] name = new String[MAX_SIZE];
-  static String[] p_num = new String[MAX_SIZE];
+  static String[] phoneNum = new String[MAX_SIZE];
   static char[] gender = new char[MAX_SIZE];
   static int userId = 1;
   static int length = 0;
@@ -23,13 +23,13 @@ public class MemberHandler {
       return;
     }
 
-    b_title[length] = Prompt.inputString("도서제목? ");
+    bookTitle[length] = Prompt.inputString("도서제목? ");
     author[length] = Prompt.inputString("글쓴이? ");
     name[length] = Prompt.inputString("이름? ");
-    p_num[length] = Prompt.inputString("핸드폰번호? ");
+    phoneNum[length] = Prompt.inputString("핸드폰번호? ");
     gender[length] = inputGender((char)0);
 
-    book_no[length] = userId++;
+    bookId[length] = userId++;
     length++;
   }
 
@@ -39,18 +39,18 @@ public class MemberHandler {
     System.out.println("-----------------------------------------------");
 
     for(int i=0; i<length; i++){
-      System.out.printf("%d, %s, %s, %s, %s, %s\n", book_no[i], b_title[i], author[i], name[i], p_num[i], toGenderString(gender[i]));
+      System.out.printf("%d, %s, %s, %s, %s, %s\n", bookId[i], bookTitle[i], author[i], name[i], phoneNum[i], toGenderString(gender[i]));
     }
   }
 
   public static void viewMember(){
     String memberNo = Prompt.inputString("도서번호? ");
     for(int i=0; i < length; i++){
-      if(book_no[i] == Integer.parseInt(memberNo)){
-        System.out.printf("도서제목: %s\n", b_title[i]);
+      if(bookId[i] == Integer.parseInt(memberNo)){
+        System.out.printf("도서제목: %s\n", bookTitle[i]);
         System.out.printf("글쓴이: %s\n", author[i]);
         System.out.printf("이름: %s\n", name[i]);
-        System.out.printf("핸드폰번호: %s\n", p_num[i]);
+        System.out.printf("핸드폰번호: %s\n", phoneNum[i]);
         System.out.printf("성별: %s\n", toGenderString(gender[i]));
         return;
       }
@@ -65,15 +65,15 @@ public class MemberHandler {
   public static void updateMember(){
     String memberNo = Prompt.inputString("번호? ");
     for(int i=0; i < length; i++){
-      if(book_no[i] == Integer.parseInt(memberNo)){
-        System.out.printf("도서제목(%s)? ", b_title[i]);
-        b_title[i] = Prompt.inputString("");
+      if(bookId[i] == Integer.parseInt(memberNo)){
+        System.out.printf("도서제목(%s)? ", bookTitle[i]);
+        bookTitle[i] = Prompt.inputString("");
         System.out.printf("글쓴이(%s)? ", author[i]);
         author[i] = Prompt.inputString("");
         System.out.printf("이름(%s)? ", name[i]);
         name[i] = Prompt.inputString("");
-        System.out.printf("핸드폰번호(%s)? ", p_num[i]);
-        p_num[i] = Prompt.inputString("");
+        System.out.printf("핸드폰번호(%s)? ", phoneNum[i]);
+        phoneNum[i] = Prompt.inputString("");
         gender[i] = inputGender(gender[i]);
         return;
       }
@@ -115,19 +115,19 @@ public class MemberHandler {
     }
 
     for(int i=deleteIndex; i<length-1; i++){
-      book_no[i] = book_no[i+1];
-      b_title[i] = b_title[i+1];
+      bookId[i] = bookId[i+1];
+      bookTitle[i] = bookTitle[i+1];
       author[i] = author[i+1];
       name[i] = name[i+1];
-      p_num[i] = p_num[i+1];
+      phoneNum[i] = phoneNum[i+1];
       gender[i] = gender[i+1];
     }
 
-    book_no[length-1] = 0;
-    b_title[length-1] = null;
+    bookId[length-1] = 0;
+    bookTitle[length-1] = null;
     author[length-1] = null;
     name[length-1] = null;
-    p_num[length-1] = null;
+    phoneNum[length-1] = null;
     gender[length-1] = (char)0;
 
     length--;
@@ -135,7 +135,7 @@ public class MemberHandler {
 
   public static int indexOf(int memberNo){
     for(int i=0; i<length; i++){
-      if(book_no[i] == memberNo){
+      if(bookId[i] == memberNo){
         return i;
       }
     }

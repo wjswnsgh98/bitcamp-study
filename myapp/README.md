@@ -256,7 +256,7 @@
 - 프록시 객체의 구동원리 이해
 
 
-## 39. Reflection API를 활용하여 메서드 호출 자동화하기
+## 39. Reflection API를 활용하여 DAO메서드 호출을 자동화하기
 
   - Reflection API를 사용하는 방법
   - 서버의 DAO 메서드 호출을 자동화 하는 방법
