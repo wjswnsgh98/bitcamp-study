@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
@@ -52,19 +53,47 @@ public class ServerApp {
     this.serverSocket = new ServerSocket(port);
     System.out.println("서버 실행중...");
 
-    Socket socket = serverSocket.accept();
-    DataInputStream in = new DataInputStream(socket.getInputStream());
-    DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+    while(true) {
+      processRequest(serverSocket.accept());
+    }
+  }
 
-    while (true) {
+  public static Method findMethod(Object obj, String methodName) {
+    Method[] methods = obj.getClass().getDeclaredMethods();
+    for(int i = 0; i < methods.length; i++) {
+      if(methods[i].getName().equals(methodName)) {
+        return methods[i];
+      }
+    }
+    return null;
+  }
+
+  public static Object call(Object obj, Method method, RequestEntity request) throws Exception{
+    Parameter[] params = method.getParameters();
+    if(params.length > 0) {
+      return method.invoke(obj, request.getObject(params[0].getType()));
+    } else {
+      return method.invoke(obj);
+    }
+  }
+
+  // 클라이언트와 접속이 이루어지면 클라이언트의 요청을 처리한다.
+  public void processRequest(Socket socket) {
+    try ( Socket s = socket;
+        DataInputStream in = new DataInputStream(socket.getInputStream());
+        DataOutputStream out = new DataOutputStream(socket.getOutputStream())){
+
+      InetSocketAddress socketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
+      System.out.printf("%s:%s 클라이언트가 접속했음!\n",
+          socketAddress.getHostString(),
+          socketAddress.getPort());
+
+      // 클라이언트 요청을 반복해서 처리하지 않는다.
+      // 접속 -> 요청 -> 실행 -> 응답 -> 연결 끊기
       RequestEntity request = RequestEntity.fromJson(in.readUTF());
 
       String command = request.getCommand();
       System.out.println(command);
-
-      if (command.equals("quit")) {
-        break;
-      }
 
       String[] values = command.split("/");
       String dataName = values[0];
@@ -76,52 +105,35 @@ public class ServerApp {
             .status(ResponseEntity.ERROR)
             .result("데이터를 찾을 수 없습니다.")
             .toJson());
-        continue;
+        return;
       }
 
-      // DAO 객체에서 메서드 찾기
       Method method = findMethod(dao, methodName);
       if(method == null) {
         out.writeUTF(new ResponseEntity()
             .status(ResponseEntity.ERROR)
             .result("메서드를 찾을 수 없습니다.")
             .toJson());
-        continue;
+        return;
       }
 
-      // DAO 메서드 호출하기
-      Object result = call(dao, method, request);
+      try {
+        Object result = call(dao, method, request);
 
-      // 메서드 호출 결과를 클라이언트에게 보낸다.
-      ResponseEntity response = new ResponseEntity();
-      response.status(ResponseEntity.SUCCESS);
-      response.result(result);
-      out.writeUTF(response.toJson());
-    }
+        ResponseEntity response = new ResponseEntity();
+        response.status(ResponseEntity.SUCCESS);
+        response.result(result);
+        out.writeUTF(response.toJson());
 
-    in.close();
-    out.close();
-    socket.close();
-  }
-
-  // 메서드 찾기
-  public static Method findMethod(Object obj, String methodName) {
-    Method[] methods = obj.getClass().getDeclaredMethods();
-    for(int i = 0; i < methods.length; i++) {
-      if(methods[i].getName().equals(methodName)) {
-        return methods[i];
+      } catch(Exception e) {
+        ResponseEntity response = new ResponseEntity();
+        response.status(ResponseEntity.SUCCESS);
+        response.result(e.getMessage());
+        out.writeUTF(response.toJson());
       }
-    }
-    return null;
-  }
 
-  // 메서드 호출하기
-  public static Object call(Object obj, Method method, RequestEntity request) throws Exception{
-    Parameter[] params = method.getParameters();
-    if(params.length > 0) {
-      return method.invoke(obj, request.getObject(params[0].getType()));
-    } else {
-      return method.invoke(obj);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
   }
 }

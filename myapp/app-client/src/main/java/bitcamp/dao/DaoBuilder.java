@@ -4,18 +4,19 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
+import java.net.Socket;
 import java.util.List;
 import bitcamp.myapp.ClientApp;
 import bitcamp.net.RequestEntity;
 import bitcamp.net.ResponseEntity;
 
 public class DaoBuilder {
-  DataInputStream in;
-  DataOutputStream out;
+  String serverAddress;
+  int port;
 
-  public DaoBuilder(DataInputStream in, DataOutputStream out) {
-    this.in = in;
-    this.out = out;
+  public DaoBuilder(String serverAddress, int port) {
+    this.serverAddress = serverAddress;
+    this.port = port;
   }
 
   @SuppressWarnings("unchecked")
@@ -32,31 +33,39 @@ public class DaoBuilder {
           }
 
           System.out.println(requestEntity.toJson());
-          // 요청 정보 전송
-          out.writeUTF(requestEntity.toJson());
 
-          // 응답 정보 수신
-          ResponseEntity response = ResponseEntity.fromJson(in.readUTF());
-          if(response.getStatus().equals(ResponseEntity.ERROR)) {
-            throw new RuntimeException(response.getResult());
-          }
+          try (Socket socket = new Socket(serverAddress, port);
+              DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+              DataInputStream in = new DataInputStream(socket.getInputStream());) {
 
-          // 리턴 타입 조사
-          Class<?> returnType = method.getReturnType();
+            // 요청 정보 전송
+            out.writeUTF(requestEntity.toJson());
 
-          if(returnType == int.class) {
-            return response.getObject(int.class);
+            // 응답 정보 수신
+            ResponseEntity response = ResponseEntity.fromJson(in.readUTF());
+            if(response.getStatus().equals(ResponseEntity.ERROR)) {
+              throw new RuntimeException(response.getResult());
+            }
 
-          } else if(returnType == void.class) {
-            return null;
+            // 리턴 타입 조사
+            Class<?> returnType = method.getReturnType();
 
-          } else if(returnType == List.class) {
-            ParameterizedType paramType = (ParameterizedType)method.getGenericReturnType();
-            Class<?> itemType = (Class<?>) paramType.getActualTypeArguments()[0];
-            return response.getList(itemType);
+            if(returnType == int.class) {
+              return response.getObject(int.class);
 
-          } else {
-            return response.getObject(returnType);
+            } else if(returnType == void.class) {
+              return null;
+
+            } else if(returnType == List.class) {
+              ParameterizedType paramType = (ParameterizedType)method.getGenericReturnType();
+              Class<?> itemType = (Class<?>) paramType.getActualTypeArguments()[0];
+              return response.getList(itemType);
+
+            } else {
+              return response.getObject(returnType);
+            }
+          } catch(Exception e) {
+            throw new RuntimeException(e);
           }
         });
   }
