@@ -12,6 +12,8 @@ import bitcamp.myapp.dao.BoardListDao;
 import bitcamp.myapp.dao.MemberListDao;
 import bitcamp.net.RequestEntity;
 import bitcamp.net.ResponseEntity;
+import bitcamp.util.ManagedThread;
+import bitcamp.util.ThreadPool;
 
 // 1) 클라이언트가 보낸 명령을 데이터이름과 메서드 이름으로 분리한다.
 // 2) 클라이언트가 요청한 DAO객체와 메서드를 찾는다.
@@ -23,6 +25,9 @@ public class ServerApp {
   ServerSocket serverSocket;
 
   HashMap<String,Object> daoMap = new HashMap<>();
+
+  // 스레드를 리턴해 줄 스레드풀 준비
+  ThreadPool threadPool = new ThreadPool();
 
   public ServerApp(int port) throws Exception{
     this.port = port;
@@ -47,21 +52,23 @@ public class ServerApp {
     app.close();
   }
 
-  public void execute() throws Exception{
+  public void execute() throws Exception {
     System.out.println("[MyList 서버 애플리케이션]");
 
     this.serverSocket = new ServerSocket(port);
-    System.out.println("서버 실행중...");
+    System.out.println("서버 실행 중...");
 
-    while(true) {
-      processRequest(serverSocket.accept());
+    while (true) {
+      Socket socket = serverSocket.accept();
+      ManagedThread t = threadPool.getResource();
+      t.setJob(() -> processRequest(socket));
     }
   }
 
   public static Method findMethod(Object obj, String methodName) {
     Method[] methods = obj.getClass().getDeclaredMethods();
-    for(int i = 0; i < methods.length; i++) {
-      if(methods[i].getName().equals(methodName)) {
+    for (int i = 0; i < methods.length; i++) {
+      if (methods[i].getName().equals(methodName)) {
         return methods[i];
       }
     }

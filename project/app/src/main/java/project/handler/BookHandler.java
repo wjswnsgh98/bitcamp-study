@@ -5,7 +5,6 @@ import util.Prompt;
 
 public class BookHandler {
   String[][] BOOKS = {{"노인과바다", "3"}, {"박지성", "3"}, {"챔스우승맨시티", "3"}};
-  private static int BOOK_COUNT = 3;
   private static final int MAX_SIZE = 100;
 
   private Prompt prompt;
@@ -28,9 +27,9 @@ public class BookHandler {
       } else if (menuNo.equals("menu")) {
         printMenu();
       } else if (menuNo.equals("1")) {
-        this.inputBook();
+        this.rentBook();
       } else if (menuNo.equals("2")) {
-        this.printBooks();
+        this.inputBook();
       } else if (menuNo.equals("3")) {
         this.viewBook();
       } else if (menuNo.equals("4")) {
@@ -42,11 +41,22 @@ public class BookHandler {
   }
 
   private static void printMenu() {
-    System.out.println("1. 도서 대여 등록");
-    System.out.println("2. 대여 가능한 도서 목록");
+    System.out.println("1. 대여 가능한 도서 목록");
+    System.out.println("2. 도서 대여 등록");
     System.out.println("3. 대여 도서 조회");
     System.out.println("4. 대여 도서 삭제");
     System.out.println("0. 메인");
+  }
+
+  private void rentBook() {
+    System.out.println("---------------------------------------");
+    System.out.println("대여가능한 도서 제목, 수량");
+    System.out.println("---------------------------------------");
+
+    for (int i = 0; i < BOOKS.length; i++) {
+      System.out.print(BOOKS[i][0] + " " + BOOKS[i][1]);
+      System.out.println();
+    }
   }
 
   private void inputBook() {
@@ -55,8 +65,21 @@ public class BookHandler {
       return;
     }
 
+    boolean bookFound = false;
     Book book = new Book();
-    book.setBookTitle(this.prompt.inputString("도서 제목? "));
+    String bTitle = this.prompt.inputString("도서 제목? ");
+    for(int i = 0; i < BOOKS.length; i++) {
+      String str = BOOKS[i][0];
+      if(str.equals(bTitle)) {
+        book.setBookTitle(bTitle);
+        bookFound = true;
+        break;
+      }
+    }
+    if(!bookFound) {
+      System.out.println("해당 제목의 도서가 없습니다!");
+      return;
+    }
     book.setAuthor(this.prompt.inputString("저자? "));
     book.setName(this.prompt.inputString("대여자 이름? "));
 
@@ -72,75 +95,39 @@ public class BookHandler {
     this.books[this.length++] = book;
   }
 
-  private void printBook() {
-    System.out.println("---------------------------------------");
-    System.out.println("번호, 대여가능한 도서 제목, 수량");
-    System.out.println("---------------------------------------");
-
-    for (int i = 0; i < this.length; i++) {
-      Book book = this.books[i];
-
-      System.out.printf("%d, %s, %s, %tY-%4$tm-%4$td\n",
-          book.getNo(),
-          book.getBookTitle(),
-          book.getAuthor(),
-          book.getRentalDate());
-    }
-  }
-
-  private void printBooks() {
-    System.out.println("---------------------------------------");
-    System.out.println("번호, 도서 제목, 저자, 대여일");
-    System.out.println("---------------------------------------");
-
-    for (int i = 0; i < this.length; i++) {
-      Book book = this.books[i];
-
-      System.out.printf("%d, %s, %s, %tY-%4$tm-%4$td\n",
-          book.getNo(),
-          book.getBookTitle(),
-          book.getAuthor(),
-          book.getRentalDate());
-    }
-  }
-
   private void viewBook() {
-    String bookNo = this.prompt.inputString("번호? ");
+    String lender = this.prompt.inputString("대여자 이름? ");
     for (int i = 0; i < this.length; i++) {
       Book book = this.books[i];
-      if (book.getNo() == Integer.parseInt(bookNo)) {
+      if (book.getName().equals(lender)) {
         System.out.printf("도서 제목: %s\n", book.getBookTitle());
         System.out.printf("저자: %s\n", book.getAuthor());
         System.out.printf("대여일: %tY-%1$tm-%1$td\n", book.getRentalDate());
-        System.out.printf("대여자: %s\n", book.getName());
         return;
       }
     }
-    System.out.println("해당 번호는 없습니다!");
+    System.out.println("해당 이름의 대여자는 없습니다!");
   }
 
   private void deleteBook() {
-    int deletedIndex = indexOf(this.prompt.inputInt("번호? "));
-    if (deletedIndex == -1) {
-      System.out.println("해당 번호는 없습니다!");
+    String lender = this.prompt.inputString("대여자 이름? ");
+    int index = -1;
+    for(int i = 0; i < this.length; i++) {
+      Book book = this.books[i];
+      if(book.getName().equals(lender)) {
+        index = i;
+      }
+    }
+    if (index == -1) {
+      System.out.println("해당 이름의 대여자는 없습니다!");
       return;
     }
 
-    for (int i = deletedIndex; i < this.length - 1; i++) {
+    for (int i = index; i < this.length - 1; i++) {
       this.books[i] = this.books[i + 1];
     }
 
     this.books[--this.length] = null;
-  }
-
-  private int indexOf(int bookNo) {
-    for (int i = 0; i < this.length; i++) {
-      Book book = this.books[i];
-      if (book.getNo() == bookNo) {
-        return i;
-      }
-    }
-    return -1;
   }
 
   private boolean available() {
