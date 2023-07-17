@@ -31,8 +31,10 @@ public class BookHandler {
       } else if (menuNo.equals("2")) {
         this.inputBook();
       } else if (menuNo.equals("3")) {
-        this.viewBook();
+        this.printBooks();
       } else if (menuNo.equals("4")) {
+        this.viewBook();
+      } else if (menuNo.equals("5")) {
         this.deleteBook();
       } else {
         System.out.println("메뉴 번호가 옳지 않습니다!");
@@ -43,8 +45,9 @@ public class BookHandler {
   private static void printMenu() {
     System.out.println("1. 대여 가능한 도서 목록");
     System.out.println("2. 도서 대여 등록");
-    System.out.println("3. 대여 도서 조회");
-    System.out.println("4. 대여 도서 삭제");
+    System.out.println("3. 대여 도서 목록");
+    System.out.println("4. 대여 도서 조회");
+    System.out.println("5. 대여 도서 삭제");
     System.out.println("0. 메인");
   }
 
@@ -95,6 +98,23 @@ public class BookHandler {
     this.books[this.length++] = book;
   }
 
+  public void printBooks() {
+    System.out.println("---------------------------------------");
+    System.out.println("제목, 저자, 대여자 이름, 대여일, 반납일");
+    System.out.println("---------------------------------------");
+
+    for (int i = 0; i < this.length; i++) {
+      Book book = this.books[i];
+
+      System.out.printf("%s, %s, %s, %tY-%4$tm-%4$td, %tY-%5$tm-%5$td\n",
+          book.getBookTitle(),
+          book.getAuthor(),
+          book.getName(),
+          book.getRentalDate(),
+          book.getReturnDate());
+    }
+  }
+
   private void viewBook() {
     String lender = this.prompt.inputString("대여자 이름? ");
     for (int i = 0; i < this.length; i++) {
@@ -121,6 +141,13 @@ public class BookHandler {
     if (index == -1) {
       System.out.println("해당 이름의 대여자는 없습니다!");
       return;
+    }
+
+    for(int i = 0; i < BOOKS.length; i++) {
+      Book book = this.books[index];
+      if(book.getBookTitle().equals(BOOKS[i][0])) {
+        BOOKS[i][1] = String.valueOf(Integer.parseInt(BOOKS[i][1]) + 1);
+      }
     }
 
     for (int i = index; i < this.length - 1; i++) {

@@ -8,12 +8,12 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import bitcamp.myapp.dao.BoardListDao;
 import bitcamp.myapp.dao.MemberListDao;
 import bitcamp.net.RequestEntity;
 import bitcamp.net.ResponseEntity;
-import bitcamp.util.ManagedThread;
-import bitcamp.util.ThreadPool;
 
 // 1) 클라이언트가 보낸 명령을 데이터이름과 메서드 이름으로 분리한다.
 // 2) 클라이언트가 요청한 DAO객체와 메서드를 찾는다.
@@ -26,8 +26,8 @@ public class ServerApp {
 
   HashMap<String,Object> daoMap = new HashMap<>();
 
-  // 스레드를 리턴해 줄 스레드풀 준비
-  ThreadPool threadPool = new ThreadPool();
+  // 자바 스레드풀 준비
+  ExecutorService threadPool = Executors.newFixedThreadPool(10);
 
   public ServerApp(int port) throws Exception{
     this.port = port;
@@ -60,8 +60,24 @@ public class ServerApp {
 
     while (true) {
       Socket socket = serverSocket.accept();
-      ManagedThread t = threadPool.getResource();
-      t.setJob(() -> processRequest(socket));
+      threadPool.execute(() -> processRequest(socket));
+
+      // 컴파일러는 위의 문장을 다음 문장으로 변환한다.
+      //      class $1 implements Runnable{
+      //        ServerApp this$0;
+      //        Socket socket;
+      //
+      //        public $1(ServerApp arg0, Socket arg1) {
+      //          this$0 = arg0;
+      //          socket = arg1;
+      //        }
+      //
+      //        public void run() {
+      //          this$0.processRequest(socket);
+      //        }
+      //      }
+      //      $1 obj = new $1(this, socket);
+      //      threadPool.execute(obj);
     }
   }
 
@@ -91,7 +107,8 @@ public class ServerApp {
         DataOutputStream out = new DataOutputStream(socket.getOutputStream())){
 
       InetSocketAddress socketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
-      System.out.printf("%s:%s 클라이언트가 접속했음!\n",
+      System.out.printf("[%s] %s:%s 클라이언트가 접속했음!\n",
+          Thread.currentThread().getName(),
           socketAddress.getHostString(),
           socketAddress.getPort());
 

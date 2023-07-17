@@ -13,6 +13,7 @@ public class Book {
   public Book() {
     this.no = bookNo++;
     this.rentalDate = System.currentTimeMillis();
+    this.returnDate = this.rentalDate + (5 * 24 * 60 * 60 * 1000); // 5일을 밀리초로 변환하여 더합니다.
   }
 
   public int getNo() {

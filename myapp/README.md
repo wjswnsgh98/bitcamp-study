@@ -293,7 +293,11 @@
   - Pooling 기법을 활용하여 스레드를 재사용하는 방법
   - GoF의 FlyWeight 디자인 패턴(풀링 기법)을 적용하여 스레드풀을 구현하는 방법
 
-## 45. DBMS 도입하기
+## 45. 스레드 재사용하기 : 자바에서 제공하는 스레드풀(thread pool) 사용
+
+- Excutors/ExcutorService 사용법
+
+## 46. DBMS 도입하기
   
   - DBMS 설치 및 사용법
   - SQL 및 JDBC Driver 개념과 사용법 

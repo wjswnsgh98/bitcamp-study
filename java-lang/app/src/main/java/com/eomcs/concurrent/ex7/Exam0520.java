@@ -37,6 +37,7 @@ public class Exam0520 {
     executorService.execute(new MyRunnable(4000));
     executorService.execute(new MyRunnable(20000));
 
+    // 실행 중인 작업 및 대기 중인 작업이 모두 끝나면 스레드풀을 종료하라!
     executorService.shutdown();
 
     // 스레드풀의 모든 스레드가 종료될 때까지 기다린다.
