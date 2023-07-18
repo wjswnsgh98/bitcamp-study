@@ -399,5 +399,11 @@
 
 ## 40일(7/18, 화)
 
+- 자바 프로그래밍
+  - JDBC 프로그래밍(com.eomcs.jdbc)
+    - DBMS API와 ODBC API
+    - JDBC API와 JDBC 드라이버
+    - SQL - DDL 사용법
+
 ## 웨일즈 화상회의
 https://whaleon.us/o/CSrtk1/001aa759f29c46b985e32dd8562f594a

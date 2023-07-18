@@ -295,7 +295,7 @@
 
 ## 45. 스레드 재사용하기 : 자바에서 제공하는 스레드풀(thread pool) 사용
 
-- Excutors/ExcutorService 사용법
+  - Executors/ExecutorService 사용법
 
 ## 46. DBMS 도입하기
   
