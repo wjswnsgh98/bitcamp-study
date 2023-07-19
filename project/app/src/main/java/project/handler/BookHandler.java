@@ -1,11 +1,12 @@
 package project.handler;
 
 import project.vo.Book;
+import util.ArrayList;
 import util.Prompt;
 
 public class BookHandler implements Handler{
   String[][] BOOKS = {{"노인과바다", "3"}, {"멈추지않는도전", "3"}, {"챔스", "3"}};
-  private BookList list = new BookList();
+  private ArrayList list = new ArrayList();
   private Prompt prompt;
   private String title;
 
@@ -95,8 +96,9 @@ public class BookHandler implements Handler{
     System.out.println("제목, 저자, 대여자 이름, 대여일, 반납일");
     System.out.println("---------------------------------------");
 
-    Book[] arr = this.list.list();
-    for (Book book : arr) {
+    Object[] arr = this.list.list();
+    for (Object obj : arr) {
+      Book book = (Book) obj;
       System.out.printf("%s, %s, %s, %tY-%4$tm-%4$td, %tY-%5$tm-%5$td\n",
           book.getBookTitle(),
           book.getAuthor(),
@@ -109,7 +111,7 @@ public class BookHandler implements Handler{
   private void viewBook() {
     String lender = this.prompt.inputString("대여자 이름? ");
 
-    Book book = this.list.get(lender);
+    Book book = (Book) this.list.get(new Book(lender));
     if(lender.equals("")) {
       System.out.println("해당 이름의 대여자는 없습니다!");
       return;
@@ -124,7 +126,7 @@ public class BookHandler implements Handler{
   private void deleteBook() {
     String lender = this.prompt.inputString("대여자 이름? ");
 
-    if (!this.list.delete(lender)) {
+    if (!this.list.delete(new Book(lender))) {
       System.out.println("해당 이름의 대여자는 없습니다!");
     }
 

@@ -16,6 +16,28 @@ public class Book {
     this.returnDate = this.rentalDate + (5 * 24 * 60 * 60 * 1000); // 5일을 밀리초로 변환하여 더합니다.
   }
 
+  public Book(String name) {
+    this.name = name;
+  }
+
+  public boolean equals(Object obj) {
+    if (obj == null) {
+      return false;
+    }
+
+    if (this.getClass() != obj.getClass()) {
+      return false;
+    }
+
+    Book book = (Book) obj;
+
+    if (!this.getName().equals(book.getName())) {
+      return false;
+    }
+
+    return true;
+  }
+
   public int getNo() {
     return no;
   }

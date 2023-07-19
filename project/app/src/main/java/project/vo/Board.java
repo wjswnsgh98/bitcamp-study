@@ -1,6 +1,6 @@
 package project.vo;
 
-public class Board {
+public class Board{
 
   private static int boardNo = 1;
 

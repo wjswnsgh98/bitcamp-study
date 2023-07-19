@@ -1,9 +1,5 @@
 package util;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import project.vo.Board;
-
 public class ArrayList {
   private static final int DEFAULT_SIZE = 3;
 
@@ -27,15 +23,7 @@ public class ArrayList {
     //System.out.println("배열 확장: " + list.length);
   }
 
-  public Object[] list(Object obj) {
-    if(obj.getClass() == Board.class) {
-      Object[] arr = new Object[this.length];
-      for (int i = 0; i < this.length; i++) {
-        arr[i] = this.list[i];
-      }
-      Arrays.sort(arr, Comparator.comparingInt((Board) obj ::getViewCount).reversed());
-      return arr;
-    }
+  public Object[] list() {
     Object[] arr = new Object[this.length];
     for (int i = 0; i < this.length; i++) {
       arr[i] = this.list[i];

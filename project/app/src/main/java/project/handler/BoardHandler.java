@@ -1,5 +1,10 @@
 package project.handler;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 import project.vo.Board;
 import util.ArrayList;
 import util.Prompt;
@@ -59,25 +64,25 @@ public class BoardHandler implements Handler{
   }
 
   public void printBoards() {
-    System.out.println("---------------------------------------");
+    System.out.println("----------------------------------------");
     System.out.println("번호, 제목, 작성자, 조회수, 등록일");
-    System.out.println("---------------------------------------");
+    System.out.println("----------------------------------------");
 
-    Board[] sortedBoards = this.list.list(); // 조회수 순으로 정렬된 배열을 얻어옴
-    for (Board board : sortedBoards) {
-      System.out.printf("%d, %s, %s, %d, %tY-%<tm-%<td\n",
-          board.getNo(),
-          board.getTitle(),
-          board.getWriter(),
-          board.getViewCount(),
-          board.getCreatedDate());
+    List<Board> boardList = Arrays.stream(this.list.list()).map(board -> (Board) board)
+        .collect(Collectors.toList());
+
+    Collections.sort(boardList, Comparator.comparingInt(Board::getViewCount).reversed());
+
+    for (Board board : boardList) {
+      System.out.printf("%d, %s, %s, %d, %tY-%<tm-%<td\n", board.getNo(), board.getTitle(),
+          board.getWriter(), board.getViewCount(), board.getCreatedDate());
     }
   }
 
   public void viewBoard() {
     int boardNo = this.prompt.inputInt("번호? ");
 
-    Board board = this.list.get(boardNo);
+    Board board = (Board) this.list.get(new Board(boardNo));
     if (board == null) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
@@ -88,12 +93,13 @@ public class BoardHandler implements Handler{
     System.out.printf("작성자: %s\n", board.getWriter());
     System.out.printf("조회수: %s\n", board.getViewCount());
     System.out.printf("등록일: %tY-%1$tm-%1$td\n", board.getCreatedDate());
+    board.setViewCount(board.getViewCount() + 1);
   }
 
   public void updateBoard() {
     int boardNo = this.prompt.inputInt("번호? ");
 
-    Board board = this.list.get(boardNo);
+    Board board = (Board) this.list.get(new Board(boardNo));
     if (board == null) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;

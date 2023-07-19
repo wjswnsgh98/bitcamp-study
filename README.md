@@ -1,5 +1,8 @@
 # 네이버 클라우드 7기(2023-04-24 ~ 2023-10-27)
 
+## 웨일즈 화상회의
+https://whaleon.us/o/CSrtk1/001aa759f29c46b985e32dd8562f594a
+
 ## 학습 내용
 
 ### 1일(5/22, 월)
@@ -405,5 +408,9 @@
     - JDBC API와 JDBC 드라이버
     - SQL - DDL 사용법
 
-## 웨일즈 화상회의
-https://whaleon.us/o/CSrtk1/001aa759f29c46b985e32dd8562f594a
+## 41일(7/19, 수)
+
+- 자바 프로그래밍
+  - JDBC 프로그래밍(com.eomcs.jdbc)
+    - SQL - DML 사용법
+    - SQL - DQL 사용법
