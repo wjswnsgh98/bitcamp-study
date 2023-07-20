@@ -1,50 +1,56 @@
 package project.handler;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 import project.vo.Board;
-import util.List;
-import util.MenuPrompt;
+import util.LinkedList;
+import util.Prompt;
 
 public class BoardHandler implements Handler{
-  private List list;
-  private MenuPrompt prompt;
+  private LinkedList list = new LinkedList();
+  private Prompt prompt;
   private String title;
 
-  public BoardHandler(MenuPrompt prompt, String title, List list){
+  public BoardHandler(Prompt prompt, String title){
     this.prompt = prompt;
     this.title = title;
-    this.list = list;
   }
 
   public void execute(){
-    prompt.appendBreadcrumb(this.title, getMenu());
+    printMenu();
 
-    prompt.printMenu();
-
-    while (true) {
-      String menuNo = prompt.inputMenu();
-      switch (menuNo) {
-        case "0": prompt.removeBreadcrumb(); return;
-        case "1": this.inputBoard(); break;
-        case "2": this.printBoards(); break;
-        case "3": this.viewBoard(); break;
-        case "4": this.updateBoard(); break;
-        case "5": this.deleteBoard(); break;
+    while(true){
+      String menuNo = prompt.inputString("%s> ", this.title);
+      if(menuNo.equals("0")){
+        break;
+      } else if(menuNo.equals("menu")){
+        printMenu();
+      } else if(menuNo.equals("1")){
+        this.inputBoard();
+      } else if(menuNo.equals("2")){
+        this.printBoards();
+      } else if(menuNo.equals("3")){
+        this.viewBoard();
+      } else if(menuNo.equals("4")){
+        this.updateBoard();
+      } else if(menuNo.equals("5")){
+        this.deleteBoard();
+      } else{
+        System.out.println("메뉴 번호가 옳지 않습니다!");
       }
     }
   }
 
-  private static String getMenu() {
-    StringBuilder menu = new StringBuilder();
-    menu.append("1. 등록\n");
-    menu.append("2. 목록\n");
-    menu.append("3. 조회\n");
-    menu.append("4. 변경\n");
-    menu.append("5. 삭제\n");
-    menu.append("0. 메인\n");
-    return menu.toString();
+  private static void printMenu(){
+    System.out.println("1. 등록");
+    System.out.println("2. 목록");
+    System.out.println("3. 조회");
+    System.out.println("4. 변경");
+    System.out.println("5. 삭제");
+    System.out.println("0. 메인");
   }
 
   public void inputBoard() {
@@ -62,17 +68,12 @@ public class BoardHandler implements Handler{
     System.out.println("번호, 제목, 작성자, 조회수, 등록일");
     System.out.println("----------------------------------------");
 
-    // 원본 리스트를 변경하지 않기 위해 복사본을 만듭니다.
-    LinkedList<Board> sortedList = new LinkedList<>();
-    for (int i = 0; i < this.list.size(); i++) {
-      sortedList.add((Board) this.list.get(i));
-    }
+    List<Board> boardList = Arrays.stream(this.list.getList()).map(board -> (Board) board)
+        .collect(Collectors.toList());
 
-    // 조회수를 기준으로 내림차순으로 리스트를 정렬합니다.
-    Collections.sort(sortedList, Comparator.comparingInt(Board::getViewCount).reversed());
+    Collections.sort(boardList, Comparator.comparingInt(Board::getViewCount).reversed());
 
-    // 정렬된 순서대로 게시물을 출력합니다.
-    for (Board board : sortedList) {
+    for (Board board : boardList) {
       System.out.printf("%d, %s, %s, %d, %tY-%<tm-%<td\n", board.getNo(), board.getTitle(),
           board.getWriter(), board.getViewCount(), board.getCreatedDate());
     }
@@ -81,7 +82,7 @@ public class BoardHandler implements Handler{
   public void viewBoard() {
     int boardNo = this.prompt.inputInt("번호? ");
 
-    Board board = this.findBy(boardNo);
+    Board board = (Board) this.list.retrieve(new Board(boardNo));
     if (board == null) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
@@ -98,7 +99,7 @@ public class BoardHandler implements Handler{
   public void updateBoard() {
     int boardNo = this.prompt.inputInt("번호? ");
 
-    Board board = this.findBy(boardNo);
+    Board board = (Board) this.list.retrieve(new Board(boardNo));
     if (board == null) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
@@ -117,22 +118,12 @@ public class BoardHandler implements Handler{
   public void deleteBoard() {
     int boardNo = this.prompt.inputInt("번호? ");
 
-    Board board = this.findBy(boardNo);
+    Board board = (Board) this.list.retrieve(new Board(boardNo));
     if (board == null) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
     } else if (board.getNo() == boardNo) {
       this.list.remove(board);
     }
-  }
-
-  private Board findBy(int no) {
-    for (int i = 0; i < this.list.size(); i++) {
-      Board b = (Board) this.list.get(i);
-      if (b.getNo() == no) {
-        return b;
-      }
-    }
-    return null;
   }
 }

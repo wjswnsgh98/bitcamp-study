@@ -2,47 +2,52 @@ package project.handler;
 
 import project.vo.Book;
 import util.List;
-import util.MenuPrompt;
+import util.Prompt;
 
 public class BookHandler implements Handler{
   public String[][] BOOKS = {{"노인과바다", "3"}, {"멈추지않는도전", "3"}, {"챔스", "3"}};
   private List list;
-  private MenuPrompt prompt;
+  private Prompt prompt;
   private String title;
 
-  public BookHandler(MenuPrompt prompt, String title, List list) {
+  public BookHandler(Prompt prompt, String title, List list) {
     this.prompt = prompt;
     this.title = title;
     this.list = list;
   }
 
   public void execute() {
-    prompt.appendBreadcrumb(this.title, getMenu());
-
-    prompt.printMenu();
+    printMenu();
 
     while (true) {
-      String menuNo = prompt.inputMenu();
-      switch (menuNo) {
-        case "0": prompt.removeBreadcrumb(); return;
-        case "1": this.rentBook(); break;
-        case "2": this.inputBook(); break;
-        case "3": this.printBooks(); break;
-        case "4": this.viewBook(); break;
-        case "5": this.deleteBook(); break;
+      String menuNo = prompt.inputString("%s> ", this.title);
+      if (menuNo.equals("0")) {
+        return;
+      } else if (menuNo.equals("menu")) {
+        printMenu();
+      } else if (menuNo.equals("1")) {
+        this.rentBook();
+      } else if (menuNo.equals("2")) {
+        this.inputBook();
+      } else if (menuNo.equals("3")) {
+        this.printBooks();
+      } else if (menuNo.equals("4")) {
+        this.viewBook();
+      } else if (menuNo.equals("5")) {
+        this.deleteBook();
+      } else {
+        System.out.println("메뉴 번호가 옳지 않습니다!");
       }
     }
   }
 
-  private static String getMenu() {
-    StringBuilder menu = new StringBuilder();
-    menu.append("1. 대여 가능한 도서 목록\n");
-    menu.append("2. 도서 대여 등록\n");
-    menu.append("3. 대여 도서 목록\n");
-    menu.append("4. 대여 도서 조회\n");
-    menu.append("5. 대여 도서 반납\n");
-    menu.append("0. 메인\n");
-    return menu.toString();
+  private static void printMenu() {
+    System.out.println("1. 대여 가능한 도서 목록");
+    System.out.println("2. 도서 대여 등록");
+    System.out.println("3. 대여 도서 목록");
+    System.out.println("4. 대여 도서 조회");
+    System.out.println("5. 대여 도서 반납");
+    System.out.println("0. 메인");
   }
 
   private void rentBook() {

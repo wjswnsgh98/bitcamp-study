@@ -1,48 +1,52 @@
 package project.handler;
 
 import project.vo.Book;
-import util.List;
-import util.MenuPrompt;
+import util.ArrayList;
+import util.Prompt;
 
 public class BookHandler implements Handler{
   public String[][] BOOKS = {{"노인과바다", "3"}, {"멈추지않는도전", "3"}, {"챔스", "3"}};
-  private List list;
-  private MenuPrompt prompt;
+  private ArrayList list = new ArrayList();
+  private Prompt prompt;
   private String title;
 
-  public BookHandler(MenuPrompt prompt, String title, List list) {
+  public BookHandler(Prompt prompt, String title) {
     this.prompt = prompt;
     this.title = title;
-    this.list = list;
   }
 
   public void execute() {
-    prompt.appendBreadcrumb(this.title, getMenu());
-
-    prompt.printMenu();
+    printMenu();
 
     while (true) {
-      String menuNo = prompt.inputMenu();
-      switch (menuNo) {
-        case "0": prompt.removeBreadcrumb(); return;
-        case "1": this.rentBook(); break;
-        case "2": this.inputBook(); break;
-        case "3": this.printBooks(); break;
-        case "4": this.viewBook(); break;
-        case "5": this.deleteBook(); break;
+      String menuNo = prompt.inputString("%s> ", this.title);
+      if (menuNo.equals("0")) {
+        return;
+      } else if (menuNo.equals("menu")) {
+        printMenu();
+      } else if (menuNo.equals("1")) {
+        this.rentBook();
+      } else if (menuNo.equals("2")) {
+        this.inputBook();
+      } else if (menuNo.equals("3")) {
+        this.printBooks();
+      } else if (menuNo.equals("4")) {
+        this.viewBook();
+      } else if (menuNo.equals("5")) {
+        this.deleteBook();
+      } else {
+        System.out.println("메뉴 번호가 옳지 않습니다!");
       }
     }
   }
 
-  private static String getMenu() {
-    StringBuilder menu = new StringBuilder();
-    menu.append("1. 대여 가능한 도서 목록\n");
-    menu.append("2. 도서 대여 등록\n");
-    menu.append("3. 대여 도서 목록\n");
-    menu.append("4. 대여 도서 조회\n");
-    menu.append("5. 대여 도서 반납\n");
-    menu.append("0. 메인\n");
-    return menu.toString();
+  private static void printMenu() {
+    System.out.println("1. 대여 가능한 도서 목록");
+    System.out.println("2. 도서 대여 등록");
+    System.out.println("3. 대여 도서 목록");
+    System.out.println("4. 대여 도서 조회");
+    System.out.println("5. 대여 도서 반납");
+    System.out.println("0. 메인");
   }
 
   private void rentBook() {
@@ -92,8 +96,9 @@ public class BookHandler implements Handler{
     System.out.println("제목, 저자, 대여자 이름, 대여일, 반납일");
     System.out.println("---------------------------------------");
 
-    for (int i = 0; i < this.list.size(); i++) {
-      Book book = (Book) this.list.get(i);
+    Object[] arr = this.list.list();
+    for (Object obj : arr) {
+      Book book = (Book) obj;
       System.out.printf("%s, %s, %s, %tY-%4$tm-%4$td, %tY-%5$tm-%5$td\n",
           book.getBookTitle(),
           book.getAuthor(),
@@ -106,7 +111,7 @@ public class BookHandler implements Handler{
   private void viewBook() {
     String lender = this.prompt.inputString("대여자 이름? ");
 
-    Book book = this.findBy(lender);
+    Book book = (Book) this.list.get(new Book(lender));
     if(lender.equals("")) {
       System.out.println("해당 이름의 대여자는 없습니다!");
       return;
@@ -122,12 +127,12 @@ public class BookHandler implements Handler{
     String lender = this.prompt.inputString("대여자 이름? ");
 
     // 리스트에서 도서 삭제
-    Book deletedBook = this.findBy(lender);
+    Book deletedBook = (Book) this.list.get(new Book(lender));
     if (deletedBook == null) {
       System.out.println("해당 이름의 대여자는 없습니다!");
       return;
     }
-    this.list.remove(new Book(lender));
+    this.list.delete(new Book(lender));
 
     // BOOKS에서 같은 도서 제목의 수량을 1 증가
     for (int i = 0; i < BOOKS.length; i++) {
@@ -137,15 +142,5 @@ public class BookHandler implements Handler{
         break; // 해당 도서를 찾았으므로 더 이상 반복할 필요가 없음
       }
     }
-  }
-
-  private Book findBy(String str) {
-    for (int i = 0; i < this.list.size(); i++) {
-      Book b = (Book) this.list.get(i);
-      if (b.getName().equals(str)) {
-        return b;
-      }
-    }
-    return null;
   }
 }
