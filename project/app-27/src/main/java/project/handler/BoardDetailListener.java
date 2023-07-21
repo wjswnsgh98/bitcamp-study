@@ -1,22 +1,19 @@
 package project.handler;
 
-import project.dao.BoardDao;
+import java.util.List;
 import project.vo.Board;
-import util.ActionListener;
 import util.BreadcrumbPrompt;
 
-public class BoardDetailListener implements ActionListener {
-  BoardDao boardDao;
-
-  public BoardDetailListener(BoardDao boardDao) {
-    this.boardDao = boardDao;
+public class BoardDetailListener extends AbstractBoardListener{
+  public BoardDetailListener(List<Board> list) {
+    super(list);
   }
 
   @Override
   public void service(BreadcrumbPrompt prompt) {
     int boardNo = prompt.inputInt("번호? ");
 
-    Board board = boardDao.findBy(boardNo);
+    Board board = this.findBy(boardNo);
     if (board == null) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
@@ -28,6 +25,5 @@ public class BoardDetailListener implements ActionListener {
     System.out.printf("조회수: %s\n", board.getViewCount());
     System.out.printf("등록일: %tY-%1$tm-%1$td\n", board.getCreatedDate());
     board.setViewCount(board.getViewCount() + 1);
-    boardDao.update(board);
   }
 }

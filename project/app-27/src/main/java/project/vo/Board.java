@@ -1,10 +1,8 @@
 package project.vo;
 
-import java.io.Serializable;
+public class Board{
 
-public class Board implements Serializable, AutoIncrement{
-  private static final long serialVersionUID = 1L;
-  public static int boardNo = 1;
+  private static int boardNo = 1;
 
   private int no;
   private String title;
@@ -14,17 +12,13 @@ public class Board implements Serializable, AutoIncrement{
   private int viewCount;
   private long createdDate;
 
-  public Board() {}
+  public Board() {
+    this.no = boardNo++;
+    this.createdDate = System.currentTimeMillis();
+  }
 
   public Board(int no) {
     this.no = no;
-  }
-
-  @Override
-  public void updateKey() {
-    if (Board.boardNo <= this.no) {
-      Board.boardNo = this.no + 1;
-    }
   }
 
   public boolean equals(Object obj) {
