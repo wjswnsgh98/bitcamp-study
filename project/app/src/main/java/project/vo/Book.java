@@ -1,7 +1,7 @@
 package project.vo;
 
 public class Book {
-  private static int bookNo = 1;
+  public static int bookNo = 1;
 
   private int no;
   private String bookTitle;

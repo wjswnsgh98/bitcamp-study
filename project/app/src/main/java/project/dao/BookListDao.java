@@ -2,7 +2,6 @@ package project.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-import project.vo.Board;
 import project.vo.Book;
 import util.JsonDataHelper;
 
@@ -12,7 +11,7 @@ public class BookListDao implements BookDao{
 
   public BookListDao(String filename) {
     this.filename = filename;
-    JsonDataHelper.loadJson(filename, list, Board.class);
+    JsonDataHelper.loadJson(filename, list, Book.class);
   }
 
   @Override
@@ -24,42 +23,30 @@ public class BookListDao implements BookDao{
   }
 
   @Override
-  public List<Board> list() {
+  public List<Book> list() {
     return this.list;
   }
 
   @Override
-  public Board findBy(int no) {
+  public Book findBy(String str) {
     for (int i = 0; i < this.list.size(); i++) {
-      Board m = this.list.get(i);
-      if (m.getNo() == no) {
-        return m;
+      Book book = this.list.get(i);
+      if (book.getName() == str) {
+        return book;
       }
     }
     return null;
   }
 
   @Override
-  public String update(Board board) {
+  public String delete(String str) {
     for (int i = 0; i < list.size(); i++) {
-      if (list.get(i).getNo() == board.getNo()) {
-        list.set(i, board);
-        JsonDataHelper.saveJson(filename, list);
-        return 1;
-      }
-    }
-    return 0;
-  }
-
-  @Override
-  public int delete(int no) {
-    for (int i = 0; i < list.size(); i++) {
-      if (list.get(i).getNo() == no) {
+      if (list.get(i).getName().equals(str)) {
         list.remove(i);
         JsonDataHelper.saveJson(filename, list);
-        return 1;
+        return str;
       }
     }
-    return 0;
+    return null;
   }
 }
