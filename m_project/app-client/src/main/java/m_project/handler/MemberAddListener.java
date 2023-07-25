@@ -14,7 +14,6 @@ public class MemberAddListener implements MemberActionListener{
   @Override
   public void service(BreadcrumbPrompt prompt){
     Member m = new Member();
-    m.setBook_no(Member.userId++);
     m.setB_title(prompt.inputString("도서제목? "));
     m.setAuthor(prompt.inputString("글쓴이? "));
     m.setName(prompt.inputString("이름? "));
