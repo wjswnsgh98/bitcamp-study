@@ -47,6 +47,7 @@ public class ClientApp {
     this.bookDao = new MySQLBookDao(con);
     this.boardDao = new MySQLBoardDao(con);
 
+
     prepareMenu();
   }
 

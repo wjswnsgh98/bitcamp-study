@@ -4,6 +4,9 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 
 public class Book {
+  public static int bookNo = 1;
+
+  private int no;
   private String bookTitle;
   private String author;
   private Timestamp rentalDate;
@@ -12,8 +15,9 @@ public class Book {
 
   public Book() {}
 
-  public Book(String name) {
+  public Book(String name, int no) {
     this.name = name;
+    this.no = no;
   }
 
   public boolean equals(Object obj) {
@@ -32,6 +36,14 @@ public class Book {
     }
 
     return true;
+  }
+
+  public int getNo() {
+    return no;
+  }
+
+  public void setNo(int no) {
+    this.no = no;
   }
 
   public String getBookTitle() {
