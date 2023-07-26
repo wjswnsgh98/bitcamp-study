@@ -26,7 +26,7 @@ alter table project_book
   add constraint primary key (name);
   
 UPDATE project_book
-  SET return_date = rental_date + INTERVAL 5 DAY;
+  SET return_date = rental_date + INTERVAL 7 DAY;
   
 create table project_member(
   member_no int not null,

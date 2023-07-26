@@ -1,6 +1,7 @@
 package project.vo;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 
 public class Book {
   public static int bookNo = 1;
@@ -65,6 +66,15 @@ public class Book {
     return rentalDate;
   }
 
+  //  public void setRentalDate(Timestamp rentalDate) {
+  //    this.rentalDate = rentalDate;
+  //    // rentalDate로부터 7일 후의 returnDate를 계산합니다.
+  //    Calendar calendar = Calendar.getInstance();
+  //    calendar.setTime(rentalDate);
+  //    calendar.add(Calendar.DAY_OF_MONTH, 7);
+  //    this.returnDate = new Timestamp(calendar.getTimeInMillis());
+  //  }
+
   public void setRentalDate(Timestamp rentalDate) {
     this.rentalDate = rentalDate;
   }
@@ -73,8 +83,12 @@ public class Book {
     return returnDate;
   }
 
-  public void setReturnDate(Timestamp returnDate) {
-    this.returnDate = returnDate;
+  public void setReturnDate(Timestamp rentaldate) {
+    // rentalDate로부터 7일 후의 returnDate를 계산합니다.
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(rentalDate);
+    calendar.add(Calendar.DAY_OF_MONTH, 7);
+    this.returnDate = new Timestamp(calendar.getTimeInMillis());
   }
 
   public String getName() {

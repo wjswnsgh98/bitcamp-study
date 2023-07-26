@@ -64,7 +64,7 @@ public class MySQLBookDao implements BookDao{
         ResultSet rs = stmt.executeQuery(
             "select booktitle, author, name, rental_date, return_date"
                 + " from project_book"
-                + " where name=name"
+                + " where name=" + str
                 + " order by name desc")) {
 
       if (rs.next()) {

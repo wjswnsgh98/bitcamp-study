@@ -19,7 +19,7 @@ public class MySQLBoardDao implements BoardDao {
     try (Statement stmt = con.createStatement()) {
 
       stmt.executeUpdate(String.format(
-          "insert into project_board(title,content,writer,password,category)"
+          "insert into project_board(title,content,writer,password)"
               + " values('%s','%s','%s','%s')",
               board.getTitle(),
               board.getContent(),

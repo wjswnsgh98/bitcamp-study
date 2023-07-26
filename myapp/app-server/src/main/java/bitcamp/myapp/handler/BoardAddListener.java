@@ -6,12 +6,15 @@ import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
+import bitcamp.util.DataSource;
 
 public class BoardAddListener implements ActionListener{
   BoardDao boardDao;
+  DataSource ds;
 
-  public BoardAddListener(BoardDao boardDao) {
+  public BoardAddListener(BoardDao boardDao, DataSource ds) {
     this.boardDao = boardDao;
+    this.ds = ds;
   }
 
   public void service(BreadcrumbPrompt prompt) throws IOException{
@@ -19,6 +22,21 @@ public class BoardAddListener implements ActionListener{
     board.setTitle(prompt.inputString("제목? "));
     board.setContent(prompt.inputString("내용? "));
     board.setWriter((Member) prompt.getAttribute("loginUser"));
-    boardDao.insert(board);
+
+    try {
+      boardDao.insert(board);
+      Thread.sleep(5000);
+
+      boardDao.insert(board);
+      Thread.sleep(5000);
+
+      boardDao.insert(board);
+      Thread.sleep(5000);
+
+      ds.getConnection().commit();
+    } catch (Exception e) {
+      try{ds.getConnection().rollback();} catch (Exception e2) {}
+      throw new RuntimeException(e);
+    }
   }
 }
