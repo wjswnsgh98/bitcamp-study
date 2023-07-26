@@ -1,10 +1,10 @@
 package project.vo;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
-public class Board implements Serializable, AutoIncrement{
+public class Board implements Serializable{
   private static final long serialVersionUID = 1L;
-  public static int boardNo = 1;
 
   private int no;
   private String title;
@@ -12,19 +12,12 @@ public class Board implements Serializable, AutoIncrement{
   private String writer;
   private String password;
   private int viewCount;
-  private long createdDate;
+  private Timestamp createdDate;
 
   public Board() {}
 
   public Board(int no) {
     this.no = no;
-  }
-
-  @Override
-  public void updateKey() {
-    if (Board.boardNo <= this.no) {
-      Board.boardNo = this.no + 1;
-    }
   }
 
   public boolean equals(Object obj) {
@@ -85,11 +78,11 @@ public class Board implements Serializable, AutoIncrement{
     this.viewCount = viewCount;
   }
 
-  public long getCreatedDate() {
+  public Timestamp getCreatedDate() {
     return createdDate;
   }
 
-  public void setCreatedDate(long createdDate) {
+  public void setCreatedDate(Timestamp createdDate) {
     this.createdDate = createdDate;
   }
 

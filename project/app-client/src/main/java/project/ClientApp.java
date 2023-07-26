@@ -1,13 +1,13 @@
 package project;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.Socket;
-import net.RequestEntity;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import project.dao.BoardDao;
 import project.dao.BookDao;
-import project.dao.DaoBuilder;
 import project.dao.MemberDao;
+import project.dao.MySQLBoardDao;
+import project.dao.MySQLBookDao;
+import project.dao.MySQLMemberDao;
 import project.handler.BoardAddListener;
 import project.handler.BoardDeleteListener;
 import project.handler.BoardDetailListener;
@@ -31,10 +31,6 @@ import util.Menu;
 import util.MenuGroup;
 
 public class ClientApp {
-  Socket socket;
-  DataOutputStream out;
-  DataInputStream in;
-
   MemberDao memberDao;
   BookDao bookDao;
   BoardDao boardDao;
@@ -44,24 +40,19 @@ public class ClientApp {
   MenuGroup mainMenu = new MenuGroup("메인");
 
   public ClientApp(String ip, int port) throws Exception{
-    this.socket = new Socket(ip, port);
-    this.out = new DataOutputStream(socket.getOutputStream());
-    this.in = new DataInputStream(socket.getInputStream());
+    Connection con = DriverManager.getConnection(
+        "jdbc:mysql://study:1111@localhost:3306/projectdb"); // JDBC URL
 
-    DaoBuilder daoBuilder = new DaoBuilder(in, out);
+    this.memberDao = new MySQLMemberDao(con);
+    this.bookDao = new MySQLBookDao(con);
+    this.boardDao = new MySQLBoardDao(con);
 
-    this.memberDao = daoBuilder.build("member", MemberDao.class);
-    this.bookDao = daoBuilder.build("book", BookDao.class);
-    this.boardDao = daoBuilder.build("board", BoardDao.class);
 
     prepareMenu();
   }
 
   public void close() throws Exception {
     prompt.close();
-    out.close();
-    in.close();
-    socket.close();
   }
 
   public static void main(String[] args) throws Exception {
@@ -83,14 +74,6 @@ public class ClientApp {
   public void execute() {
     printTitle();
     mainMenu.execute(prompt);
-
-    try {
-      out.writeUTF(new RequestEntity().command("quit").toJson());
-
-    } catch (Exception e) {
-      System.out.println("종료 오류!");
-      e.printStackTrace();
-    }
   }
 
   private void prepareMenu() {

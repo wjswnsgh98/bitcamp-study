@@ -1,23 +1,22 @@
 package project.vo;
 
+import java.sql.Timestamp;
+
 public class Book {
   public static int bookNo = 1;
 
   private int no;
   private String bookTitle;
   private String author;
-  private long rentalDate;
-  private long returnDate;
+  private Timestamp rentalDate;
+  private Timestamp returnDate;
   private String name;
 
-  public Book() {
-    this.no = bookNo++;
-    this.rentalDate = System.currentTimeMillis();
-    this.returnDate = this.rentalDate + (5 * 24 * 60 * 60 * 1000); // 5일을 밀리초로 변환하여 더합니다.
-  }
+  public Book() {}
 
-  public Book(String name) {
+  public Book(String name, int no) {
     this.name = name;
+    this.no = no;
   }
 
   public boolean equals(Object obj) {
@@ -62,19 +61,19 @@ public class Book {
     this.author = author;
   }
 
-  public long getRentalDate() {
+  public Timestamp getRentalDate() {
     return rentalDate;
   }
 
-  public void setRentalDate(long rentalDate) {
+  public void setRentalDate(Timestamp rentalDate) {
     this.rentalDate = rentalDate;
   }
 
-  public long getReturnDate() {
+  public Timestamp getReturnDate() {
     return returnDate;
   }
 
-  public void setReturnDate(long returnDate) {
+  public void setReturnDate(Timestamp returnDate) {
     this.returnDate = returnDate;
   }
 

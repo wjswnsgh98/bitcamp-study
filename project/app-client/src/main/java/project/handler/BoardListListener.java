@@ -1,7 +1,5 @@
 package project.handler;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import project.dao.BoardDao;
 import project.vo.Board;
@@ -23,8 +21,8 @@ public class BoardListListener implements ActionListener{
 
     List<Board> list = boardDao.list();
 
-    // 조회수를 기준으로 내림차순으로 리스트를 정렬합니다.
-    Collections.sort(list, Comparator.comparingInt(Board::getViewCount).reversed());
+    //    // 조회수를 기준으로 내림차순으로 리스트를 정렬합니다.
+    //    Collections.sort(list, Comparator.comparingInt(Board::getViewCount).reversed());
 
     // 정렬된 순서대로 게시물을 출력합니다.
     for (Board board : list) {

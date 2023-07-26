@@ -2,10 +2,8 @@ package project.vo;
 
 import java.io.Serializable;
 
-public class Member implements Serializable, AutoIncrement {
+public class Member implements Serializable{
   private static final long serialVersionUID = 1L;
-
-  public static int userId = 1;
 
   public static final char MALE = 'M';
   public static final char FEMALE = 'W';
@@ -20,13 +18,6 @@ public class Member implements Serializable, AutoIncrement {
 
   public Member(int no) {
     this.no = no;
-  }
-
-  @Override
-  public void updateKey() {
-    if (Member.userId <= this.no) {
-      Member.userId = this.no + 1;
-    }
   }
 
   public boolean equals(Object obj) {
