@@ -22,12 +22,12 @@ public class BoardListListener implements ActionListener{
     prompt.println("번호, 제목, 작성자, 조회수, 등록일");
     prompt.println("---------------------------------------");
 
-    List<Board> list = boardDao.list();
+    List<Board> list = boardDao.findAll();
     for (Board board : list) {
       prompt.printf("%d, %s, %s, %d, %s\n",
           board.getNo(),
           board.getTitle(),
-          board.getWriter().getName(),
+          "테스트", //board.getWriter().getName(),
           board.getViewCount(),
           dateFormatter.format(board.getCreatedDate()));
     }
