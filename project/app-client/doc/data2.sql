@@ -14,30 +14,30 @@ insert into project_member(member_no, name, email, password, gender)
   
 -- project_book 테이블 예제 데이터
 insert into project_book(booktitle, author, name)
-  values('노인과바다', 'a', 'aa');
+  values('노인과바다', 'a', 'aaa');
 insert into project_book(booktitle, author, name)
-  values('노인과바다', 'a', 'bb');
+  values('노인과바다', 'a', 'bbb');
 insert into project_book(booktitle, author, name)
-  values('멈추지않는도전', 'b', 'cc');
+  values('멈추지않는도전', 'b', 'ccc');
 insert into project_book(booktitle, author, name)
-  values('멈추지않는도전', 'b', 'dd');
+  values('멈추지않는도전', 'b', 'ddd');
 insert into project_book(booktitle, author, name)
-  values('챔스', 'c', 'ee');
+  values('챔스', 'c', 'eee');
 insert into project_book(booktitle, author, name)
-  values('챔스', 'c', 'ff');
+  values('챔스', 'c', 'fff');
 
 -- project_board 테이블 예제 데이터
 insert into project_board(board_no, title, content, writer, password)
-  values(11, '제목1', '내용', '홍길동', '1111');
+  values(11, '제목1', '내용', 'aaa', '1111');
 insert into project_board(board_no, title, content, writer, password)
-  values(12, '제목2', '내용', '임꺽정', '1111');
+  values(12, '제목2', '내용', 'bbb', '1111');
 insert into project_board(board_no, title, content, writer, password)
-  values(13, '제목3', '내용', '유관순', '1111');
+  values(13, '제목3', '내용', 'ccc', '1111');
 insert into project_board(board_no, title, content, writer, password)
-  values(14, '제목4', '내용', '이순신', '1111');
+  values(14, '제목4', '내용', 'ddd', '1111');
 insert into project_board(board_no, title, content, writer, password)
-  values(15, '제목5', '내용', '윤봉길', '1111');
+  values(15, '제목5', '내용', 'eee', '1111');
 insert into project_board(board_no, title, content, writer, password)
-  values(16, '제목6', '내용', '안중근', '1111');
+  values(16, '제목6', '내용', 'fff', '1111');
 insert into project_board(board_no, title, content, writer, password)
-  values(17, '제목7', '내용', '김구', '1111');
+  values(17, '제목7', '내용', 'eee', '1111');

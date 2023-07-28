@@ -1,4 +1,6 @@
 drop table project_book;
+drop table project_member;
+drop table project_board;
 
 create table project_board(
   board_no int not null,
@@ -33,12 +35,21 @@ create table project_member(
   name varchar(20) not null,
   email varchar(50) not null,
   password varchar(100) not null,
-  gender char(1) not null
+  gender char(1) not null,
+  created_date date default (current_date())
 );
 
 alter table project_member
   add constraint primary key (member_no),
   modify column member_no int not null auto_increment;
+  
+-- 게시판 작성자에 대해 외부키 설정
+alter table project_board
+  add constraint project_board_fk foreign key (writer) references project_member (member_no);
+  
+-- 도서 대여자 이름에 대해 외부키 설정
+alter table project_book
+  add constraint project_book_fk foreign key (name) references project_member (member_no);
   
   
 -- 게시판에 카테고리 컬럼 추가
