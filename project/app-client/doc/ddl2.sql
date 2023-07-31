@@ -6,7 +6,7 @@ create table project_board(
   board_no int not null,
   title varchar(255) not null,
   content text null,
-  writer varchar(20) not null,
+  writer int not null,
   password varchar(100) null,
   view_count int default 0,
   created_date datetime default now()
@@ -17,15 +17,17 @@ alter table project_board
   modify column board_no int not null auto_increment;
   
 create table project_book(
+  book_no int not null,
   booktitle varchar(255) not null,
   author varchar(20) not null,
-  name varchar(20) not null,
+  name int not null,
   rental_date datetime default now(),
   return_date datetime
 );
 
 alter table project_book
-  add constraint primary key (name);
+  add constraint primary key (book_no),
+  modify column book_no int not null auto_increment;
   
 UPDATE project_book
   SET return_date = rental_date + INTERVAL 7 DAY;

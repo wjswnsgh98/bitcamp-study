@@ -13,31 +13,31 @@ insert into project_member(member_no, name, email, password, gender)
   values(6, 'fff', 'fff@test.com', '1111', 'M');
   
 -- project_book 테이블 예제 데이터
-insert into project_book(booktitle, author, name)
-  values('노인과바다', 'a', 'aaa');
-insert into project_book(booktitle, author, name)
-  values('노인과바다', 'a', 'bbb');
-insert into project_book(booktitle, author, name)
-  values('멈추지않는도전', 'b', 'ccc');
-insert into project_book(booktitle, author, name)
-  values('멈추지않는도전', 'b', 'ddd');
-insert into project_book(booktitle, author, name)
-  values('챔스', 'c', 'eee');
-insert into project_book(booktitle, author, name)
-  values('챔스', 'c', 'fff');
+insert into project_book(book_no, booktitle, author, name)
+  values(21, '노인과바다', 'a', 1);
+insert into project_book(book_no, booktitle, author, name)
+  values(22, '노인과바다', 'a', 2);
+insert into project_book(book_no, booktitle, author, name)
+  values(23, '멈추지않는도전', 'b', 3);
+insert into project_book(book_no, booktitle, author, name)
+  values(24, '멈추지않는도전', 'b', 4);
+insert into project_book(book_no, booktitle, author, name)
+  values(25, '챔스', 'c', 5);
+insert into project_book(book_no, booktitle, author, name)
+  values(26, '챔스', 'c', 6);
 
 -- project_board 테이블 예제 데이터
 insert into project_board(board_no, title, content, writer, password)
-  values(11, '제목1', '내용', 'aaa', '1111');
+  values(11, '제목1', '내용', 1, '1111');
 insert into project_board(board_no, title, content, writer, password)
-  values(12, '제목2', '내용', 'bbb', '1111');
+  values(12, '제목2', '내용', 1, '1111');
 insert into project_board(board_no, title, content, writer, password)
-  values(13, '제목3', '내용', 'ccc', '1111');
+  values(13, '제목3', '내용', 3, '1111');
 insert into project_board(board_no, title, content, writer, password)
-  values(14, '제목4', '내용', 'ddd', '1111');
+  values(14, '제목4', '내용', 4, '1111');
 insert into project_board(board_no, title, content, writer, password)
-  values(15, '제목5', '내용', 'eee', '1111');
+  values(15, '제목5', '내용', 5, '1111');
 insert into project_board(board_no, title, content, writer, password)
-  values(16, '제목6', '내용', 'fff', '1111');
+  values(16, '제목6', '내용', 5, '1111');
 insert into project_board(board_no, title, content, writer, password)
-  values(17, '제목7', '내용', 'eee', '1111');
+  values(17, '제목7', '내용', 5, '1111');

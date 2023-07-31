@@ -9,7 +9,7 @@ public class Board implements Serializable{
   private int no;
   private String title;
   private String content;
-  private String writer;
+  private Member writer;
   private String password;
   private int viewCount;
   private Timestamp createdDate;
@@ -62,11 +62,11 @@ public class Board implements Serializable{
     this.content = content;
   }
 
-  public String getWriter() {
+  public Member getWriter() {
     return writer;
   }
 
-  public void setWriter(String writer) {
+  public void setWriter(Member writer) {
     this.writer = writer;
   }
 

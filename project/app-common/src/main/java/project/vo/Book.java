@@ -1,19 +1,23 @@
 package project.vo;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Objects;
 
-public class Book {
+public class Book implements Serializable{
+  private static final long serialVersionUID = 1L;
+
+  private int no;
   private String bookTitle;
   private String author;
   private Timestamp rentalDate;
   private Timestamp returnDate;
-  private String name;
+  private Member name;
 
-  public Book() {}
-
-  public Book(String name) {
-    this.name = name;
+  @Override
+  public int hashCode() {
+    return Objects.hash(no);
   }
 
   public boolean equals(Object obj) {
@@ -32,6 +36,14 @@ public class Book {
     }
 
     return true;
+  }
+
+  public int getNo() {
+    return no;
+  }
+
+  public void setNo(int no) {
+    this.no = no;
   }
 
   public String getBookTitle() {
@@ -70,11 +82,11 @@ public class Book {
     this.returnDate = new Timestamp(calendar.getTimeInMillis());
   }
 
-  public String getName() {
+  public Member getName() {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(Member name) {
     this.name = name;
   }
 }

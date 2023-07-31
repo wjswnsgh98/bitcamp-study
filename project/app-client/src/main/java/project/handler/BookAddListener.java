@@ -2,6 +2,7 @@ package project.handler;
 
 import project.dao.BookDao;
 import project.vo.Book;
+import project.vo.Member;
 import util.ActionListener;
 import util.BreadcrumbPrompt;
 
@@ -43,7 +44,10 @@ public class BookAddListener implements ActionListener{
     }
 
     book.setAuthor(prompt.inputString("저자? "));
-    book.setName(prompt.inputString("대여자 이름? "));
+    Member bname = new Member();
+    bname.setNo(prompt.inputInt("대여자 이름? "));
+    book.setName(bname);
+
     bookDao.insert(book);
   }
 }

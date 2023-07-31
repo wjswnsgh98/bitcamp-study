@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import project.vo.Board;
+import project.vo.Member;
 
 public class MySQLBoardDao implements BoardDao {
   Connection con;
@@ -22,7 +23,7 @@ public class MySQLBoardDao implements BoardDao {
 
       stmt.setString(1, board.getTitle());
       stmt.setString(2, board.getContent());
-      stmt.setString(3, board.getWriter());
+      stmt.setInt(3, board.getWriter().getNo());
       stmt.setString(4, board.getPassword());
 
       stmt.executeUpdate();
@@ -45,9 +46,13 @@ public class MySQLBoardDao implements BoardDao {
           Board b = new Board();
           b.setNo(rs.getInt("board_no"));
           b.setTitle(rs.getString("title"));
-          b.setWriter(rs.getString("writer"));
           b.setViewCount(rs.getInt("view_count"));
           b.setCreatedDate(rs.getTimestamp("created_date"));
+
+          Member writer = new Member();
+          writer.setNo(rs.getInt("member_no"));
+          writer.setName(rs.getString("name"));
+          b.setWriter(writer);
 
           list.add(b);
         }
@@ -75,9 +80,13 @@ public class MySQLBoardDao implements BoardDao {
           b.setNo(rs.getInt("board_no"));
           b.setTitle(rs.getString("title"));
           b.setContent(rs.getString("content"));
-          b.setWriter(rs.getString("writer"));
           b.setViewCount(rs.getInt("view_count"));
           b.setCreatedDate(rs.getTimestamp("created_date"));
+
+          Member writer = new Member();
+          writer.setNo(rs.getInt("member_no"));
+          writer.setName(rs.getString("name"));
+          b.setWriter(writer);
 
           stmt.executeUpdate("update project_board set"
               + " view_count=view_count + 1"
