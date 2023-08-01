@@ -7,14 +7,14 @@ import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
+import bitcamp.util.Component;
 
+@Component("/board/delete")
 public class BoardDeleteListener implements ActionListener{
-  int category;
   BoardDao boardDao;
   SqlSessionFactory sqlSessionFactory;
 
-  public BoardDeleteListener(int category, BoardDao boardDao, SqlSessionFactory sqlSessionFactory) {
-    this.category = category;
+  public BoardDeleteListener(BoardDao boardDao, SqlSessionFactory sqlSessionFactory) {
     this.boardDao = boardDao;
     this.sqlSessionFactory = sqlSessionFactory;
   }
@@ -23,7 +23,7 @@ public class BoardDeleteListener implements ActionListener{
     Board b = new Board();
     b.setNo(prompt.inputInt("번호? "));
     b.setWriter((Member) prompt.getAttribute("loginUser"));
-    b.setCategory(category);
+    b.setCategory(Integer.parseInt((String) prompt.getAttribute("category")));
 
     if (boardDao.delete(b) == 0) {
       prompt.println("해당 번호의 게시글이 없거나 삭제 권한이 없습니다.");

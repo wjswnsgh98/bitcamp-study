@@ -39,7 +39,7 @@ public class MySQLBookDao implements BookDao{
   public List<Book> list() {
     try (PreparedStatement stmt = con.prepareStatement(
         "select book.booktitle, book.author, book.rental_date, book.return_date,"
-            + "m.member_no, m.name"
+            + " m.member_no, m.name"
             + " from project_book book inner join project_member m on book.name=m.member_no"
             + " order by name desc")) {
 
@@ -72,7 +72,7 @@ public class MySQLBookDao implements BookDao{
     try (PreparedStatement stmt = con.prepareStatement(
         "select book.booktitle, book.author, book.rental_date, book.return_date, m.member_no, m.name"
             + " from project_book book inner join project_member m on book.name=m.member_no"
-            + " where name=?"
+            + " where m.name=?"
             + " order by name desc")) {
 
       stmt.setString(1, str);
@@ -100,11 +100,27 @@ public class MySQLBookDao implements BookDao{
   }
 
   @Override
-  public int delete(String str) {
+  public int delete(Book book) {
     try (PreparedStatement stmt = con.prepareStatement("delete from project_book where name=?")) {
-      stmt.setString(1, str);
+      stmt.setInt(1, book.getName().getNo());
       return stmt.executeUpdate();
 
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  public int findMemberNoByName(String name) {
+    try (PreparedStatement stmt = con.prepareStatement("select member_no from project_member"
+        + " where name=?")) {
+      stmt.setString(1, name);
+      try (ResultSet rs = stmt.executeQuery()) {
+        if (rs.next()) {
+          return rs.getInt("member_no");
+        }
+        return -1; // 대여자 이름으로 대여자 번호를 찾지 못한 경우
+      }
     } catch (Exception e) {
       throw new RuntimeException(e);
     }

@@ -15,6 +15,11 @@ public class Book implements Serializable{
   private Timestamp returnDate;
   private Member name;
 
+  //기본 생성자
+  public Book() {
+    this.name = new Member(); // Member 객체를 생성하여 초기화
+  }
+
   @Override
   public int hashCode() {
     return Objects.hash(no);

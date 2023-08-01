@@ -22,7 +22,7 @@ public class BookListListener implements ActionListener{
     List<Book> list = bookDao.list();
 
     for (Book book : list) {
-      System.out.printf("%s, %s, %d, %tY-%4$tm-%4$td, %tY-%5$tm-%5$td\n",
+      System.out.printf("%s, %s, %s, %tY-%4$tm-%4$td, %tY-%5$tm-%5$td\n",
           book.getBookTitle(),
           book.getAuthor(),
           book.getName().getName(),

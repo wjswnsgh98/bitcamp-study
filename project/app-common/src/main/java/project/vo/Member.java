@@ -20,6 +20,12 @@ public class Member implements Serializable{
     this.no = no;
   }
 
+  //int와 String을 매개변수로 받는 생성자
+  public Member(int no, String name) {
+    this.no = no;
+    this.name = name;
+  }
+
   public boolean equals(Object obj) {
     if (obj == null) {
       return false;
