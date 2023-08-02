@@ -168,7 +168,6 @@ public class ApplicationContext {
         // @Component 애노테이션이 붙지 않았다면 객체 생성 대상에서 제외한다.
         continue;
       }
-      System.out.println(clazz.getName());
 
       // - 클래스 정보를 가지고 클래스의 생성자를 알아낸다.
       Constructor<?> constructor = clazz.getConstructors()[0];
@@ -181,7 +180,6 @@ public class ApplicationContext {
 
       // - 준비한 아규먼트를 가지고 생성자를 통해 객체를 생성한다.
       Object obj = constructor.newInstance(args);
-      System.out.println(obj + "asdadadada");
 
       // - 생성된 객체를 컨테이너에 저장한다.
       if (compAnno.value().length() > 0) {
