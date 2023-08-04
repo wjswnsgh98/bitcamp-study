@@ -1,17 +1,15 @@
-package bitcamp.myapp.handler;
+package project.handler;
 
-import java.io.IOException;
-import bitcamp.myapp.vo.Member;
-import bitcamp.util.ActionListener;
-import bitcamp.util.BreadcrumbPrompt;
+import project.vo.Member;
+import util.ActionListener;
+import util.BreadcrumbPrompt;
 
 public interface MemberActionListener extends ActionListener{
-
-  static char inputGender(char gender, BreadcrumbPrompt prompt) throws IOException{
+  static char inputGender(char gender, BreadcrumbPrompt prompt) {
     String label;
-    if(gender == 0){
+    if (gender == 0) {
       label = "성별?\n";
-    } else{
+    } else {
       label = String.format("성별(%s)?\n", gender == 'M' ? "남성" : "여성");
     }
 
@@ -27,7 +25,7 @@ public interface MemberActionListener extends ActionListener{
         case "2":
           return Member.FEMALE;
         default:
-          prompt.println("무효한 번호입니다.");
+          System.out.println("무효한 번호입니다.");
       }
     }
   }

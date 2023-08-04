@@ -1,6 +1,6 @@
 drop table project_book;
-drop table project_member;
 drop table project_board;
+drop table project_member;
 
 create table project_board(
   board_no int not null,
@@ -28,9 +28,6 @@ create table project_book(
 alter table project_book
   add constraint primary key (book_no),
   modify column book_no int not null auto_increment;
-  
-UPDATE project_book
-  SET return_date = rental_date + INTERVAL 7 DAY;
   
 create table project_member(
   member_no int not null,

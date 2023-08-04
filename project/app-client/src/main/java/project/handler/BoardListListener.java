@@ -28,8 +28,12 @@ public class BoardListListener implements ActionListener{
 
     // 정렬된 순서대로 게시물을 출력합니다.
     for (Board board : list) {
-      System.out.printf("%d, %s, %s, %d, %s\n", board.getNo(), board.getTitle(),
-          board.getWriter(), board.getViewCount(), dateFormatter.format(board.getCreatedDate()));
+      System.out.printf("%d, %s, %s, %d, %s\n",
+          board.getNo(),
+          board.getTitle(),
+          board.getWriter().getName(),
+          board.getViewCount(),
+          dateFormatter.format(board.getCreatedDate()));
     }
   }
 }

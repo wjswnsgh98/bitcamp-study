@@ -21,16 +21,20 @@ import project.handler.BookViewListener;
 import project.handler.FooterListener;
 import project.handler.HeaderListener;
 import project.handler.HelloListener;
+import project.handler.LoginListener;
 import project.handler.MemberAddListener;
 import project.handler.MemberDeleteListener;
 import project.handler.MemberDetailListener;
 import project.handler.MemberListListener;
 import project.handler.MemberUpdateListener;
+import project.vo.Member;
 import util.BreadcrumbPrompt;
 import util.Menu;
 import util.MenuGroup;
 
 public class ClientApp {
+  public static Member loginUser;
+
   MemberDao memberDao;
   BookDao bookDao;
   BoardDao boardDao;
@@ -72,6 +76,7 @@ public class ClientApp {
 
   public void execute() {
     printTitle();
+    new LoginListener(memberDao).service(prompt);
     mainMenu.execute(prompt);
   }
 

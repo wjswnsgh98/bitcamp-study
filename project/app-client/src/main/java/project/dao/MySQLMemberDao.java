@@ -61,7 +61,7 @@ public class MySQLMemberDao implements MemberDao {
   @Override
   public Member findBy(int no) {
     try (PreparedStatement stmt = con.prepareStatement(
-        "select member_no, name, email, gender"
+        "select member_no, name, email, gender, created_date"
             + " from project_member"
             + " where member_no=?")) {
 
@@ -74,6 +74,35 @@ public class MySQLMemberDao implements MemberDao {
           m.setName(rs.getString("name"));
           m.setEmail(rs.getString("email"));
           m.setGender(rs.getString("gender").charAt(0));
+          m.setCreatedDate(rs.getDate("created_date"));
+          return m;
+        }
+        return null;
+      }
+
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  public Member findByEmailAndPassword(Member param) {
+    try (PreparedStatement stmt = con.prepareStatement(
+        "select member_no, name, email, gender, created_date"
+            + " from project_member"
+            + " where email=? and password=sha1(?)")) {
+
+      stmt.setString(1, param.getEmail());
+      stmt.setString(2, param.getPassword());
+
+      try (ResultSet rs = stmt.executeQuery()) {
+        if (rs.next()) {
+          Member m = new Member();
+          m.setNo(rs.getInt("member_no"));
+          m.setName(rs.getString("name"));
+          m.setEmail(rs.getString("email"));
+          m.setGender(rs.getString("gender").charAt(0));
+          m.setCreatedDate(rs.getDate("created_date"));
           return m;
         }
         return null;

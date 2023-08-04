@@ -1,8 +1,8 @@
 package project.handler;
 
+import project.ClientApp;
 import project.dao.BoardDao;
 import project.vo.Board;
-import project.vo.Member;
 import util.ActionListener;
 import util.BreadcrumbPrompt;
 
@@ -18,12 +18,8 @@ public class BoardAddListener implements ActionListener{
     Board board = new Board();
     board.setTitle(prompt.inputString("제목? "));
     board.setContent(prompt.inputString("내용? "));
+    board.setWriter(ClientApp.loginUser);
 
-    Member writer = new Member();
-    writer.setNo(prompt.inputInt("작성자? "));
-    board.setWriter(writer);
-
-    board.setPassword(prompt.inputString("암호? "));
     boardDao.insert(board);
   }
 }

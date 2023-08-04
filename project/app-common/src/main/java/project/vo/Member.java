@@ -1,6 +1,7 @@
 package project.vo;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 public class Member implements Serializable{
   private static final long serialVersionUID = 1L;
@@ -13,6 +14,7 @@ public class Member implements Serializable{
   private String email;
   private String password;
   private char gender;
+  private Date createdDate;
 
   public Member() {}
 
@@ -69,5 +71,13 @@ public class Member implements Serializable{
   }
   public void setGender(char gender) {
     this.gender = gender;
+  }
+
+  public Date getCreatedDate() {
+    return createdDate;
+  }
+
+  public void setCreatedDate(Date createdDate) {
+    this.createdDate = createdDate;
   }
 }

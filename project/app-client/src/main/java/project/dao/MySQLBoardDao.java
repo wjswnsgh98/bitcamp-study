@@ -36,8 +36,8 @@ public class MySQLBoardDao implements BoardDao {
   @Override
   public List<Board> list() {
     try (PreparedStatement stmt = con.prepareStatement(
-        "select board_no, title, writer, view_count, created_date"
-            + " from project_board"
+        "select b.board_no, b.title, b.writer, b.view_count, b.created_date, m.member_no, m.name"
+            + " from project_board b inner join project_member m on b.writer=m.member_no"
             + " order by view_count desc")) {
 
       try(ResultSet rs = stmt.executeQuery()){
@@ -67,10 +67,10 @@ public class MySQLBoardDao implements BoardDao {
   @Override
   public Board findBy(int no) {
     try (PreparedStatement stmt = con.prepareStatement(
-        "select board_no, title, content, writer, view_count, created_date"
-            + " from project_board"
-            + " where board_no=?"
-            + " order by board_no desc")) {
+        "select b.board_no, b.title, b.content, b.writer, b.view_count, b.created_date,"
+            + " m.member_no, m.name"
+            + " from project_board b inner join project_member m on b.writer=m.member_no"
+            + " where board_no=?")) {
 
       stmt.setInt(1, no);
 
@@ -108,12 +108,12 @@ public class MySQLBoardDao implements BoardDao {
         "update project_board set"
             + " title=?,"
             + " content=?"
-            + " where board_no=? and password=sha1(?)")) {
+            + " where board_no=? and and writer=?")) {
 
       stmt.setString(1, board.getTitle());
       stmt.setString(2, board.getContent());
       stmt.setInt(3, board.getNo());
-      stmt.setString(4, board.getPassword());
+      stmt.setInt(4, board.getWriter().getNo());
 
       return stmt.executeUpdate();
 
@@ -125,10 +125,10 @@ public class MySQLBoardDao implements BoardDao {
   @Override
   public int delete(Board board) {
     try (PreparedStatement stmt = con.prepareStatement(
-        "delete from project_board where board_no=? and password=sha1(?)")) {
+        "delete from project_board where board_no=? and writer=?")) {
 
       stmt.setInt(1, board.getNo());
-      stmt.setString(2, board.getPassword());
+      stmt.setInt(2, board.getWriter().getNo());
 
       return stmt.executeUpdate();
 
