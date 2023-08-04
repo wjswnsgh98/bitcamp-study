@@ -1,0 +1,1 @@
+# src/servlet-app/resources
