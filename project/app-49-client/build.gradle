@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-        // 서브 프로젝트의 클래스를 사용하기
+    // 서브 프로젝트의 클래스를 사용하기
     implementation project(':app-common')
     
     // MySQL JDBC Driver
@@ -43,7 +43,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'project.ServerApp'
+    mainClass = 'project.ClientApp'
 }
 
 tasks.named('test') {
@@ -67,7 +67,7 @@ tasks.withType(JavaCompile) {
 // eclipse 프로젝트 이름을 설정하기
 eclipse {
     project {
-        name = "project-server"
+        name = "project-client"
     }
     jdt {
       sourceCompatibility = 17

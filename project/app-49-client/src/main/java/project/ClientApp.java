@@ -1,15 +1,7 @@
 package project;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import net.NetProtocol;
 import project.dao.BoardDao;
 import project.dao.BookDao;
 import project.dao.MemberDao;
@@ -26,36 +18,34 @@ import project.handler.BookDeleteListener;
 import project.handler.BookListListener;
 import project.handler.BookRentListener;
 import project.handler.BookViewListener;
+import project.handler.FooterListener;
+import project.handler.HeaderListener;
+import project.handler.HelloListener;
 import project.handler.LoginListener;
 import project.handler.MemberAddListener;
 import project.handler.MemberDeleteListener;
 import project.handler.MemberDetailListener;
 import project.handler.MemberListListener;
 import project.handler.MemberUpdateListener;
+import project.vo.Member;
 import util.BreadcrumbPrompt;
 import util.Menu;
 import util.MenuGroup;
 
-public class ServerApp {
-  //자바 스레드풀 준비
-  ExecutorService threadPool = Executors.newFixedThreadPool(10);
+public class ClientApp {
+  public static Member loginUser;
 
-  Connection con;
   MemberDao memberDao;
   BookDao bookDao;
   BoardDao boardDao;
 
+  BreadcrumbPrompt prompt = new BreadcrumbPrompt();
+
   MenuGroup mainMenu = new MenuGroup("메인");
 
-  int port;
-
-  public ServerApp(int port) throws Exception {
-
-    this.port = port;
-
-    con = DriverManager.getConnection(
-        "jdbc:mysql://study:1111@localhost:3306/projectdb" // JDBC URL
-        );
+  public ClientApp(String ip, int port) throws Exception{
+    Connection con = DriverManager.getConnection(
+        "jdbc:mysql://study:1111@localhost:3306/projectdb"); // JDBC URL
 
     this.memberDao = new MySQLMemberDao(con);
     this.bookDao = new MySQLBookDao(con);
@@ -65,51 +55,29 @@ public class ServerApp {
   }
 
   public void close() throws Exception {
-    con.close();
+    prompt.close();
   }
 
   public static void main(String[] args) throws Exception {
-    ServerApp app = new ServerApp(8888);
+    if (args.length < 2) {
+      System.out.println("실행 예) java ... project.ClientApp 서버주소 포트번호");
+      return;
+    }
+
+    ClientApp app = new ClientApp(args[0], Integer.parseInt(args[1]));
     app.execute();
     app.close();
   }
 
-  public void execute() {
-    try (ServerSocket serverSocket = new ServerSocket(this.port)) {
-      System.out.println("서버 실행 중...");
-
-      while (true) {
-        Socket socket = serverSocket.accept();
-        threadPool.execute(() -> processRequest(socket));
-      }
-    } catch (Exception e) {
-      System.out.println("서버 실행 오류!");
-      e.printStackTrace();
-    }
+  static void printTitle(){
+    System.out.println("도서 대여 관리 시스템");
+    System.out.println("----------------------------------");
   }
 
-  private void processRequest(Socket socket) {
-    try (Socket s = socket;
-        DataInputStream in = new DataInputStream(socket.getInputStream());
-        DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
-
-      BreadcrumbPrompt prompt = new BreadcrumbPrompt(in, out);
-
-      InetSocketAddress clientAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
-      System.out.printf("%s 클라이언트 접속함!\n", clientAddress.getHostString());
-
-      out.writeUTF("[나의 목록 관리 시스템]\n"
-          + "-----------------------------------------");
-
-      new LoginListener(memberDao).service(prompt);
-
-      mainMenu.execute(prompt);
-      out.writeUTF(NetProtocol.NET_END);
-
-    } catch (Exception e) {
-      System.out.println("클라이언트 통신 오류!");
-      e.printStackTrace();
-    }
+  public void execute() {
+    printTitle();
+    new LoginListener(memberDao).service(prompt);
+    mainMenu.execute(prompt);
   }
 
   private void prepareMenu() {
@@ -137,10 +105,10 @@ public class ServerApp {
     boardMenu.add(new Menu("삭제", new BoardDeleteListener(boardDao)));
     mainMenu.add(boardMenu);
 
-    //    Menu helloMenu = new Menu("안녕!");
-    //    helloMenu.addActionListener(new HeaderListener());
-    //    helloMenu.addActionListener(new HelloListener());
-    //    helloMenu.addActionListener(new FooterListener());
-    //    mainMenu.add(helloMenu);
+    Menu helloMenu = new Menu("안녕!");
+    helloMenu.addActionListener(new HeaderListener());
+    helloMenu.addActionListener(new HelloListener());
+    helloMenu.addActionListener(new FooterListener());
+    mainMenu.add(helloMenu);
   }
 }
