@@ -1,13 +1,9 @@
 package bitcamp.myapp.handler;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -42,23 +38,5 @@ public class InitServlet extends HttpServlet {
       System.out.println("InitServlet.init() 실행 중 오류 발생!");
       e.printStackTrace();
     }
-  }
-
-  @Override
-  protected void service(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-    out.println("<!DOCTYPE html>");
-    out.println("<html>");
-    out.println("<head>");
-    out.println("<meta charset='UTF-8'>");
-    out.println("<title>준비</title>");
-    out.println("</head>");
-    out.println("<body>");
-    out.println("<h1>애플리케이션 준비</h1>");
-    out.println("<p>애플리케이션을 실행할 준비를 완료했습니다!</p>");
-    out.println("</body>");
-    out.println("</html>");
   }
 }
