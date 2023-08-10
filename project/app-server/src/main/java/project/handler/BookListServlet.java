@@ -25,7 +25,7 @@ public class BookListServlet implements Servlet{
     out.println("<html>");
     out.println("<head>");
     out.println("<meta charset='UTF-8'>");
-    out.println("<title>도서 대여 목록</title>");
+    out.println("<title>도서 대여</title>");
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>도서 대여 목록</h1>");
@@ -40,12 +40,18 @@ public class BookListServlet implements Servlet{
 
     out.println("<tbody>");
     for (Book book : list) {
-      out.printf("<tr> <td>%s</td>, <td>%s</td>, <td>%s</td>, <td>%tY-%4$tm-%4$td</td>, <td>%tY-%5$tm-%5$td</td>\n",
+      out.printf("<tr> <td><a href='/book/view'>%s</a></td>"
+          + " <td>%s</td> <td>%s</td> <td>%tY-%4$tm-%4$td</td> <td>%tY-%5$tm-%5$td</td>\n",
           book.getBookTitle(),
           book.getAuthor(),
           book.getLender().getName(),
           book.getRentalDate(),
           book.getReturnDate());
     }
+    out.println("</tbody>");
+    out.println("</table>");
+    out.println("<a href='/'>메인</a>");
+    out.println("</body>");
+    out.println("</html>");
   }
 }

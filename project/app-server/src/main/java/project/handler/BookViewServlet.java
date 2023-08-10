@@ -32,7 +32,7 @@ public class BookViewServlet implements Servlet{
     out.println("<title>도서 대여</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>도서 대여</h1>");
+    out.println("<h1>도서 대여 조회</h1>");
 
     if(book == null) {
       out.println("<p>해당 도서의 대여자가 없습니다!</p>");

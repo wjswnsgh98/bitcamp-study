@@ -23,7 +23,7 @@ public class BookRentServlet implements Servlet{
     out.println("<html>");
     out.println("<head>");
     out.println("<meta charset='UTF-8'>");
-    out.println("<title>도서</title>");
+    out.println("<title>도서 대여</title>");
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>대여 가능한 도서 목록</h1>");
