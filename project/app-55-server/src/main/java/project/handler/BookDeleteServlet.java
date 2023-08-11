@@ -1,20 +1,20 @@
 package project.handler;
 
-import java.io.IOException;
 import org.apache.ibatis.session.SqlSessionFactory;
 import project.dao.BookDao;
 import project.vo.Book;
 import project.vo.Member;
-import util.ActionListener;
-import util.BreadcrumbPrompt;
 import util.Component;
+import util.HttpServletRequest;
+import util.HttpServletResponse;
+import util.Servlet;
 
 @Component("/book/delete")
-public class BookDeleteListener implements ActionListener{
+public class BookDeleteServlet implements Servlet{
   BookDao bookDao;
   SqlSessionFactory sqlSessionFactory;
 
-  public BookDeleteListener(BookDao bookDao, SqlSessionFactory sqlSessionFactory) {
+  public BookDeleteServlet(BookDao bookDao, SqlSessionFactory sqlSessionFactory) {
     this.bookDao = bookDao;
     this.sqlSessionFactory = sqlSessionFactory;
   }
@@ -22,17 +22,27 @@ public class BookDeleteListener implements ActionListener{
   String[][] BOOKS = BookDao.BOOKS;
 
   @Override
-  public void service(BreadcrumbPrompt prompt) throws IOException{
+  public void service(HttpServletRequest request, HttpServletResponse response) throws Exception{
+    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+    if (loginUser == null) {
+      response.sendRedirect("/auth/form.html");
+      return;
+    }
+
+    String booktitle = request.getParameter("booktitle");
+    String author = request.getParameter("author");
+
     Book book = new Book();
-    book.setLender((Member) prompt.getAttribute("loginUser"));
-    book.setBookTitle(prompt.inputString("도서 제목? "));
-    book.setAuthor(prompt.inputString("저자? "));
+    book.setBookTitle(booktitle);
+    book.setAuthor(author);
+    book.setLender(loginUser);
 
     try {
       if (bookDao.delete(book) == 0) {
-        prompt.println("해당 도서의 대여자가 없거나 삭제 권한이 없습니다!");
+        throw new Exception("<p>해당 도서의 대여자가 없거나 삭제 권한이 없습니다!</p>");
       } else {
-        prompt.println("반납 완료했습니다.");
+        // out.println("<p>반납 완료했습니다.</p>");
+        response.sendRedirect("/book/list");
       }
       sqlSessionFactory.openSession(false).commit();
 

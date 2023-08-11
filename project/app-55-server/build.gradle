@@ -8,9 +8,8 @@
 
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
-    id 'java'
-    id 'eclipse-wtp'
-    id 'war'
+    id 'application'
+    id 'eclipse'
 }
 
 repositories {
@@ -26,13 +25,15 @@ dependencies {
     implementation 'mysql:mysql-connector-java:8.0.33'
 
     // Google JSON 라이브러리
-    // implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.code.gson:gson:2.10.1'
     
     // Mybatis 라이브러리
     implementation 'org.mybatis:mybatis:3.5.13'
     
-    // Servlet API 
-    providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
+    // Reactor Netty 프레임워크
+    implementation platform('io.projectreactor:reactor-bom:2022.0.9') 
+    implementation 'io.projectreactor.netty:reactor-netty-core' 
+    implementation 'io.projectreactor.netty:reactor-netty-http'
     
     // Use JUnit Jupiter for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
@@ -46,6 +47,11 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
     }
+}
+
+application {
+    // Define the main class for the application.
+    mainClass = 'project.ServerApp'
 }
 
 tasks.named('test') {
@@ -76,18 +82,4 @@ eclipse {
       targetCompatibility = 17
       javaRuntimeName = "JavaSE-17"
     }
-    wtp {
-        facet {
-            facet name: 'jst.java', version: '17'
-            //facet name: 'jst.web', version: '4.0'
-        }
-        component {
-            contextPath = '/'
-            //deployName = 'web'
-        }
-    }
-}
-
-war {
-    archiveBaseName = "project"
 }
