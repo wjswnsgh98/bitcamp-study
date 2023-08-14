@@ -1,16 +1,20 @@
 package project.handler;
 
+import java.io.IOException;
 import java.io.PrintWriter;
-import util.Component;
-import util.HttpServletRequest;
-import util.HttpServletResponse;
-import util.Servlet;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-@Component("/board/form")
-public class BoardFormServlet implements Servlet {
+@WebServlet("/board/form")
+public class BoardFormServlet extends HttpServlet {
+  private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<!DOCTYPE html>");

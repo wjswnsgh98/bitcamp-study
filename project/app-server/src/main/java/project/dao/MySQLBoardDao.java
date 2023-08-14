@@ -4,9 +4,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import project.vo.Board;
-import util.Component;
 
-@Component
 public class MySQLBoardDao implements BoardDao {
   SqlSessionFactory sqlSessionFactory;
 

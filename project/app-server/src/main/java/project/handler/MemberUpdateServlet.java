@@ -1,26 +1,21 @@
 package project.handler;
 
+import java.io.IOException;
 import java.io.PrintWriter;
-import org.apache.ibatis.session.SqlSessionFactory;
-import project.dao.MemberDao;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import project.vo.Member;
-import util.Component;
-import util.HttpServletRequest;
-import util.HttpServletResponse;
-import util.Servlet;
 
-@Component("/member/update")
-public class MemberUpdateServlet implements Servlet {
-  MemberDao memberDao;
-  SqlSessionFactory sqlSessionFactory;
-
-  public MemberUpdateServlet(MemberDao memberDao, SqlSessionFactory sqlSessionFactory) {
-    this.memberDao = memberDao;
-    this.sqlSessionFactory = sqlSessionFactory;
-  }
+@WebServlet("/member/update")
+public class MemberUpdateServlet extends HttpServlet{
+  private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
     Member member = new Member();
     member.setNo(Integer.parseInt(request.getParameter("no")));
     member.setName(request.getParameter("name"));
@@ -41,14 +36,14 @@ public class MemberUpdateServlet implements Servlet {
     out.println("<h1>회원 변경</h1>");
 
     try {
-      if (memberDao.update(member) == 0) {
+      if (InitServlet.memberDao.update(member) == 0) {
         out.println("<p>회원이 없습니다.</p>");
       } else {
-        sqlSessionFactory.openSession(false).commit();
+        InitServlet.sqlSessionFactory.openSession(false).commit();
         out.println("<p>변경했습니다!</p>");
       }
     } catch (Exception e) {
-      sqlSessionFactory.openSession(false).rollback();
+      InitServlet.sqlSessionFactory.openSession(false).rollback();
       out.println("<p>변경 실패입니다!</p>");
       e.printStackTrace();
     }

@@ -1,22 +1,20 @@
 package project.handler;
 
+import java.io.IOException;
 import java.io.PrintWriter;
-import project.dao.BookDao;
-import util.Component;
-import util.HttpServletRequest;
-import util.HttpServletResponse;
-import util.Servlet;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-@Component("/book/rent")
-public class BookRentServlet implements Servlet{
-  BookDao bookDao;
-
-  public BookRentServlet(BookDao bookDao) {
-    this.bookDao = bookDao;
-  }
+@WebServlet("/book/rent")
+public class BookRentServlet extends HttpServlet{
+  private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(HttpServletRequest request, HttpServletResponse response) throws Exception{
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<!DOCTYPE html>");
@@ -35,11 +33,11 @@ public class BookRentServlet implements Servlet{
     out.println("  <tr><th>대여가능한 도서 제목</th> <th>수량</th></tr>");
     out.println("</thead>");
 
-    String[][] BOOKS = BookDao.BOOKS;
-
-    for (int i = 0; i < BOOKS.length; i++) {
-      out.printf("<tr> <td>%s</td> <td>%s<td></tr>\n", BOOKS[i][0], BOOKS[i][1]);
-    }
+    //    String[][] BOOKS = PredefinedBookData.BOOKS;
+    //
+    //    for (int i = 0; i < BOOKS.length; i++) {
+    //      out.printf("<tr> <td>%s</td> <td>%s<td></tr>\n", BOOKS[i][0], BOOKS[i][1]);
+    //    }
 
     out.println("</tbody>");
     out.println("</table>");

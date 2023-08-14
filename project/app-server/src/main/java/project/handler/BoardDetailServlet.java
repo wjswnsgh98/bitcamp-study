@@ -1,27 +1,22 @@
 package project.handler;
 
+import java.io.IOException;
 import java.io.PrintWriter;
-import org.apache.ibatis.session.SqlSessionFactory;
-import project.dao.BoardDao;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import project.vo.Board;
-import util.Component;
-import util.HttpServletRequest;
-import util.HttpServletResponse;
-import util.Servlet;
 
-@Component("/board/detail")
-public class BoardDetailServlet implements Servlet {
-  BoardDao boardDao;
-  SqlSessionFactory sqlSessionFactory;
-
-  public BoardDetailServlet(BoardDao boardDao, SqlSessionFactory sqlSessionFactory) {
-    this.boardDao = boardDao;
-    this.sqlSessionFactory = sqlSessionFactory;
-  }
+@WebServlet("/board/detail")
+public class BoardDetailServlet extends HttpServlet {
+  private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    Board board = boardDao.findBy(Integer.parseInt(request.getParameter("no")));
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    Board board = InitServlet.boardDao.findBy(Integer.parseInt(request.getParameter("no")));
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -60,11 +55,11 @@ public class BoardDetailServlet implements Servlet {
       out.println("</form>");
       try {
         board.setViewCount(board.getViewCount() + 1);
-        boardDao.updateCount(board);
-        sqlSessionFactory.openSession(false).commit();
+        InitServlet.boardDao.updateCount(board);
+        InitServlet.sqlSessionFactory.openSession(false).commit();
 
       } catch (Exception e) {
-        sqlSessionFactory.openSession(false).rollback();
+        InitServlet.sqlSessionFactory.openSession(false).rollback();
       }
     }
 

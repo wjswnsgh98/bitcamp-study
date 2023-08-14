@@ -7,16 +7,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import project.vo.Member;
 
-@WebServlet("/book/form")
-public class BookFormServlet extends HttpServlet {
+@WebServlet("/index.html")
+public class HomeServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
+    out.println("<!DOCTYPE html>");
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");
@@ -25,12 +28,20 @@ public class BookFormServlet extends HttpServlet {
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>도서 대여</h1>");
-    out.println("<form action='/book/add' method='post'>");
-    out.println("도서 제목 <input type='text' name='booktitle'><br>");
-    out.println("저자 <textarea name='author'></textarea><br>");
-    out.println("<button>등록</button>");
-    out.println("</form>");
+    out.println("<ul>");
+    out.println("  <li><a href='/member/list'>회원</a></li>");
+    out.println("  <li><a href='/book/rent'>도서 대여</a></li>");
+    out.println("  <li><a href='/board/list'>도서 추천 게시판</a></li>");
+
+    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+    if (loginUser == null) {
+      out.println("  <li><a href='/auth/form.html'>로그인</a></li>");
+    } else {
+      out.printf("  <li>%s <a href='/auth/logout'>로그아웃</a></li>", loginUser.getName());
+    }
+    out.println("</ul>");
     out.println("</body>");
     out.println("</html>");
+
   }
 }

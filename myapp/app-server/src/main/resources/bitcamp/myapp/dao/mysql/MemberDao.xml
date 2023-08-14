@@ -6,12 +6,12 @@
 
   <!-- 결과 레코드의 컬럼 값을 자바 객체에 어떻게 담을 것인지 설정한다. -->
   <resultMap type="member" id="memberMap">
-    <id     column="member_no"     property="no"/>
-    <result column="name"        property="name"/>
-    <result column="email"      property="email"/>
-    <result column="password"   property="password"/>
-    <result column="gender"   property="gender"/>
-    <result column="created_date" property="createdDate"/>
+    <id     column="member_no"       property="no"/>
+    <result column="name"          property="name"/>
+    <result column="email"        property="email"/>
+    <result column="password"     property="password"/>
+    <result column="gender"       property="gender"/>
+    <result column="created_date"   property="createdDate"/>
   </resultMap>
 
   <insert id="insert" parameterType="member">
@@ -20,51 +20,51 @@
   </insert>
   
   <select id="findAll" resultMap="memberMap">
-	  select 
-	    member_no,
-	    name,
-	    email
-	  from  
-	    myapp_member
-	  order by
-	    name desc
+    select
+      member_no,
+      name,
+      email
+    from
+      myapp_member 
+    order by
+      name asc
   </select>
   
   <select id="findBy" parameterType="int" resultMap="memberMap">
-  select 
-    member_no,
-    name,
-    email,
-    gender,
-    created_date
-  from  
-    myapp_member
-  where
-    member_no=#{no}
+    select
+      member_no,
+      name,
+      email,
+      gender,
+      created_date
+    from
+      myapp_member
+    where
+      member_no=#{no}
   </select>
   
   <select id="findByEmailAndPassword" parameterType="member" resultMap="memberMap">
-	  select 
-	    member_no,
-	    name,
-	    email,
-	    gender,
-	    created_date
-	  from  
-	    myapp_member
-	  where
-	    email=#{email}
-	    and password=sha1(#{password})
+    select
+      member_no,
+      name,
+      email,
+      gender,
+      created_date
+    from
+      myapp_member
+    where
+      email=#{email}
+      and password=sha1(#{password})
   </select>
   
   <update id="update" parameterType="member">
-    update myapp_member set
-      name=#{name},
-      email=#{email},
-      password=sha1(#{password}),
-      gender=#{gender}
-    where 
-      member_no=#{no}
+	  update myapp_member set
+	    name=#{name},
+	    email=#{email},
+	    password=sha1(#{password}),
+	    gender=#{gender}
+	  where 
+	    member_no=#{no}
   </update>
   
   <delete id="delete" parameterType="int">
@@ -73,3 +73,8 @@
       member_no=#{no}
   </delete>
 </mapper>
+
+
+
+
+

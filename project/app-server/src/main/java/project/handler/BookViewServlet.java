@@ -1,27 +1,22 @@
 package project.handler;
 
+import java.io.IOException;
 import java.io.PrintWriter;
-import org.apache.ibatis.session.SqlSessionFactory;
-import project.dao.BookDao;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import project.vo.Book;
-import util.Component;
-import util.HttpServletRequest;
-import util.HttpServletResponse;
-import util.Servlet;
 
-@Component("/book/view")
-public class BookViewServlet implements Servlet{
-  BookDao bookDao;
-  SqlSessionFactory sqlSessionFactory;
-
-  public BookViewServlet(BookDao bookDao, SqlSessionFactory sqlSessionFactory) {
-    this.bookDao = bookDao;
-    this.sqlSessionFactory = sqlSessionFactory;
-  }
+@WebServlet("/book/view")
+public class BookViewServlet extends HttpServlet{
+  private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(HttpServletRequest request, HttpServletResponse response) throws Exception{
-    Book book = bookDao.findBy(request.getParameter("booktitle"), request.getParameter("author"));
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    Book book = InitServlet.bookDao.findBy(request.getParameter("booktitle"), request.getParameter("author"));
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();

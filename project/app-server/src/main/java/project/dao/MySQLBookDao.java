@@ -6,9 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import project.vo.Book;
-import util.Component;
 
-@Component
 public class MySQLBookDao implements BookDao{
   SqlSessionFactory sqlSessionFactory;
 

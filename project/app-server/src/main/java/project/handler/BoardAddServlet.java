@@ -1,27 +1,22 @@
 package project.handler;
 
+import java.io.IOException;
 import java.io.PrintWriter;
-import org.apache.ibatis.session.SqlSessionFactory;
-import project.dao.BoardDao;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import project.vo.Board;
 import project.vo.Member;
-import util.Component;
-import util.HttpServletRequest;
-import util.HttpServletResponse;
-import util.Servlet;
 
-@Component("/board/add")
-public class BoardAddServlet implements Servlet{
-  BoardDao boardDao;
-  SqlSessionFactory sqlSessionFactory;
-
-  public BoardAddServlet(BoardDao boardDao, SqlSessionFactory sqlSessionFactory) {
-    this.boardDao = boardDao;
-    this.sqlSessionFactory = sqlSessionFactory;
-  }
+@WebServlet("/board/add")
+public class BoardAddServlet extends HttpServlet{
+  private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {
       response.sendRedirect("/auth/form.html");
@@ -45,12 +40,12 @@ public class BoardAddServlet implements Servlet{
     out.println("<body>");
     out.println("<h1>게시글 등록</h1>");
     try {
-      boardDao.insert(board);
-      sqlSessionFactory.openSession(false).commit();
+      InitServlet.boardDao.insert(board);
+      InitServlet.sqlSessionFactory.openSession(false).commit();
       out.println("<p>등록 성공입니다!</p>");
 
     } catch (Exception e) {
-      sqlSessionFactory.openSession(false).rollback();
+      InitServlet.sqlSessionFactory.openSession(false).rollback();
       out.println("<p>등록 실패입니다!</p>");
       e.printStackTrace();
     }

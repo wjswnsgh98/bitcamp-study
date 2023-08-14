@@ -1,29 +1,23 @@
 package project.handler;
 
+import java.io.IOException;
 import java.io.PrintWriter;
-import org.apache.ibatis.session.SqlSessionFactory;
-import project.dao.BookDao;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import project.vo.Book;
 import project.vo.Member;
-import util.Component;
-import util.HttpServletRequest;
-import util.HttpServletResponse;
-import util.Servlet;
 
-@Component("/book/add")
-public class BookAddServlet implements Servlet{
-  BookDao bookDao;
-  SqlSessionFactory sqlSessionFactory;
-
-  public BookAddServlet(BookDao bookDao, SqlSessionFactory sqlSessionFactory) {
-    this.bookDao = bookDao;
-    this.sqlSessionFactory = sqlSessionFactory;
-  }
-
-  String[][] BOOKS = BookDao.BOOKS;
+@WebServlet("/book/add")
+public class BookAddServlet extends HttpServlet{
+  private static final long serialVersionUID = 1L;
+  //String[][] BOOKS = PredefinedBookData.BOOKS;
 
   @Override
-  public void service(HttpServletRequest request, HttpServletResponse response) throws Exception{
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {
       response.sendRedirect("/auth/form.html");
@@ -47,37 +41,37 @@ public class BookAddServlet implements Servlet{
     out.println("<body>");
     out.println("<h1>도서 대여 등록</h1>");
 
-    boolean foundBook = false; // 책을 찾았는지 확인하기 위한 변수
-
-    for (int i = 0; i < BOOKS.length; i++) {
-      String str = BOOKS[i][0];
-      if (str.equals(book.getBookTitle())) {
-        int count = Integer.parseInt(BOOKS[i][1]);
-        if (count > 0) {
-          book.setBookTitle(book.getBookTitle());
-          count--; // 책의 수량을 1 감소시킴
-          BOOKS[i][1] = Integer.toString(count); // 수정된 수량을 다시 BOOKS 배열에 반영
-          foundBook = true;
-          break;
-        } else {
-          out.println("<p>해당 제목의 도서는 모두 대여 중입니다!</p>");
-          return;
-        }
-      }
-    }
-
-    if (!foundBook) {
-      out.println("<p>해당 제목의 도서가 없습니다!</p>");
-      return;
-    }
+    //    boolean foundBook = false; // 책을 찾았는지 확인하기 위한 변수
+    //
+    //    for (int i = 0; i < BOOKS.length; i++) {
+    //      String str = BOOKS[i][0];
+    //      if (str.equals(book.getBookTitle())) {
+    //        int count = Integer.parseInt(BOOKS[i][1]);
+    //        if (count > 0) {
+    //          book.setBookTitle(book.getBookTitle());
+    //          count--; // 책의 수량을 1 감소시킴
+    //          BOOKS[i][1] = Integer.toString(count); // 수정된 수량을 다시 BOOKS 배열에 반영
+    //          foundBook = true;
+    //          break;
+    //        } else {
+    //          out.println("<p>해당 제목의 도서는 모두 대여 중입니다!</p>");
+    //          return;
+    //        }
+    //      }
+    //    }
+    //
+    //    if (!foundBook) {
+    //      out.println("<p>해당 제목의 도서가 없습니다!</p>");
+    //      return;
+    //    }
 
     try {
-      bookDao.insert(book);
-      sqlSessionFactory.openSession(false).commit();
+      InitServlet.bookDao.insert(book);
+      InitServlet.sqlSessionFactory.openSession(false).commit();
       out.println("<p>등록 성공입니다!</p>");
 
     } catch (Exception e) {
-      sqlSessionFactory.openSession(false).rollback();
+      InitServlet.sqlSessionFactory.openSession(false).rollback();
       out.println("<p>등록 실패입니다!</p>");
       e.printStackTrace();
     }

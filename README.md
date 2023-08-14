@@ -543,3 +543,8 @@ https://whaleon.us/o/CSrtk1/001aa759f29c46b985e32dd8562f594a
   - Forward Engineering 방법
 - 개인 프로젝트
   - DB 모델링 검토
+
+## 59일(8/14, 월)
+
+- 프로젝트 실습
+  - 57. 파일 업로드 다루기 - multipart/form-data POST 요청 파라미터 인코딩

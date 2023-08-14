@@ -1,24 +1,22 @@
 package project.handler;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import project.dao.BookDao;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import project.vo.Book;
-import util.Component;
-import util.HttpServletRequest;
-import util.HttpServletResponse;
-import util.Servlet;
 
-@Component("/book/list")
-public class BookListServlet implements Servlet{
-  BookDao bookDao;
-
-  public BookListServlet(BookDao bookDao) {
-    this.bookDao = bookDao;
-  }
+@WebServlet("/book/list")
+public class BookListServlet extends HttpServlet{
+  private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(HttpServletRequest request, HttpServletResponse response) throws Exception{
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<!DOCTYPE html>");
@@ -36,7 +34,7 @@ public class BookListServlet implements Servlet{
     out.println("  <tr><th>제목</th> <th>저자</th> <th>대여자 이름</th> <th>대여일</th> <th>반납일</th></tr>");
     out.println("</thead>");
 
-    List<Book> list = bookDao.findAll();
+    List<Book> list = InitServlet.bookDao.findAll();
 
     out.println("<tbody>");
     for (Book book : list) {

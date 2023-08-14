@@ -19,7 +19,6 @@ import util.SqlSessionFactoryProxy;
     loadOnStartup = 1
     )
 public class InitServlet extends HttpServlet {
-
   private static final long serialVersionUID = 1L;
 
   public static SqlSessionFactory sqlSessionFactory;
@@ -36,8 +35,8 @@ public class InitServlet extends HttpServlet {
           new SqlSessionFactoryBuilder().build(
               Resources.getResourceAsStream("project/config/mybatis-config.xml")));
 
-      bookDao = new MySQLBookDao(sqlSessionFactory);
       boardDao = new MySQLBoardDao(sqlSessionFactory);
+      bookDao = new MySQLBookDao(sqlSessionFactory);
       memberDao = new MySQLMemberDao(sqlSessionFactory);
 
     } catch (Exception e) {

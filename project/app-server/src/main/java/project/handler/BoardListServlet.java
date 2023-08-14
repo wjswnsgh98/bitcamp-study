@@ -1,26 +1,24 @@
 package project.handler;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import project.dao.BoardDao;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import project.vo.Board;
-import util.Component;
-import util.HttpServletRequest;
-import util.HttpServletResponse;
-import util.Servlet;
 
-@Component("/board/list")
-public class BoardListServlet implements Servlet{
-  BoardDao boardDao;
+@WebServlet("/board/list")
+public class BoardListServlet extends HttpServlet{
+  private static final long serialVersionUID = 1L;
   SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
-  public BoardListServlet(BoardDao boardDao) {
-    this.boardDao = boardDao;
-  }
-
   @Override
-  public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<!DOCTYPE html>");
@@ -39,7 +37,7 @@ public class BoardListServlet implements Servlet{
     out.println("  <tr><th>번호</th> <th>제목</th> <th>작성자</th> <th>조회수</th> <th>등록일</th></tr>");
     out.println("</thead>");
 
-    List<Board> list = boardDao.findAll();
+    List<Board> list = InitServlet.boardDao.findAll();
 
     out.println("<tbody>");
     for (Board board : list) {
