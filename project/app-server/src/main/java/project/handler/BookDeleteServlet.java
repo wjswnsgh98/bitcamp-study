@@ -6,13 +6,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import project.dao.BookDao;
 import project.vo.Book;
 import project.vo.Member;
 
 @WebServlet("/book/delete")
 public class BookDeleteServlet extends HttpServlet{
   private static final long serialVersionUID = 1L;
-  //String[][] BOOKS = PredefinedBookData.BOOKS;
+  String[][] BOOKS = BookDao.BOOKS;
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -45,13 +46,13 @@ public class BookDeleteServlet extends HttpServlet{
       throw new RuntimeException(e);
     }
 
-    //    // BOOKS에서 같은 도서 제목의 수량을 1 증가
-    //    for (int i = 0; i < BOOKS.length; i++) {
-    //      if (book.getBookTitle().equals(BOOKS[i][0])) {
-    //        int count = Integer.parseInt(BOOKS[i][1]);
-    //        BOOKS[i][1] = String.valueOf(count + 1);
-    //        break; // 해당 도서를 찾았으므로 더 이상 반복할 필요가 없음
-    //      }
-    //    }
+    // BOOKS에서 같은 도서 제목의 수량을 1 증가
+    for (int i = 0; i < BOOKS.length; i++) {
+      if (book.getBookTitle().equals(BOOKS[i][0])) {
+        int count = Integer.parseInt(BOOKS[i][1]);
+        BOOKS[i][1] = String.valueOf(count + 1);
+        break; // 해당 도서를 찾았으므로 더 이상 반복할 필요가 없음
+      }
+    }
   }
 }

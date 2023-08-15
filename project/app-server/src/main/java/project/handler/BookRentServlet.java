@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import project.dao.BookDao;
 
 @WebServlet("/book/rent")
 public class BookRentServlet extends HttpServlet{
@@ -33,11 +34,11 @@ public class BookRentServlet extends HttpServlet{
     out.println("  <tr><th>대여가능한 도서 제목</th> <th>수량</th></tr>");
     out.println("</thead>");
 
-    //    String[][] BOOKS = PredefinedBookData.BOOKS;
-    //
-    //    for (int i = 0; i < BOOKS.length; i++) {
-    //      out.printf("<tr> <td>%s</td> <td>%s<td></tr>\n", BOOKS[i][0], BOOKS[i][1]);
-    //    }
+    String[][] BOOKS = BookDao.BOOKS;
+
+    for (int i = 0; i < BOOKS.length; i++) {
+      out.printf("<tr> <td>%s</td> <td>%s<td></tr>\n", BOOKS[i][0], BOOKS[i][1]);
+    }
 
     out.println("</tbody>");
     out.println("</table>");

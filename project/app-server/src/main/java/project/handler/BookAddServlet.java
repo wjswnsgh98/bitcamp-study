@@ -7,13 +7,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import project.dao.BookDao;
 import project.vo.Book;
 import project.vo.Member;
 
 @WebServlet("/book/add")
 public class BookAddServlet extends HttpServlet{
   private static final long serialVersionUID = 1L;
-  //String[][] BOOKS = PredefinedBookData.BOOKS;
+  String[][] BOOKS = BookDao.BOOKS;
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -41,29 +42,29 @@ public class BookAddServlet extends HttpServlet{
     out.println("<body>");
     out.println("<h1>도서 대여 등록</h1>");
 
-    //    boolean foundBook = false; // 책을 찾았는지 확인하기 위한 변수
-    //
-    //    for (int i = 0; i < BOOKS.length; i++) {
-    //      String str = BOOKS[i][0];
-    //      if (str.equals(book.getBookTitle())) {
-    //        int count = Integer.parseInt(BOOKS[i][1]);
-    //        if (count > 0) {
-    //          book.setBookTitle(book.getBookTitle());
-    //          count--; // 책의 수량을 1 감소시킴
-    //          BOOKS[i][1] = Integer.toString(count); // 수정된 수량을 다시 BOOKS 배열에 반영
-    //          foundBook = true;
-    //          break;
-    //        } else {
-    //          out.println("<p>해당 제목의 도서는 모두 대여 중입니다!</p>");
-    //          return;
-    //        }
-    //      }
-    //    }
-    //
-    //    if (!foundBook) {
-    //      out.println("<p>해당 제목의 도서가 없습니다!</p>");
-    //      return;
-    //    }
+    boolean foundBook = false; // 책을 찾았는지 확인하기 위한 변수
+
+    for (int i = 0; i < BOOKS.length; i++) {
+      String str = BOOKS[i][0];
+      if (str.equals(book.getBookTitle())) {
+        int count = Integer.parseInt(BOOKS[i][1]);
+        if (count > 0) {
+          book.setBookTitle(book.getBookTitle());
+          count--; // 책의 수량을 1 감소시킴
+          BOOKS[i][1] = Integer.toString(count); // 수정된 수량을 다시 BOOKS 배열에 반영
+          foundBook = true;
+          break;
+        } else {
+          out.println("<p>해당 제목의 도서는 모두 대여 중입니다!</p>");
+          return;
+        }
+      }
+    }
+
+    if (!foundBook) {
+      out.println("<p>해당 제목의 도서가 없습니다!</p>");
+      return;
+    }
 
     try {
       InitServlet.bookDao.insert(book);
