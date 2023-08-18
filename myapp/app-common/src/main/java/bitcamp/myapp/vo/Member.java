@@ -16,6 +16,7 @@ public class Member implements Serializable{
   public String password;
   public char gender;
   private Date createdDate;
+  private String photo;
 
   @Override
   public int hashCode() {
@@ -80,6 +81,14 @@ public class Member implements Serializable{
 
   public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
+  }
+
+  public String getPhoto() {
+    return photo;
+  }
+
+  public void setPhoto(String photo) {
+    this.photo = photo;
   }
 }
 

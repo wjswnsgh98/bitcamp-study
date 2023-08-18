@@ -12,6 +12,8 @@ import project.dao.MemberDao;
 import project.dao.MySQLBoardDao;
 import project.dao.MySQLBookDao;
 import project.dao.MySQLMemberDao;
+import util.NcpConfig;
+import util.NcpObjectStorageService;
 import util.SqlSessionFactoryProxy;
 
 @WebServlet(
@@ -25,6 +27,7 @@ public class InitServlet extends HttpServlet {
   public static BoardDao boardDao;
   public static BookDao bookDao;
   public static MemberDao memberDao;
+  public static NcpObjectStorageService ncpObjectStorageService;
 
   @Override
   public void init() throws ServletException {
@@ -38,6 +41,7 @@ public class InitServlet extends HttpServlet {
       boardDao = new MySQLBoardDao(sqlSessionFactory);
       bookDao = new MySQLBookDao(sqlSessionFactory);
       memberDao = new MySQLMemberDao(sqlSessionFactory);
+      ncpObjectStorageService = new NcpObjectStorageService(new NcpConfig());
 
     } catch (Exception e) {
       System.out.println("InitServlet.init() 실행 중 오류 발생!");

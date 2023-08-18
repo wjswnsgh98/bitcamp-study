@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import project.vo.AttachedFile;
 import project.vo.Board;
 
 @WebServlet("/board/detail")
@@ -16,7 +17,9 @@ public class BoardDetailServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    Board board = InitServlet.boardDao.findBy(Integer.parseInt(request.getParameter("no")));
+    int no = Integer.parseInt(request.getParameter("no"));
+
+    Board board = InitServlet.boardDao.findBy(no);
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -33,7 +36,7 @@ public class BoardDetailServlet extends HttpServlet {
       out.println("<p>해당 번호의 게시글이 없습니다!</p>");
 
     } else {
-      out.println("<form action='/board/update' method='post'>");
+      out.println("<form action='/board/update' method='post' enctype='multipart/form-data'>");
       out.println("<table border='1'>");
       out.printf("<tr><th style='width:120px;'>번호</th>"
           + " <td style='width:300px;'><input type='text' name='no' value='%d' readonly></td></tr>\n", board.getNo());
@@ -44,6 +47,17 @@ public class BoardDetailServlet extends HttpServlet {
       out.printf("<tr><th>작성자</th> <td>%s</td></tr>\n", board.getWriter().getName());
       out.printf("<tr><th>조회수</th> <td>%s</td></tr>\n", board.getViewCount());
       out.printf("<tr><th>등록일</th> <td>%tY-%1$tm-%1$td</td></tr>\n", board.getCreatedDate());
+      out.println("<tr><th>첨부파일</th><td>");
+
+      for (AttachedFile file : board.getAttachedFiles()) {
+        out.printf("<a href='https://kr.object.ncloudstorage.com/bitcamp-nc7-bucket-10/board/%s'>%1$s</a>"
+            + " [<a href='/board/file/delete?no=%d'>삭제</a>]"
+            + "<br>\n", file.getFilePath(), file.getNo());
+      }
+
+      out.println("<input type='file' name='files' multiple>");
+
+      out.println("</td></tr>");
       out.println("</table>");
 
       out.println("<div>");
