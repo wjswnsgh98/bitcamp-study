@@ -6,8 +6,9 @@ drop table project_board_file;
 create table project_board(
   board_no int not null,
   title varchar(255) not null,
-  content mediumtext not null,
+  content text null,
   writer int not null,
+  password varchar(100) null,
   view_count int default 0,
   created_date datetime default now()
 );
@@ -49,12 +50,11 @@ alter table project_book
   
 create table project_member(
   member_no int not null,
-  name varchar(50) not null,
-  email varchar(40) not null,
+  name varchar(20) not null,
+  email varchar(50) not null,
   password varchar(100) not null,
   gender char(1) not null,
-  created_date date default (current_date()),
-  photo varchar(255) null
+  created_date date default (current_date())
 );
 
 alter table project_member
