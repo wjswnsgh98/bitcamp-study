@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4478d93c-007a-4447-907a-a0d280e7b15d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex02/Filter01.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex02/Filter02.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex02/Listener01.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex02/Listener02.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex02/Servlet01.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex02/Servlet02.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex03/Servlet01.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex03/Servlet02.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex03/Servlet03.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex03/Servlet04.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex05/MyHttpServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex05/MyHttpServlet2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex05/Servlet01.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex05/Servlet02.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex05/Servlet03.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex05/Servlet04.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Filter01.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Filter02.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Filter03.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Servlet01.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Servlet02.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Servlet03.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Servlet04.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Servlet05.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myapp/app-server/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../myapp/app-server/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/java/project/handler/MemberAddServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/java/project/handler/MemberAddServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/java/project/handler/MemberDetailServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/java/project/handler/MemberDetailServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/java/project/handler/MemberListServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/java/project/handler/MemberListServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/java/project/handler/MemberUpdateServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/java/project/handler/MemberUpdateServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/resources/project/config/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/resources/project/config/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/webapp/member/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/webapp/member/form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex04/Servlet08.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex04/Servlet08.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/webapp/ex04/test06.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/webapp/ex04/test06.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="2UGzpZG3RLSYFDYcxxoMXWuZwM4" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/jeonjunho/git/bitcamp-study/servlet-app/app/src/main/java/eomcs/servlet/ex06",
+    "settings.editor.selected.configurable": "project.propCompiler"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06" />
+      <recent name="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex05" />
+      <recent name="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex03" />
+      <recent name="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex02" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.App">
+    <configuration name="App" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="eomcs.App" />
+      <module name="servlet-app.app.main" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="eomcs.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="servlet-app [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="servlet-app [classes]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="classes" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.servlet-app [classes]" />
+        <item itemvalue="Gradle.servlet-app [build]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4478d93c-007a-4447-907a-a0d280e7b15d" name="Changes" comment="" />
+      <created>1692580888537</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1692580888537</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
