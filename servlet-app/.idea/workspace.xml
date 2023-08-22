@@ -5,44 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4478d93c-007a-4447-907a-a0d280e7b15d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex02/Filter01.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex02/Filter02.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex02/Listener01.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex02/Listener02.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex02/Servlet01.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex02/Servlet02.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex03/Servlet01.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex03/Servlet02.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex03/Servlet03.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex03/Servlet04.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex05/MyHttpServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex05/MyHttpServlet2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex05/Servlet01.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex05/Servlet02.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex05/Servlet03.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex05/Servlet04.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Filter01.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Filter02.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Filter03.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Servlet01.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Servlet02.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Servlet03.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Servlet04.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Servlet05.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../myapp/app-server/src/main/java/bitcamp/myapp/handler/BoardFormServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../myapp/app-server/src/main/java/bitcamp/myapp/handler/ErrorServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../myapp/app-server/src/main/java/bitcamp/myapp/handler/FooterServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../myapp/app-server/src/main/java/bitcamp/myapp/handler/HeaderServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex07/Servlet01.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex07/Servlet02.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex07/Servlet03.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex07/Servlet11.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex07/Servlet11_error.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex07/Servlet11_minus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex07/Servlet11_plus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex08/Servlet01.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex08/Servlet02.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex08/Servlet03.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex08/Servlet100.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myapp/app-server/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../myapp/app-server/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/java/project/handler/MemberAddServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/java/project/handler/MemberAddServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/java/project/handler/MemberDetailServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/java/project/handler/MemberDetailServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/java/project/handler/MemberListServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/java/project/handler/MemberListServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/java/project/handler/MemberUpdateServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/java/project/handler/MemberUpdateServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/resources/project/config/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/resources/project/config/mybatis-config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/webapp/member/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/webapp/member/form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex04/Servlet08.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex04/Servlet08.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/webapp/ex04/test06.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/webapp/ex04/test06.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myapp/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../myapp/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myapp/app-server/src/main/java/bitcamp/myapp/handler/BoardAddServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../myapp/app-server/src/main/java/bitcamp/myapp/handler/BoardAddServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myapp/app-server/src/main/java/bitcamp/myapp/handler/BoardDetailServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../myapp/app-server/src/main/java/bitcamp/myapp/handler/BoardDetailServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myapp/app-server/src/main/java/bitcamp/myapp/handler/BoardListServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../myapp/app-server/src/main/java/bitcamp/myapp/handler/BoardListServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/app-common/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-common/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/app-server/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Filter02.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Filter02.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Filter03.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Filter03.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Servlet01.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Servlet01.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Servlet03.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Servlet03.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Servlet05.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06/Servlet05.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,9 +81,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2UGzpZG3RLSYFDYcxxoMXWuZwM4" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -100,17 +93,19 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/jeonjunho/git/bitcamp-study/servlet-app/app/src/main/java/eomcs/servlet/ex06",
-    "settings.editor.selected.configurable": "project.propCompiler"
+    "last_opened_file_path": "/Users/jeonjunho/git/bitcamp-study/servlet-app/app/src/main/java/eomcs/servlet/ex08",
+    "settings.editor.selected.configurable": "preferences.sourceCode"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex08" />
+      <recent name="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex07" />
       <recent name="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex06" />
       <recent name="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex05" />
       <recent name="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex03" />
-      <recent name="$PROJECT_DIR$/app/src/main/java/eomcs/servlet/ex02" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app" />

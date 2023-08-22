@@ -1,16 +1,11 @@
 // 필터 초기화 파라미터 : 애노테이션으로 설정한 값 가져오기
 package eomcs.servlet.ex06;
 
+import javax.servlet.*;
 import java.io.IOException;
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 
 //@WebFilter(
-//    value="/ex05/*",
+//    value="/ex06/*",
 //    initParams={
 //        @WebInitParam(name="encoding", value="UTF-8"),
 //        @WebInitParam(name="aaa", value="nono")

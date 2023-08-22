@@ -2,6 +2,7 @@
 package eomcs.servlet.ex06;
 
 import javax.servlet.ServletContext;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
 // 서블릿의 DD 설정으로 지정한 초기화 파라미터 값은 그 서블릿에서만 사용할 수 있다.
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 // => web.xml 에 지정하였다.
 //
 //@WebServlet(value="/ex06/s5", loadOnStartup=1)
-@SuppressWarnings("serial")
+//@SuppressWarnings("serial")
 public class Servlet05 extends HttpServlet {
 
   @Override

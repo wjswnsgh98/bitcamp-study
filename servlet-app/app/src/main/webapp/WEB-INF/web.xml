@@ -6,6 +6,52 @@
   version="4.0"
   metadata-complete="false">
 
+  <!-- 컨텍스트 초기화 파라미터 등록 -->
+  <context-param>
+    <param-name>encoding</param-name>
+    <param-value>UTF-8</param-value>
+  </context-param>
+  <context-param>
+    <param-name>aaa</param-name>
+    <param-value>오호라!</param-value>
+  </context-param>
+  <context-param>
+    <param-name>jdbc.driver</param-name>
+    <param-value>aaa</param-value>
+  </context-param>
+  <context-param>
+    <param-name>jdbc.url</param-name>
+    <param-value>bbb</param-value>
+  </context-param>
+  <context-param>
+    <param-name>jdbc.username</param-name>
+    <param-value>ccc</param-value>
+  </context-param>
+  <context-param>
+    <param-name>jdbc.password</param-name>
+    <param-value>ddd</param-value>
+  </context-param>
+
+  <!-- 필터 객체 등록 -->
+  <!--
+  <filter>
+    <filter-name>ex06.f1</filter-name>
+    <filter-class>eomcs.servlet.ex06.Filter01</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>aaa</param-name>
+      <param-value>오호라...</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>ex06.f1</filter-name>
+    <url-pattern>/ex06/*</url-pattern>
+  </filter-mapping>
+  -->
+
   <!-- 서블릿 객체 등록 -->
   <!-- 
   <servlet>
@@ -22,4 +68,31 @@
   </servlet-mapping>
   -->
 
+  <!--
+  <servlet>
+    <servlet-name>ex06.s4</servlet-name>
+    <servlet-class>eomcs.servlet.ex06.Servlet04</servlet-class>
+    <init-param>
+      <param-name>jdbc.driver</param-name>
+      <param-value>aaa</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jdbc.url</param-name>
+      <param-value>bbb</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jdbc.username</param-name>
+      <param-value>ccc</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jdbc.password</param-name>
+      <param-value>ddd</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ex06.s4</servlet-name>
+    <url-pattern>/ex06/s4</url-pattern>
+  </servlet-mapping>
+  -->
 </web-app>
