@@ -32,7 +32,7 @@ public class BoardDetailServlet extends HttpServlet{
     out.println("</head>");
     out.println("<body>");
 
-    request.getRequestDispatcher("/footer").include(request, response);
+    request.getRequestDispatcher("/header").include(request, response);
 
     out.println("<h1>게시글</h1>");
 
