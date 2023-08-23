@@ -27,6 +27,9 @@ public class MemberDetailServlet extends HttpServlet{
     out.println("<title>회원</title>");
     out.println("</head>");
     out.println("<body>");
+
+    request.getRequestDispatcher("/header").include(request, response);
+
     out.println("<h1>회원</h1>");
 
     if (member == null) {
@@ -67,6 +70,7 @@ public class MemberDetailServlet extends HttpServlet{
       out.println("</div>");
       out.println("</form>");
     }
+    request.getRequestDispatcher("/footer").include(request, response);
 
     out.println("</body>");
     out.println("</html>");

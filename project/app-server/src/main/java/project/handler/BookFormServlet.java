@@ -24,12 +24,18 @@ public class BookFormServlet extends HttpServlet {
     out.println("<title>비트캠프</title>");
     out.println("</head>");
     out.println("<body>");
+
+    request.getRequestDispatcher("/header").include(request, response);
+
     out.println("<h1>도서 대여</h1>");
     out.println("<form action='/book/add' method='post'>");
     out.println("도서 제목 <input type='text' name='booktitle'><br>");
     out.println("저자 <textarea name='author'></textarea><br>");
     out.println("<button>등록</button>");
     out.println("</form>");
+
+    request.getRequestDispatcher("/footer").include(request, response);
+
     out.println("</body>");
     out.println("</html>");
   }

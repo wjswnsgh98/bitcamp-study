@@ -27,6 +27,9 @@ public class BookViewServlet extends HttpServlet{
     out.println("<title>도서 대여</title>");
     out.println("</head>");
     out.println("<body>");
+
+    request.getRequestDispatcher("/header").include(request, response);
+
     out.println("<h1>도서 대여</h1>");
 
     if(book == null) {
@@ -52,6 +55,8 @@ public class BookViewServlet extends HttpServlet{
       out.println("</div>");
       out.println("</form>");
     }
+    request.getRequestDispatcher("/footer").include(request, response);
+
     out.println("</body>");
     out.println("</html>");
   }

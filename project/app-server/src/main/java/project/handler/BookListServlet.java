@@ -26,6 +26,9 @@ public class BookListServlet extends HttpServlet{
     out.println("<title>도서 대여</title>");
     out.println("</head>");
     out.println("<body>");
+
+    request.getRequestDispatcher("/header").include(request, response);
+
     out.println("<h1>도서 대여 목록</h1>");
     out.println("<div style='margin:5px;'>");
     out.println("</div>");
@@ -51,6 +54,9 @@ public class BookListServlet extends HttpServlet{
     out.println("</tbody>");
     out.println("</table>");
     out.println("<a href='/'>메인</a>");
+
+    request.getRequestDispatcher("/footer").include(request, response);
+
     out.println("</body>");
     out.println("</html>");
   }

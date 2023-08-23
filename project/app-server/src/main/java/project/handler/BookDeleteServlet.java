@@ -34,16 +34,20 @@ public class BookDeleteServlet extends HttpServlet{
 
     try {
       if (InitServlet.bookDao.delete(book) == 0) {
-        throw new Exception("<p>해당 도서의 대여자가 없거나 삭제 권한이 없습니다!</p>");
+        throw new Exception("해당 도서의 대여자가 없거나 삭제 권한이 없습니다!");
       } else {
-        // out.println("<p>반납 완료했습니다.</p>");
+        InitServlet.sqlSessionFactory.openSession(false).commit();
         response.sendRedirect("/book/list");
       }
-      InitServlet.sqlSessionFactory.openSession(false).commit();
 
     } catch (Exception e) {
       InitServlet.sqlSessionFactory.openSession(false).rollback();
-      throw new RuntimeException(e);
+
+      request.setAttribute("error", e);
+      request.setAttribute("message", e.getMessage());
+      request.setAttribute("refresh", "2;url=rent");
+
+      request.getRequestDispatcher("/error").forward(request, response);
     }
 
     // BOOKS에서 같은 도서 제목의 수량을 1 증가

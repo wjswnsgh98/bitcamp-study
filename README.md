@@ -584,4 +584,13 @@ https://whaleon.us/o/CSrtk1/001aa759f29c46b985e32dd8562f594a
   - 포워드/인클루드, 리프래시/리다이렉트 다루는 방법
   - 절대 경로와 상대 경로의 이해
 - 프로젝트 실습
-  - 62. forward/include/refresh/redirect 다루기
+  - 62. forward/include/refresh/redirect 다루기(계속)
+
+## 64일(8/23, 수)
+- 서블릿 프로그래밍
+  - 보관소 사용법: ServletContext, HttpSession, ServletRequest, JspContext
+  - 쿠키 사용법
+  - 세션 사용법
+- 프로그램 실습
+  - 62. forward/include/refresh/redirect 다루기(계속)
+  - 63. 쿠키와 ServletContext 보관소 활용하기

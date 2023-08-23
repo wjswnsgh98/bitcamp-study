@@ -7,7 +7,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
+import org.apache.ibatis.session.SqlSessionFactory;
 
 @WebServlet("/member/detail")
 public class MemberDetailServlet extends HttpServlet {
@@ -16,7 +19,8 @@ public class MemberDetailServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    Member member = InitServlet.memberDao.findBy(Integer.parseInt(request.getParameter("no")));
+    MemberDao memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
+    Member member = memberDao.findBy(Integer.parseInt(request.getParameter("no")));
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();

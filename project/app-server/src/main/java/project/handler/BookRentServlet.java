@@ -25,6 +25,9 @@ public class BookRentServlet extends HttpServlet{
     out.println("<title>도서 대여</title>");
     out.println("</head>");
     out.println("<body>");
+
+    request.getRequestDispatcher("/header").include(request, response);
+
     out.println("<h1>대여 가능한 도서 목록</h1>");
     out.println("<div style='margin:5px;'>");
     out.printf("<a href='/book/form'>대여 등록</a>\n");
@@ -44,6 +47,9 @@ public class BookRentServlet extends HttpServlet{
     out.println("</table>");
     out.println("<a href='/'>메인</a>");
     out.println("<a href='/book/list'>도서 대여 목록</a>");
+
+    request.getRequestDispatcher("/footer").include(request, response);
+
     out.println("</body>");
     out.println("</html>");
   }
