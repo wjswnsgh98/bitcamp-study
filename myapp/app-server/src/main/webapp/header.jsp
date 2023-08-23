@@ -16,7 +16,7 @@
       out.println("<a href='/auth/form'>로그인</a>");
     } else {
       if(loginUser.getPhoto() == null){
-        out.println("<a href='/auth/logout'>로그아웃</a>");
+        out.println("<img style='height:40px' src='/images/avatar.png'>");
       } else {
         out.println(String.format(
         "<img src='http://hhyervzvcodl19010726.cdn.ntruss.com/member/%s?type=f&w=30&h=40&faceopt=true&ttype=jpg'>",

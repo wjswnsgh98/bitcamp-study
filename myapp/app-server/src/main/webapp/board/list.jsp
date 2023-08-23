@@ -41,22 +41,22 @@
 <%
     BoardDao boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
     List<Board> list = boardDao.findAll(category);
-
-    out.println("<tbody>");
+%>
+<tbody>
+<%
     for (Board board : list) {
-      out.println(String.format("<tr>"
-          + " <td>%d</td>"
-          + " <td><a href='/board/detail?category=%d&no=%d'>%s</a></td>"
-          + " <td>%s</td>"
-          + " <td>%d</td>"
-          + " <td>%s</td></tr>\n",
-          board.getNo(),
-          board.getCategory(),
-          board.getNo(),
-          (board.getTitle().length() > 0 ? board.getTitle() : "제목없음"),
-          board.getWriter().getName(),
-          board.getViewCount(),
-          dateFormatter.format(board.getCreatedDate())));
+%>
+      <tr>
+        <td>%d</td>
+        <td><a href='/board/detail?category=<%=board.getCategory()%>&no=<%=board.getNo()%>'>
+          <%=(board.getTitle().length() > 0 ? board.getTitle() : "제목없음")%>
+          </a>
+        </td>
+        <td><%=board.getWriter().getName()%></td>
+        <td><%=board.getViewCount()%></td>
+        <td><%=dateFormatter.format(board.getCreatedDate())%></td>
+      </tr>
+<%
     }
 %>
 </tbody>
