@@ -577,6 +577,7 @@ https://whaleon.us/o/CSrtk1/001aa759f29c46b985e32dd8562f594a
  - HttpServlet 클래스의 역할 이해
 
 ## 63일(8/22, 화)
+
 - 서블릿 프로그래밍
   - Init Parameter 다루는 방법
   - Context Parameter 다루는 방법
@@ -587,6 +588,7 @@ https://whaleon.us/o/CSrtk1/001aa759f29c46b985e32dd8562f594a
   - 62. forward/include/refresh/redirect 다루기(계속)
 
 ## 64일(8/23, 수)
+
 - 서블릿 프로그래밍
   - 보관소 사용법: ServletContext, HttpSession, ServletRequest, JspContext
   - 쿠키 사용법
@@ -594,3 +596,12 @@ https://whaleon.us/o/CSrtk1/001aa759f29c46b985e32dd8562f594a
 - 프로그램 실습
   - 62. forward/include/refresh/redirect 다루기(계속)
   - 63. 쿠키와 ServletContext 보관소 활용하기
+  - 64. JSP를 이용하여 MVC 모델1 구조로 변경하기
+
+## 64일(8/24, 목)
+
+- 서블릿 프로그래밍
+- 프로젝트 실습
+  - 62. forward/include/refresh/redirect 다루기(계속)
+  - 63. 쿠키와 ServletContext 보관소 활용하기
+  - 64. JSP를 이용하여 MVC 모델1 구조로 변경하기(계속) 

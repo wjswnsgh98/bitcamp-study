@@ -47,8 +47,8 @@
     for (Board board : list) {
 %>
       <tr>
-        <td>%d</td>
-        <td><a href='/board/detail?category=<%=board.getCategory()%>&no=<%=board.getNo()%>'>
+        <td><%=board.getNo()%></td>
+        <td><a href='/board/detail.jsp?category=<%=board.getCategory()%>&no=<%=board.getNo()%>'>
           <%=(board.getTitle().length() > 0 ? board.getTitle() : "제목없음")%>
           </a>
         </td>

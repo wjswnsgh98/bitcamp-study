@@ -7,6 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+import project.dao.BoardDao;
 import project.vo.AttachedFile;
 import project.vo.Board;
 
@@ -19,7 +22,10 @@ public class BoardDetailServlet extends HttpServlet {
       throws ServletException, IOException {
     int no = Integer.parseInt(request.getParameter("no"));
 
-    Board board = InitServlet.boardDao.findBy(no);
+    BoardDao boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
+    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
+
+    Board board = boardDao.findBy(no);
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -69,11 +75,11 @@ public class BoardDetailServlet extends HttpServlet {
       out.println("</form>");
       try {
         board.setViewCount(board.getViewCount() + 1);
-        InitServlet.boardDao.updateCount(board);
-        InitServlet.sqlSessionFactory.openSession(false).commit();
+        boardDao.updateCount(board);
+        sqlSessionFactory.openSession(false).commit();
 
       } catch (Exception e) {
-        InitServlet.sqlSessionFactory.openSession(false).rollback();
+        sqlSessionFactory.openSession(false).rollback();
       }
     }
 

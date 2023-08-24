@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import project.dao.BoardDao;
 import project.vo.Board;
 
 @WebServlet("/board/list")
@@ -28,6 +30,10 @@ public class BoardListServlet extends HttpServlet{
     out.println("<title>게시글</title>");
     out.println("</head>");
     out.println("<body>");
+
+    // HeaderServlet의 출력 결과를 합친다.
+    request.getRequestDispatcher("/header").include(request, response);
+
     out.println("<h1>게시글 목록</h1>");
     out.println("<div style='margin:5px;'>");
     out.printf("<a href='/board/form'>새 글</a>\n");
@@ -37,7 +43,8 @@ public class BoardListServlet extends HttpServlet{
     out.println("  <tr><th>번호</th> <th>제목</th> <th>작성자</th> <th>조회수</th> <th>등록일</th></tr>");
     out.println("</thead>");
 
-    List<Board> list = InitServlet.boardDao.findAll();
+    BoardDao boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
+    List<Board> list = boardDao.findAll();
 
     out.println("<tbody>");
     for (Board board : list) {
@@ -58,6 +65,10 @@ public class BoardListServlet extends HttpServlet{
     out.println("</tbody>");
     out.println("</table>");
     out.println("<a href='/'>메인</a>");
+
+    // FooterServlet의 출력 결과를 합친다.
+    request.getRequestDispatcher("/footer").include(request, response);
+
     out.println("</body>");
     out.println("</html>");
   }
