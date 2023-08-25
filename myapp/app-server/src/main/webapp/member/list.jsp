@@ -3,13 +3,10 @@
     pageEncoding="UTF-8"
     contentType="text/html;charset=UTF-8"%>
 <%@ page import="java.util.List"%>
-<%@ page import="bitcamp.myapp.dao.MemberDao"%>
 <%@ page import="bitcamp.myapp.vo.Member"%>
-<%@ page import="org.apache.ibatis.session.SqlSessionFactory"%>
 
-<%
-    MemberDao memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
-%>
+<jsp:useBean id="memberDao" type="bitcamp.myapp.dao.MemberDao" scope="application"/>
+
 <!DOCTYPE html>
 <html>
 <head>

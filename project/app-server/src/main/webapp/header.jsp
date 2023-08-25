@@ -1,0 +1,28 @@
+<%@ page
+    language="java"
+    pageEncoding="UTF-8"
+    contentType="text/html;charset=UTF-8"%>
+<%@ page import="project.vo.Member"%>
+
+<div style='height:50px;background-color:orange;'>
+    <img src='https://www.ncloud.com/public/img/logo-m.png' style='height:40px'>
+    <a href='/member/list.jsp'>회원</a>
+    <a href='/book/rent.jsp'>도서 대여</a>
+    <a href='/board/list.jsp'>게시글</a>
+
+<%
+    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+    if (loginUser == null) {
+      out.println("<a href='/auth/form.jsp'>로그인</a>");
+    } else {
+      if(loginUser.getPhoto() == null){
+        out.println("<img style='height:40px' src='/images/avatar.png'>");
+      } else {
+        out.println(String.format(
+            "<img src='http://hhyervzvcodl19010726.cdn.ntruss.com/member/%s?type=f&w=30&h=40&faceopt=true&ttype=jpg'>",
+                                                    loginUser.getPhoto()));
+      }
+      out.println(String.format("%s <a href='/auth/logout.jsp'>로그아웃</a>", loginUser.getName()));
+    }
+%>
+</div>
