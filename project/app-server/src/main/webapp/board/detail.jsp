@@ -2,18 +2,13 @@
     language="java"
     pageEncoding="UTF-8"
     contentType="text/html;charset=UTF-8"%>
-<%@ page import="org.apache.ibatis.session.SqlSessionFactory"%>
-<%@ page import="project.dao.BoardDao"%>
 <%@ page import="project.vo.AttachedFile"%>
 <%@ page import="project.vo.Board"%>
 
+<jsp:useBean id="boardDao" type="project.dao.BoardDao" scope="application"/>
+<jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory" scope="application"/>
 <%
-    int no = Integer.parseInt(request.getParameter("no"));
-
-    BoardDao boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
-    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
-
-    Board board = boardDao.findBy(no);
+    Board board = boardDao.findBy(Integer.parseInt(request.getParameter("no")));
 %>
 
 <!DOCTYPE html>

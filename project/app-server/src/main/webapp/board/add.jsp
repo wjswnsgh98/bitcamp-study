@@ -5,23 +5,22 @@
     trimDirectiveWhitespaces="true"
     errorPage="/error.jsp"%>
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="org.apache.ibatis.session.SqlSessionFactory"%>
-<%@ page import="project.dao.BoardDao"%>
 <%@ page import="project.vo.AttachedFile"%>
 <%@ page import="project.vo.Board"%>
-<%@ page import="project.vo.Member"%>
-<%@ page import="util.NcpObjectStorageService"%>
+
+<jsp:useBean id="boardDao" type="proejct.dao.BoardDao" scope="application"/>
+<jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory" scope="application"/>
+<jsp:useBean id="ncpObjectStorageService" type="util.NcpObjectStorageService" scope="application"/>
+<jsp:useBean id="loginUser" class="project.vo.Member" scope="session"/>
 
 <%
-    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-    if (loginUser == null) {
-      response.sendRedirect("/auth/form.html");
+    if (loginUser.getNo() == 0) {
+      response.sendRedirect("/auth/form.jsp");
       return;
     }
 
-    BoardDao boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
-    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
-    NcpObjectStorageService ncpObjectStorageService = (NcpObjectStorageService) this.getServletContext().getAttribute("ncpObjectStorageService");
+    // 오류가 발생했을 때 refresh 할 URL을 미리 지정한다.
+    request.setAttribute("refresh", "2;url=list.jsp");
 
     Board board = new Board();
     board.setWriter(loginUser);

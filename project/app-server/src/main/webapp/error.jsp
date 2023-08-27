@@ -3,11 +3,9 @@
     pageEncoding="UTF-8"
     contentType="text/html;charset=UTF-8"
     isErrorPage="true"%>
-
+<jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory" scope="application"/>
 <%
-    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
     sqlSessionFactory.openSession(false).commit();
-
     if (request.getAttribute("refresh") != null) {
       response.setHeader("Refresh", (String) request.getAttribute("refresh"));
     }
@@ -17,7 +15,7 @@
 <html>
 <head>
 <meta charset=\"UTF-8\">
-<title>게시글</title>
+<title>실행오류</title>
 </head>
 <body>
 
