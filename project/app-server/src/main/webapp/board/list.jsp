@@ -1,16 +1,13 @@
 <%@ page
     language="java"
     pageEncoding="UTF-8"
-    contentType="text/html;charset=UTF-8"%> <%-- directive element --%>
-<%@ page import="java.io.IOException"%>
+    contentType="text/html;charset=UTF-8"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.List"%>
-<%@ page import="project.dao.BoardDao"%>
 <%@ page import="project.vo.Board"%>
 
 <%
-  // declare element
-  SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+  request.setAttribute("refresh", "2;url=list.jsp");
 %>
 
 <!DOCTYPE html>
@@ -32,24 +29,25 @@
   <tr><th>번호</th> <th>제목</th> <th>작성자</th> <th>조회수</th> <th>등록일</th></tr>
 </thead>
 
+<jsp:useBean id="boardDao" type="project.dao.BoardDao" scope="application"/>
+
 <%
-    BoardDao boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
     List<Board> list = boardDao.findAll();
 %>
-
 <tbody>
 <%
     for (Board board : list) {
+      pageContext.setAttribute("board", board);
 %>
       <tr>
-       <td><%=board.getNo()%></td>
-       <td><a href='/board/detail.jsp?no=<%=board.getNo()%>'>
-           <%=(board.getTitle().length() > 0 ? board.getTitle() : "제목없음")%>
+       <td>${board.no}</td>
+       <td><a href='/board/detail.jsp?no=${board.no}'>
+           ${board.title.length() > 0 ? board.title : "제목없음"}
            </a>
        </td>
-       <td><%=board.getWriter().getName()%></td>
-       <td><%=board.getViewCount()%></td>
-       <td><%=dateFormatter.format(board.getCreatedDate())%></td></tr>
+       <td>${board.writer.name}</td>
+       <td>${board.viewCount}</td>
+       <td>${simpleDateFormatter.format(board.createdDate)}</td></tr>
 <%
     }
 %>

@@ -4,33 +4,31 @@
     contentType="text/html;charset=UTF-8"
     trimDirectiveWhitespaces="true"
     errorPage="/error.jsp"%>
-<%@ page import="bitcamp.myapp.vo.Member"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%
-    request.setAttribute("refresh", "2;url=/auth/form.jsp");
+<c:set var="refresh" value="2;url/auth/form.jsp" scope="request"/>
 
-    Member m = new Member();
-    m.setEmail(request.getParameter("email"));
-    m.setPassword(request.getParameter("password"));
+<jsp:useBean id="m" class="bitcamp.myapp.vo.Member" scope="page"/>
+<c:set target="${pageScope.m}" property="email" value="${param.email}"/>
+<c:set target="${pageScope.m}" property="password" value="${param.password}"/>
 
-    if(request.getParameter("saveEmail") != null){
-      Cookie cookie = new Cookie("email", m.getEmail());
-      response.addCookie(cookie);
-    } else {
-      Cookie cookie = new Cookie("email", "no");
-      cookie.setMaxAge(0);
-      response.addCookie(cookie);
-    }
-%>
+<c:if test="${not empty param.saveEmail}">
+  <%
+    Cookie cookie = new Cookie("email", m.getEmail());
+    response.addCookie(cookie);
+  %>
+</c:if>
 
-<jsp:useBean  id="memberDao" type="bitcamp.myapp.dao.MemberDao" scope="application"/>
+<c:if test="${empty param.saveEmail}">
+  <%
+    Cookie cookie = new Cookie("email", "no");
+    cookie.setMaxAge(0);
+    response.addCookie(cookie);
+  %>
+</c:if>
 
-<%
-    Member loginUser = memberDao.findByEmailAndPassword(m);
-    if (loginUser == null) {
-      throw new Exception("회원 정보가 일치하지 않습니다.");
-    }
+<jsp:useBean id="memberDao" type="bitcamp.myapp.dao.MemberDao" scope="application"/>
+<c:set var="loginUser" value="${memberDao.findByEmailAndPassword(m)}" scope="session"/>
 
-    session.setAttribute("loginUser", loginUser);
-    response.sendRedirect("/");
-%>
+<jsp:useBean id="loginUser" type="bitcamp.myapp.vo.Member" scope="session"/>
+<c:redirect url="/"/>

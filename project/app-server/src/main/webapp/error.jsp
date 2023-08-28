@@ -23,7 +23,7 @@
 
 <h1>실행 오류!</h1>
 
-<p><%exception%></p>
+<p><%=exception%></p>
 
 <jsp:include page="footer.jsp"/>
 

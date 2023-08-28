@@ -3,11 +3,9 @@
     pageEncoding="UTF-8"
     contentType="text/html;charset=UTF-8"%> <%-- directive element --%>
 <%@ page import="java.util.List"%>
-<%@ page import="project.dao.MemberDao"%>
 <%@ page import="project.vo.Member"%>
-<%@ page import="util.NcpObjectStorageService"%>
-<%@ page import="org.apache.ibatis.session.SqlSessionFactory"%>
 
+<jsp:useBean id="memberDao" type="project.dao.MemberDao" scope="application"/>
 
 <!DOCTYPE html>
 <html>
@@ -29,17 +27,16 @@
 </thead>
 
 <%
-    MemberDao memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
-
     List<Member> list = memberDao.findAll();
-    for (Member m : list) {
+    for (Member member : list) {
+      pageContext.setAttribute("member", member);
 %>
     <tr>
-        <td><%=m.getNo()%></td>
+        <td>${member.no}</td>
         <td>
-            <img src='http://hhyervzvcodl19010726.cdn.ntruss.com/member/<%=m.getPhoto()%>?type=f&w=30&h=40&faceopt=true&ttype=jpg'>
-            <a href='/member/detail.jsp?no=<%=m.getNo()%>'><%=m.getName()%></a></td>
-        <td><%=m.getEmail()%></td>
+            <img src='http://hhyervzvcodl19010726.cdn.ntruss.com/member/${member.photo}?type=f&w=30&h=40&faceopt=true&ttype=jpg'>
+            <a href='/member/detail.jsp?no=${member.no}'>${member.name}</a></td>
+        <td>${member.email}</td>
     </tr>
 
 <%

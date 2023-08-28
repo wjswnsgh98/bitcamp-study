@@ -8,7 +8,7 @@
 <%@ page import="project.vo.AttachedFile"%>
 <%@ page import="project.vo.Board"%>
 
-<jsp:useBean id="boardDao" type="proejct.dao.BoardDao" scope="application"/>
+<jsp:useBean id="boardDao" type="project.dao.BoardDao" scope="application"/>
 <jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory" scope="application"/>
 <jsp:useBean id="ncpObjectStorageService" type="util.NcpObjectStorageService" scope="application"/>
 <jsp:useBean id="loginUser" class="project.vo.Member" scope="session"/>
