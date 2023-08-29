@@ -4,26 +4,22 @@
     contentType="text/html;charset=UTF-8"
     trimDirectiveWhitespaces="true"
     errorPage="/error.jsp"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="org.apache.ibatis.session.SqlSessionFactory"%>
-<%@ page import="project.dao.BookDao"%>
-<%@ page import="project.dao.MemberDao"%>
 <%@ page import="project.vo.Book"%>
-<%@ page import="project.vo.Member"%>
-<%@ page import="util.NcpObjectStorageService"%>
 
+<jsp:useBean id="bookDao" type="project.dao.BookDao" scope="application"/>
+<jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory" scope="application"/>
+<jsp:useBean id="ncpObjectStorageService" type="util.NcpObjectStorageService" scope="application"/>
+<jsp:useBean id="loginUser" class="project.vo.Member" scope="session"/>
 <%
-    String[][] BOOKS = BookDao.BOOKS;
-    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {
         response.sendRedirect("/auth/form.jsp");
         return;
     }
 
-    BookDao bookDao = (BookDao) this.getServletContext().getAttribute("bookDao");
-    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
-    NcpObjectStorageService ncpObjectStorageService = (NcpObjectStorageService) this.getServletContext().getAttribute("ncpObjectStorageService");
+    // 오류가 발생했을 때 refresh 할 URL을 미리 지정한다.
+    request.setAttribute("refresh", "2;url=list.jsp");
 
+    String[][] BOOKS = bookDao.BOOKS;
     Book book = new Book();
     book.setBookTitle(request.getParameter("booktitle"));
     book.setAuthor(request.getParameter("author"));

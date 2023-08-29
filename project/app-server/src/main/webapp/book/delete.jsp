@@ -4,22 +4,19 @@
     contentType="text/html;charset=UTF-8"
     trimDirectiveWhitespaces="true"
     errorPage="/error.jsp"%>
-<%@ page import="org.apache.ibatis.session.SqlSessionFactory"%>
-<%@ page import="project.dao.BoardDao"%>
-<%@ page import="project.dao.BookDao"%>
 <%@ page import="project.vo.Book"%>
-<%@ page import="project.vo.Member"%>
 
+<jsp:useBean id="bookDao" type="project.dao.BookDao" scope="application"/>
+<jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory" scope="application"/>
+<jsp:useBean id="loginUser" class="project.vo.Member" scope="session"/>
 <%
-    String[][] BOOKS = BookDao.BOOKS;
-    BookDao bookDao = (BookDao) this.getServletContext().getAttribute("bookDao");
-    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
-
-    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {
         response.sendRedirect("/auth/form.jsp");
         return;
     }
+
+    request.setAttribute("refresh", "2;url=list.jsp");
+    String[][] BOOKS = bookDao.BOOKS;
 
     String booktitle = request.getParameter("booktitle");
     String author = request.getParameter("author");

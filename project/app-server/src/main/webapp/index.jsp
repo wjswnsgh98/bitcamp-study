@@ -15,7 +15,7 @@
 <jsp:include page="header.jsp"/>
 
 <h1>도서 대여 관리 시스템</h1>
-<p>실습 프로젝트 입니다</p>
+<p>개인 실습 프로젝트 입니다</p>
 
 <jsp:include page="footer.jsp"/>
 

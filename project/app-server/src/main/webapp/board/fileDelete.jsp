@@ -21,6 +21,8 @@
     AttachedFile attachedFile = boardDao.findFileBy(fileNo);
     Board board = boardDao.findBy(attachedFile.getBoardNo());
 
+    request.setAttribute("refresh", "2;url=detail.jsp?&no=" + board.getNo());
+
     if (board.getWriter().getNo() != loginUser.getNo()) {
       throw new ServletException("게시글 변경 권한이 없습니다!");
     }

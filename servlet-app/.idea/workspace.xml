@@ -5,31 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4478d93c-007a-4447-907a-a0d280e7b15d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../myapp/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../myapp/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myapp/app-common/src/main/java/bitcamp/myapp/vo/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/../myapp/app-common/src/main/java/bitcamp/myapp/vo/Member.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myapp/app-server/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../myapp/app-server/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myapp/app-server/src/main/webapp/auth/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../myapp/app-server/src/main/webapp/auth/login.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myapp/app-server/src/main/webapp/auth/logout.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../myapp/app-server/src/main/webapp/auth/logout.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myapp/app-server/src/main/webapp/board/detail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../myapp/app-server/src/main/webapp/board/detail.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myapp/app-server/src/main/webapp/board/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../myapp/app-server/src/main/webapp/board/list.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myapp/app-server/src/main/webapp/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../myapp/app-server/src/main/webapp/header.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myapp/app-server/src/main/webapp/member/detail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../myapp/app-server/src/main/webapp/member/detail.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myapp/app-server/src/main/webapp/member/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../myapp/app-server/src/main/webapp/member/list.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project/app-common/src/main/java/project/dao/BoardDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-common/src/main/java/project/dao/BoardDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/java/project/dao/MySQLBoardDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/java/project/dao/MySQLBoardDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/java/project/listener/ContextLoaderListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/java/project/listener/ContextLoaderListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/resources/project/dao/mysql/BoardDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/resources/project/dao/mysql/BoardDao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/webapp/board/add.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/webapp/board/add.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/webapp/board/delete.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/webapp/board/delete.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myapp/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../myapp/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/webapp/board/detail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/webapp/board/detail.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/webapp/board/fileDelete.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/webapp/board/fileDelete.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/webapp/board/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/webapp/board/list.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/webapp/error.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/webapp/error.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/webapp/member/detail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/webapp/member/detail.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project/app-server/src/main/webapp/member/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app-server/src/main/webapp/member/list.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,12 +71,18 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "last_opened_file_path": "/Users/jeonjunho/git/bitcamp-study/servlet-app/settings.gradle",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "build.tools"
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -113,10 +99,10 @@
   </component>
   <component name="RunManager" selected="Application.App">
     <configuration name="App" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="17" />
+      <option name="ALTERNATIVE_JRE_PATH" value="/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="eomcs.App" />
-      <module name="servlet-app.app.main~1" />
+      <module name="servlet-app.app.main" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/app" />
       <extension name="coverage">
         <pattern>
@@ -210,8 +196,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1692580888537</updated>
+      <workItem from="1693215716317" duration="327000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
