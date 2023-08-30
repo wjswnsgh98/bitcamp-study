@@ -2,8 +2,7 @@
     language="java"
     pageEncoding="UTF-8"
     contentType="text/html;charset=UTF-8"%>
-<%@ page import="project.dao.BookDao"%>
-
+<jsp:useBean id="bookDao" type="project.dao.BookDao" scope="application"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +23,7 @@
 </thead>
 
 <%
-    String[][] BOOKS = BookDao.BOOKS;
+    String[][] BOOKS = bookDao.BOOKS;
     for (int i = 0; i < BOOKS.length; i++) {
 %>
 <tr> <td><%=BOOKS[i][0]%></td> <td><%=BOOKS[i][1]%><td></tr>

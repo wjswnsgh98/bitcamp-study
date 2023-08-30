@@ -10,7 +10,7 @@
 <jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory" scope="application"/>
 <jsp:useBean id="loginUser" class="project.vo.Member" scope="session"/>
 <%
-    if (loginUser == null) {
+    if (loginUser.getNo() == 0) {
         response.sendRedirect("/auth/form.jsp");
         return;
     }
