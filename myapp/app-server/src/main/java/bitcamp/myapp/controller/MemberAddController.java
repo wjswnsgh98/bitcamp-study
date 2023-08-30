@@ -1,38 +1,33 @@
 package bitcamp.myapp.controller;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+import bitcamp.myapp.dao.MemberDao;
+import bitcamp.myapp.service.NcpObjectStorageService;
+import bitcamp.myapp.vo.Member;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.stereotype.Component;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import bitcamp.myapp.dao.MemberDao;
-import bitcamp.myapp.vo.Member;
-import bitcamp.util.NcpObjectStorageService;
-import org.apache.ibatis.session.SqlSessionFactory;
+@Component("/member/add")
+public class MemberAddController implements PageController {
+    MemberDao memberDao;
+    SqlSessionFactory sqlSessionFactory;
+    NcpObjectStorageService ncpObjectStorageService;
 
-@WebServlet("/member/add")
-@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
-public class MemberAddController extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.getRequestDispatcher("/member/form.jsp").include(request, response);
+    public MemberAddController(MemberDao memberDao, SqlSessionFactory sqlSessionFactory, NcpObjectStorageService ncpObjectStorageService) {
+        this.memberDao = memberDao;
+        this.sqlSessionFactory = sqlSessionFactory;
+        this.ncpObjectStorageService = ncpObjectStorageService;
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        MemberDao memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
-        SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
-        NcpObjectStorageService ncpObjectStorageService = (NcpObjectStorageService) this.getServletContext().getAttribute("ncpObjectStorageService");
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        if (request.getMethod().equals("GET")) {
+            return "/WEB-INF/jsp/member/form.jsp";
+        }
 
         try {
             Member m = new Member();
@@ -49,13 +44,13 @@ public class MemberAddController extends HttpServlet {
             }
             memberDao.insert(m);
             sqlSessionFactory.openSession(false).commit();
-            response.sendRedirect("list");
+            return "redirect:list";
 
         } catch (Exception e) {
             sqlSessionFactory.openSession(false).rollback();
             request.setAttribute("message", "회원 등록 오류!");
             request.setAttribute("refresh", "2;url=list");
-            throw new ServletException(e);
+            throw new Exception(e);
         }
     }
 }

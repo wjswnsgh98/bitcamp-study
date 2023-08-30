@@ -1,34 +1,31 @@
 package bitcamp.myapp.controller;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.stereotype.Component;
 
-@WebServlet("/board/fileDelete")
-public class BoardFileDeleteController extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@Component("/board/fileDelete")
+public class BoardFileDeleteController implements PageController {
+    BoardDao boardDao;
+    SqlSessionFactory sqlSessionFactory;
+
+    public BoardFileDeleteController(BoardDao boardDao, SqlSessionFactory sqlSessionFactory) {
+        this.boardDao = boardDao;
+        this.sqlSessionFactory = sqlSessionFactory;
+    }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Member loginUser = (Member) request.getSession().getAttribute("loginUser");
         if (loginUser == null) {
-            response.sendRedirect("/auth/login");
-            return;
+            return "redirect:../auth/login";
         }
-
-        BoardDao boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
-        SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
 
         Board board = null;
         try {
@@ -45,14 +42,14 @@ public class BoardFileDeleteController extends HttpServlet {
                 throw new Exception("해당 번호의 첨부파일이 없거나 삭제 권한이 없습니다.");
             } else {
                 sqlSessionFactory.openSession(false).commit();
-                response.sendRedirect("/board/detail?category=" + category + "&no=" + board.getNo());
+                return "redirect:detail?category=" + category + "&no=" + board.getNo();
             }
 
         } catch (Exception e) {
             sqlSessionFactory.openSession(false).rollback();
-            request.setAttribute("refresh", "2;url=/board/detail?category=" + request.getParameter("category") +
+            request.setAttribute("refresh", "2;url=detail?category=" + request.getParameter("category") +
                     "&no=" + board.getNo());
-            throw new ServletException(e);
+            throw e;
         }
     }
 }

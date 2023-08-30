@@ -1,31 +1,29 @@
 package bitcamp.myapp.controller;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+import bitcamp.myapp.dao.MemberDao;
+import bitcamp.myapp.service.NcpObjectStorageService;
+import bitcamp.myapp.vo.Member;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.stereotype.Component;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import bitcamp.myapp.dao.MemberDao;
-import bitcamp.myapp.vo.Member;
-import bitcamp.util.NcpObjectStorageService;
-import org.apache.ibatis.session.SqlSessionFactory;
+@Component("/member/update")
+public class MemberUpdateController implements PageController{
+    MemberDao memberDao;
+    SqlSessionFactory sqlSessionFactory;
+    NcpObjectStorageService ncpObjectStorageService;
 
-@WebServlet("/member/update")
-@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
-public class MemberUpdateController extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+    public MemberUpdateController(MemberDao memberDao, SqlSessionFactory sqlSessionFactory, NcpObjectStorageService ncpObjectStorageService) {
+        this.memberDao = memberDao;
+        this.sqlSessionFactory = sqlSessionFactory;
+        this.ncpObjectStorageService = ncpObjectStorageService;
+    }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        MemberDao memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
-        SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
-        NcpObjectStorageService ncpObjectStorageService = (NcpObjectStorageService) this.getServletContext().getAttribute("ncpObjectStorageService");
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         try {
             Member member = new Member();
@@ -46,12 +44,12 @@ public class MemberUpdateController extends HttpServlet {
                 throw new Exception("회원이 없습니다.");
             } else {
                 sqlSessionFactory.openSession(false).commit();
-                response.sendRedirect("list");
+                return "redirect:list";
             }
         } catch (Exception e) {
             sqlSessionFactory.openSession(false).rollback();
             request.setAttribute("refresh", "2;url=list");
-            throw new ServletException(e);
+            throw e;
         }
     }
 }

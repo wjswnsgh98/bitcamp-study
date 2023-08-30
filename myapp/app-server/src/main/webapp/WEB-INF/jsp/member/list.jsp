@@ -16,7 +16,7 @@
 
 <h1>회원 목록</h1>
 <div style='margin:5px;'>
-<a href='/member/form.jsp'>새 회원</a>
+<a href='add'>새 회원</a>
 </div>
 <table border='1'>
 <thead>
@@ -28,7 +28,7 @@
           <td>${member.no}</td>
           <td>
               <img src='http://hhyervzvcodl19010726.cdn.ntruss.com/member/${member.photo}?type=f&w=30&h=40&faceopt=true&ttype=jpg'>
-              <a href='/member/detail?no=${member.no}'>${member.name}</a></td>
+              <a href='detail?no=${member.no}'>${member.name}</a></td>
           <td>${member.email}</td>
         </tr>
 </c:forEach>
