@@ -640,3 +640,8 @@ https://whaleon.us/o/CSrtk1/001aa759f29c46b985e32dd8562f594a
   - 66. Front Controller 디자인 패턴 적용하기
   - 67. 페이지 컨트롤러를 POJO로 전환하기
   - 68. Spring IoC 컨테이너를 이용하여 페이지 컨트롤러를 관리하기
+
+## 70일(8/31, 목)
+
+- 스프링 IoC 컨테이너
+  - Spring IoC 컨테이너 사용법
