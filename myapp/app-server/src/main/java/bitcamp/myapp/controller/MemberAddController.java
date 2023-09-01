@@ -3,8 +3,11 @@ package bitcamp.myapp.controller;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.service.NcpObjectStorageService;
 import bitcamp.myapp.vo.Member;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,13 +16,12 @@ import javax.servlet.http.Part;
 @Component("/member/add")
 public class MemberAddController implements PageController {
     MemberDao memberDao;
-    SqlSessionFactory sqlSessionFactory;
+    PlatformTransactionManager txManager;
     NcpObjectStorageService ncpObjectStorageService;
 
-
-    public MemberAddController(MemberDao memberDao, SqlSessionFactory sqlSessionFactory, NcpObjectStorageService ncpObjectStorageService) {
+    public MemberAddController(MemberDao memberDao, PlatformTransactionManager txManager, NcpObjectStorageService ncpObjectStorageService) {
         this.memberDao = memberDao;
-        this.sqlSessionFactory = sqlSessionFactory;
+        this.txManager = txManager;
         this.ncpObjectStorageService = ncpObjectStorageService;
     }
 
@@ -28,6 +30,11 @@ public class MemberAddController implements PageController {
         if (request.getMethod().equals("GET")) {
             return "/WEB-INF/jsp/member/form.jsp";
         }
+
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        def.setName("SomeTxName");
+        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        TransactionStatus status = txManager.getTransaction(def);
 
         try {
             Member m = new Member();
@@ -43,11 +50,11 @@ public class MemberAddController implements PageController {
                 m.setPhoto(uploadFileUrl);
             }
             memberDao.insert(m);
-            sqlSessionFactory.openSession(false).commit();
+            txManager.commit(status);
             return "redirect:list";
 
         } catch (Exception e) {
-            sqlSessionFactory.openSession(false).rollback();
+            txManager.rollback(status);
             request.setAttribute("message", "회원 등록 오류!");
             request.setAttribute("refresh", "2;url=list");
             throw new Exception(e);
