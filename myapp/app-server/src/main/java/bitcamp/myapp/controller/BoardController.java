@@ -14,14 +14,14 @@ import javax.servlet.http.Part;
 import java.util.ArrayList;
 
 @Controller("/board/add")
-public class BoardAddController implements PageController {
+public class BoardAddController{
   @Autowired
   BoardService boardService;
 
   @Autowired
   NcpObjectStorageService ncpObjectStorageService;
 
-  @Override
+  @RequestMapping
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
     if (request.getMethod().equals("GET")){
       return "/WEB-INF/jsp/board/form.jsp";
