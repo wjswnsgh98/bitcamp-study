@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.dao.BookDao">
+
+  <!-- 결과 레코드의 컬럼 값을 자바 객체에 어떻게 담을 것인지 설정한다. -->
+  <resultMap type="book" id="bookMap">
+    <id     column="book_no"        property="no"/>
+    <result column="book_title"     property="bookTitle"/>
+    <result column="author"         property="author"/>
+    <result column="rental_date"    property="rentalDate"/>
+    <result column="return_date"    property="returnDate"/>
+    
+    <association property="lender" javaType="member">
+      <id     column="member_no"    property="no"/>
+      <result column="name"         property="name"/>
+    </association>
+    
+  </resultMap>
+
+  <insert id="insert" parameterType="book">
+    insert into project_book(book_title,author,lender,rental_date,return_date)
+    values(#{bookTitle},#{author},#{lender.no},now(),DATE_ADD(now(), INTERVAL 7 DAY))
+  </insert>
+  
+  <select id="findAll" resultMap="bookMap">
+    select
+      book.book_title,
+      book.author,
+      book.rental_date,
+      book.return_date,
+      m.member_no,
+      m.name
+    from
+      project_book book inner join project_member m on book.lender=m.member_no
+    order by
+      lender desc
+  </select>
+  
+  <select id="findBy" parameterType="map" resultMap="bookMap">
+    select
+      book.book_title,
+      book.author,
+      book.rental_date,
+      book.return_date,
+      m.member_no,
+      m.name
+    from
+      project_book book inner join project_member m on book.lender=m.member_no
+    where
+      book_title=#{bookTitle}
+      and author=#{author}
+  </select>
+  
+  <update id="update" parameterType="book">
+    update project_book set
+      book_title=#{bookTitle},
+      author=#{author}
+    where 
+      book_title=#{bookTitle}
+      and author=#{author}
+  </update>
+  
+  <delete id="delete" parameterType="book">
+    delete from project_book
+    where 
+      book_title=#{bookTitle}
+      and author=#{author}
+  </delete>
+</mapper>
