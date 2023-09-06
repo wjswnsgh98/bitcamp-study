@@ -1,11 +1,8 @@
 package project.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
-import project.dao.BoardDao;
+import project.service.BoardService;
 import project.service.NcpObjectStorageService;
 import project.vo.AttachedFile;
 import project.vo.Board;
@@ -18,15 +15,11 @@ import java.util.ArrayList;
 
 @Component("/board/update")
 public class BoardUpdateController implements PageController {
-    BoardDao boardDao;
-    PlatformTransactionManager txManager;
-    NcpObjectStorageService ncpObjectStorageService;
+    @Autowired
+    BoardService boardService;
 
-    public BoardUpdateController(BoardDao boardDao, PlatformTransactionManager txManager, NcpObjectStorageService ncpObjectStorageService) {
-        this.boardDao = boardDao;
-        this.txManager = txManager;
-        this.ncpObjectStorageService = ncpObjectStorageService;
-    }
+    @Autowired
+    NcpObjectStorageService ncpObjectStorageService;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -36,15 +29,12 @@ public class BoardUpdateController implements PageController {
             return "redirect:../auth/login";
         }
 
-        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-        def.setName("tx1");
-        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        TransactionStatus status = txManager.getTransaction(def);
-
         try {
-            Board board = new Board();
-            board.setWriter(loginUser);
-            board.setNo(Integer.parseInt(request.getParameter("no")));
+            Board board = boardService.get(Integer.parseInt(request.getParameter("no")));
+            if (board == null || board.getWriter().getNo() != loginUser.getNo()) {
+                throw new Exception("게시글이 존재하지 않거나 변경 권한이 없습니다.");
+            }
+
             board.setTitle(request.getParameter("title"));
             board.setContent(request.getParameter("content"));
 
@@ -60,18 +50,10 @@ public class BoardUpdateController implements PageController {
             }
             board.setAttachedFiles(attachedFiles);
 
-            if (boardDao.update(board) == 0) {
-                throw new Exception("게시글이 없거나 변경 권한이 없습니다.");
-            } else {
-                if (attachedFiles.size() > 0) {
-                    boardDao.insertFiles(board);
-                }
-                txManager.commit(status);
-                return "redirect:list";
-            }
+            boardService.update(board);
+            return "redirect:list";
 
         } catch (Exception e) {
-            txManager.rollback(status);
             request.setAttribute("refresh", "2;url=detail?no=" + request.getParameter("no"));
             throw e;
         }

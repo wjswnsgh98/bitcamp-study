@@ -1,11 +1,9 @@
 package project.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 import project.dao.BookDao;
+import project.service.BookService;
 import project.vo.Book;
 import project.vo.Member;
 
@@ -14,13 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component("/book/delete")
 public class BookDeleteController implements PageController {
-    BookDao bookDao;
-    PlatformTransactionManager txManager;
-
-    public BookDeleteController(BookDao bookDao, PlatformTransactionManager txManager) {
-        this.bookDao = bookDao;
-        this.txManager = txManager;
-    }
+    @Autowired
+    BookService bookService;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -29,19 +22,11 @@ public class BookDeleteController implements PageController {
             return "redirect:../auth/login";
         }
 
-        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-        def.setName("tx1");
-        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        TransactionStatus status = txManager.getTransaction(def);
-
         try {
-            Book book = new Book();
-            String[][] BOOKS = bookDao.BOOKS;
-            book.setBookTitle(request.getParameter("booktitle"));
-            book.setAuthor(request.getParameter("author"));
-            book.setLender(loginUser);
+            Book book = bookService.get(request.getParameter("booktitle"), request.getParameter("author"));
+            String[][] BOOKS = BookDao.BOOKS;
 
-            if (bookDao.delete(book) == 0) {
+            if (book == null || book.getLender().getNo() != loginUser.getNo()) {
                 throw new Exception("해당 도서의 대여자가 없거나 삭제 권한이 없습니다!");
             } else {
                 // BOOKS에서 같은 도서 제목의 수량을 1 증가
@@ -52,13 +37,11 @@ public class BookDeleteController implements PageController {
                         break; // 해당 도서를 찾았으므로 더 이상 반복할 필요가 없음
                     }
                 }
-
-                txManager.commit(status);
+                bookService.delete(book.getNo());
                 return "redirect:list";
             }
 
         } catch (Exception e) {
-            txManager.rollback(status);
             request.setAttribute("refresh", "2;url=rent");
             throw e;
         }

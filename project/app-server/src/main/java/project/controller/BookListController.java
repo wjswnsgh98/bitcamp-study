@@ -1,23 +1,21 @@
 package project.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import project.dao.BookDao;
+import project.service.BookService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Component("/book/list")
 public class BookListController implements PageController {
-  BookDao bookDao;
-
-  public BookListController(BookDao bookDao) {
-    this.bookDao = bookDao;
-  }
+  @Autowired
+  BookService bookService;
 
   @Override
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
     try {
-      request.setAttribute("list", bookDao.findAll());
+      request.setAttribute("list", bookService.list());
       return "/WEB-INF/jsp/book/list.jsp";
 
     } catch(Exception e){

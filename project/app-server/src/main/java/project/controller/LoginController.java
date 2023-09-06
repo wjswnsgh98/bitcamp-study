@@ -1,7 +1,8 @@
 package project.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import project.dao.MemberDao;
+import project.service.MemberService;
 import project.vo.Member;
 
 import javax.servlet.http.Cookie;
@@ -10,11 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component("/auth/login")
 public class LoginController implements PageController {
-  MemberDao memberDao;
-
-  public LoginController(MemberDao memberDao) {
-    this.memberDao = memberDao;
-  }
+  @Autowired
+  MemberService memberService;
 
   @Override
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -34,7 +32,7 @@ public class LoginController implements PageController {
       response.addCookie(cookie);
     }
 
-    Member loginUser = memberDao.findByEmailAndPassword(email, password);
+    Member loginUser = memberService.get(email, password);
     if (loginUser == null) {
       request.setAttribute("refresh", "2;url=/app/auth/login");
       throw new Exception("회원 정보가 일치하지 않습니다.");

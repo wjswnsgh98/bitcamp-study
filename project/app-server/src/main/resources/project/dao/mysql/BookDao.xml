@@ -65,7 +65,6 @@
   <delete id="delete" parameterType="book">
     delete from project_book
     where 
-      book_title=#{bookTitle}
-      and author=#{author}
+      book_no=#{no}
   </delete>
 </mapper>

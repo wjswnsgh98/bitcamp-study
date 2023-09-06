@@ -18,11 +18,11 @@
 
     <!-- 로그 출력을 적용할 대상과 로그 출력 레벨을 지정한다. -->
     <Loggers>
-        <Logger name="bitcamp.myapp.dao" level="debug" additivity="false">
+        <Logger name="project.dao" level="debug" additivity="false">
             <AppenderRef ref="stdout" />
         </Logger>
 
-        <Logger name="bitcamp.myapp" level="debug" additivity="false">
+        <Logger name="project" level="debug" additivity="false">
             <AppenderRef ref="stdout" />
         </Logger>
 

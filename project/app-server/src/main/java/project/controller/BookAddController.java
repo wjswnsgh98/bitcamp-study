@@ -1,11 +1,9 @@
 package project.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 import project.dao.BookDao;
+import project.service.BookService;
 import project.vo.Book;
 import project.vo.Member;
 
@@ -14,13 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component("/book/add")
 public class BookAddController implements PageController {
-  BookDao bookDao;
-  PlatformTransactionManager txManager;
-
-  public BookAddController(BookDao bookDao, PlatformTransactionManager txManager) {
-    this.bookDao = bookDao;
-    this.txManager = txManager;
-  }
+  @Autowired
+  BookService bookService;
 
   @Override
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -33,14 +26,9 @@ public class BookAddController implements PageController {
       return "redirect:../auth/login";
     }
 
-    DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-    def.setName("tx1");
-    def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-    TransactionStatus status = txManager.getTransaction(def);
-
     try {
       Book book = new Book();
-      String[][] BOOKS = bookDao.BOOKS;
+      String[][] BOOKS = BookDao.BOOKS;
       book.setBookTitle(request.getParameter("booktitle"));
       book.setAuthor(request.getParameter("author"));
       book.setLender(loginUser);
@@ -67,12 +55,10 @@ public class BookAddController implements PageController {
         request.setAttribute("message", "해당 제목의 도서가 없습니다!");
       }
 
-      bookDao.insert(book);
-      txManager.commit(status);
+      bookService.add(book);
       return "redirect:rent";
 
     } catch (Exception e) {
-      txManager.rollback(status);
       request.setAttribute("message", "도서 대여 등록 오류!");
       request.setAttribute("refresh", "2;url=rent");
       throw e;

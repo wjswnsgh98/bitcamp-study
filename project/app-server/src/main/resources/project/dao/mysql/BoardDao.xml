@@ -74,12 +74,11 @@
 	    content=#{content}
 	  where 
 	    board_no=#{no}
-	    and writer=#{writer.no}
   </update>
   
   <update id="updateCount" parameterType="board">
     update project_board set
-      view_count=#{viewCount}
+      view_count=view_count + 1
     where
       board_no=#{no}
   </update>
@@ -88,7 +87,6 @@
     delete from project_board
     where 
       board_no=#{no}
-      and writer=#{writer.no}
   </delete>
   
   <insert id="insertFiles" parameterType="board">

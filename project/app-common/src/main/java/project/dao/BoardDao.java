@@ -1,16 +1,17 @@
 package project.dao;
 
-import java.util.List;
 import project.vo.AttachedFile;
 import project.vo.Board;
 
+import java.util.List;
+
 public interface BoardDao {
-  void insert(Board board);
+  int insert(Board board);
   List<Board> findAll();
   Board findBy(int no);
   int update(Board board);
-  int updateCount(Board board);
-  int delete(Board board);
+  int updateCount(int no);
+  int delete(int no);
 
   int insertFiles(Board board);
   AttachedFile findFileBy(int no);
