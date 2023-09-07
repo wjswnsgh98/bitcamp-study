@@ -674,3 +674,9 @@ https://whaleon.us/o/CSrtk1/001aa759f29c46b985e32dd8562f594a
 - 프로젝트 실습
   - 78. Spring WebMVC 프레임워크 도입하기
   - 79. Spring IoC 컨테이너를 Root Context와 Servlet Context로 분리하기
+
+## 75일(9/7, 목)
+
+- Spring WebMVC 사용법
+- 프로젝트 실습
+  - 80. Spring WebMVC 활용하기

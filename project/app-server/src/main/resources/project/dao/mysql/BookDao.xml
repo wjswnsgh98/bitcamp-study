@@ -9,60 +9,76 @@
     <id     column="book_no"        property="no"/>
     <result column="book_title"     property="bookTitle"/>
     <result column="author"         property="author"/>
-    <result column="rental_date"    property="rentalDate"/>
-    <result column="return_date"    property="returnDate"/>
-    
-    <association property="lender" javaType="member">
-      <id     column="member_no"    property="no"/>
-      <result column="name"         property="name"/>
-    </association>
-    
+    <result column="publisher"      property="publisher"/>
+    <result column="content"        property="content"/>
+    <result column="count"          property="count"/>
+    <result column="photo"          property="photo"/>
   </resultMap>
 
   <insert id="insert" parameterType="book">
-    insert into project_book(book_title,author,lender,rental_date,return_date)
-    values(#{bookTitle},#{author},#{lender.no},now(),DATE_ADD(now(), INTERVAL 7 DAY))
+    insert into project_book(book_title,author,publisher,content,photo)
+    values(#{bookTitle},#{author},#{publisher},#{content},#{photo})
   </insert>
   
   <select id="findAll" resultMap="bookMap">
     select
-      book.book_title,
-      book.author,
-      book.rental_date,
-      book.return_date,
-      m.member_no,
-      m.name
+      book_no,
+      book_title,
+      author,
+      publisher,
+      content,
+      count,
+      photo
     from
-      project_book book inner join project_member m on book.lender=m.member_no
+      project_book
     order by
-      lender desc
+      book_title desc
   </select>
   
-  <select id="findBy" parameterType="map" resultMap="bookMap">
+  <select id="findBy" parameterType="int" resultMap="bookMap">
     select
-      book.book_title,
-      book.author,
-      book.rental_date,
-      book.return_date,
-      m.member_no,
-      m.name
+      book_no,
+      book_title,
+      author,
+      publisher,
+      content,
+      count,
+      photo
     from
-      project_book book inner join project_member m on book.lender=m.member_no
+      project_book
+    where
+      book_no=#{no}
+  </select>
+
+  <select id="findByTitle" parameterType="String" resultMap="bookMap">
+    select
+      book_no,
+      book_title,
+      author,
+      publisher,
+      content,
+      count,
+      photo
+    from
+      project_book
     where
       book_title=#{bookTitle}
-      and author=#{author}
   </select>
   
   <update id="update" parameterType="book">
     update project_book set
-      book_title=#{bookTitle},
-      author=#{author}
-    where 
       book_title=#{bookTitle}
-      and author=#{author}
+      ,author=#{author}
+      ,publisher=#{publisher}
+      ,content=#{content}
+    <if test="photo != null">
+      ,photo=#{photo}
+    </if>
+    where 
+      book_no=#{no}
   </update>
   
-  <delete id="delete" parameterType="book">
+  <delete id="delete" parameterType="int">
     delete from project_book
     where 
       book_no=#{no}

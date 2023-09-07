@@ -16,10 +16,8 @@ public class BookViewController implements PageController {
   @Override
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
     try {
-      String bookTitle = request.getParameter("booktitle");
-      String author = request.getParameter("author");
-
-      Book book = bookService.get(bookTitle, author);
+      int no = Integer.parseInt(request.getParameter("no"));
+      Book book = bookService.get(no);
       if(book != null){
         request.setAttribute("book", book);
       }

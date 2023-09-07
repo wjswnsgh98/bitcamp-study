@@ -2,18 +2,22 @@ package project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import project.dao.BookDao;
 import project.service.BookService;
+import project.service.NcpObjectStorageService;
 import project.vo.Book;
 import project.vo.Member;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 @Component("/book/add")
 public class BookAddController implements PageController {
   @Autowired
   BookService bookService;
+
+  @Autowired
+  NcpObjectStorageService ncpObjectStorageService;
 
   @Override
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -28,39 +32,24 @@ public class BookAddController implements PageController {
 
     try {
       Book book = new Book();
-      String[][] BOOKS = BookDao.BOOKS;
       book.setBookTitle(request.getParameter("booktitle"));
       book.setAuthor(request.getParameter("author"));
-      book.setLender(loginUser);
+      book.setPublisher(request.getParameter("publisher"));
+      book.setContent(request.getParameter("content"));
 
-      boolean foundBook = false; // 책을 찾았는지 확인하기 위한 변수
-
-      for (int i = 0; i < BOOKS.length; i++) {
-        String str = BOOKS[i][0];
-        if (str.equals(book.getBookTitle())) {
-          int count = Integer.parseInt(BOOKS[i][1]);
-          if (count > 0) {
-            book.setBookTitle(book.getBookTitle());
-            count--; // 책의 수량을 1 감소시킴
-            BOOKS[i][1] = Integer.toString(count); // 수정된 수량을 다시 BOOKS 배열에 반영
-            foundBook = true;
-            break;
-          } else {
-            request.setAttribute("message", "해당 제목의 도서는 모두 대여 중입니다!");
-          }
-        }
-      }
-
-      if (!foundBook) {
-        request.setAttribute("message", "해당 제목의 도서가 없습니다!");
+      Part photoPart = request.getPart("photo");
+      if (photoPart.getSize() > 0) {
+        String uploadFileUrl = ncpObjectStorageService.uploadFile(
+                "bitcamp-nc7-bucket-10", "book/", photoPart);
+        book.setPhoto(uploadFileUrl);
       }
 
       bookService.add(book);
-      return "redirect:rent";
+      return "redirect:list";
 
     } catch (Exception e) {
-      request.setAttribute("message", "도서 대여 등록 오류!");
-      request.setAttribute("refresh", "2;url=rent");
+      request.setAttribute("message", "도서 등록 오류!");
+      request.setAttribute("refresh", "2;url=list");
       throw e;
     }
   }

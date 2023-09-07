@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    // id 'eclipse-wtp'
+    id 'war'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8';
+} 
+
+// // 이클립스에서 출력할 프로젝트 이름을 설정한다.
+// eclipse {
+//     project {
+//         name = "eomcs-spring-webmvc"
+//     }
+// }
+
+war {
+  archiveBaseName = "spring-app"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // 임베디드 Tomcat 서버
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.79'
+
+    // Spring WebMVC 라이브러리
+    implementation 'org.springframework:spring-webmvc:5.3.29'
+
+    implementation 'com.google.guava:guava:28.2-jre'
+    testImplementation 'junit:junit:4.12'
+}

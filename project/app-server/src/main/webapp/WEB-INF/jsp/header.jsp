@@ -7,7 +7,8 @@
 <div style='height:50px;background-color:orange;'>
     <img src='https://www.ncloud.com/public/img/logo-m.png' style='height:40px'>
     <a href='/app/member/list'>회원</a>
-    <a href='/app/book/rent'>도서 대여</a>
+    <a href='/app/book/list'>도서</a>
+    <a href='/app/rent/list'>도서 대여</a>
     <a href='/app/board/list'>게시글</a>
 
 <c:choose>

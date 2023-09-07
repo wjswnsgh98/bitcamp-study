@@ -23,6 +23,7 @@
   <mappers>
     <mapper resource="project/dao/mysql/BoardDao.xml"/>
     <mapper resource="project/dao/mysql/BookDao.xml"/>
+    <mapper resource="project/dao/mysql/RentDao.xml"/>
     <mapper resource="project/dao/mysql/MemberDao.xml"/>
   </mappers>
 </configuration>

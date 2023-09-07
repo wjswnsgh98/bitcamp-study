@@ -43,8 +43,13 @@ public class DefaultBookService implements BookService{
     }
 
     @Override
-    public Book get(String booktitle, String author) throws Exception {
-        return bookDao.findBy(booktitle, author);
+    public Book get(int bookNo) throws Exception {
+        return bookDao.findBy(bookNo);
+    }
+
+    @Override
+    public Book get(String bookTitle) throws Exception {
+        return bookDao.findByTitle(bookTitle);
     }
 
     @Override

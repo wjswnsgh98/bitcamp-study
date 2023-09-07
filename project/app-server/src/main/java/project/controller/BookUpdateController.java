@@ -22,13 +22,15 @@ public class BookUpdateController implements PageController {
         }
 
         try {
-            Book book = bookService.get(request.getParameter("booktitle"), request.getParameter("author"));
-            if (book == null || book.getLender().getNo() != loginUser.getNo()) {
-                throw new Exception("해당 도서의 대여자가 없거나 삭제 권한이 없습니다!");
+            Book book = bookService.get(Integer.parseInt(request.getParameter("no")));
+            if (book == null) {
+                throw new Exception("해당 도서가 없습니다!");
             }
 
-            book.setBookTitle(request.getParameter("booktitle"));
+            book.setBookTitle(request.getParameter("bookTitle"));
             book.setAuthor(request.getParameter("author"));
+            book.setPublisher(request.getParameter("publisher"));
+            book.setContent(request.getParameter("content"));
 
             bookService.update(book);
             return "redirect:list";

@@ -1,8 +1,6 @@
 package project.vo;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.Calendar;
 import java.util.Objects;
 
 public class Book implements Serializable{
@@ -11,9 +9,10 @@ public class Book implements Serializable{
   private int no;
   private String bookTitle;
   private String author;
-  private Timestamp rentalDate;
-  private Timestamp returnDate;
-  private Member lender;
+  private String publisher;
+  private String content;
+  private int count;
+  private String photo;
 
   @Override
   public int hashCode() {
@@ -30,10 +29,6 @@ public class Book implements Serializable{
     }
 
     Book book = (Book) obj;
-
-    if (!this.getLender().equals(book.getLender())) {
-      return false;
-    }
 
     return true;
   }
@@ -62,35 +57,23 @@ public class Book implements Serializable{
     this.author = author;
   }
 
-  public Timestamp getRentalDate() {
-    return rentalDate;
+  public String getPublisher() { return publisher; }
+
+  public void setPublisher(String publisher) { this.publisher = publisher; }
+
+  public String getContent() { return content; }
+
+  public void setContent(String content) { this.content = content;}
+
+  public int getCount() { return count; }
+
+  public void setCount(int count) { this.count = count; }
+
+  public String getPhoto() {
+    return photo;
   }
 
-  public void setRentalDate(Timestamp rentalDate) {
-    this.rentalDate = rentalDate;
-  }
-
-  public Timestamp getReturnDate() {
-    return returnDate;
-  }
-
-  public void setReturnDate(Timestamp rentaldate) {
-    if (rentalDate != null) {
-      // rentalDate로부터 7일 후의 returnDate를 계산합니다.
-      Calendar calendar = Calendar.getInstance();
-      calendar.setTime(rentalDate);
-      calendar.add(Calendar.DAY_OF_MONTH, 7);
-      this.returnDate = new Timestamp(calendar.getTimeInMillis());
-    } else {
-      this.returnDate = null; // rentalDate가 null인 경우 returnDate도 null로 설정
-    }
-  }
-
-  public Member getLender() {
-    return lender;
-  }
-
-  public void setLender(Member lender) {
-    this.lender = lender;
+  public void setPhoto(String photo) {
+    this.photo = photo;
   }
 }
