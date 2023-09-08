@@ -22,20 +22,43 @@
     
   </resultMap>
 
-  <insert id="insert" parameterType="rent">
+  <insert id="insert" parameterType="rent"
+          useGeneratedKeys="true" keyColumn="rent_no" keyProperty="no">
     insert into project_rent(lender,rent_book,rental_date,return_date)
     values(#{lender.no},#{rentBook.no},now(),DATE_ADD(now(), INTERVAL 7 DAY))
   </insert>
 
   <select id="findAll" resultMap="rentMap">
-    SELECT
+    select
       r.rent_no,
       m.name,
       b.book_title,
       r.rental_date,
       r.return_date
-    FROM
-      project_rent r INNER JOIN project_member m ON r.lender = m.member_no
-      INNER JOIN project_book b ON r.rent_book = b.book_no;
+    from
+      project_rent r
+      inner join project_member m on r.lender=m.member_no
+      inner join project_book b on r.rent_book=b.book_no
   </select>
+
+  <select id="findBy" parameterType="int" resultMap="rentMap">
+    select
+      r.rent_no,
+      m.name,
+      b.book_title,
+      r.rental_date,
+      r.return_date
+    from
+      project_rent r
+      inner join project_member m on r.lender=m.member_no
+      inner join project_book b on r.rent_book=b.book_no
+    where
+      r.rent_no=#{rentNo}
+  </select>
+
+  <delete id="delete" parameterType="rent">
+    delete from project_rent
+    where
+      rent_no=#{no}
+  </delete>
 </mapper>

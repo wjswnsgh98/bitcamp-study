@@ -10,5 +10,7 @@ public interface BookDao {
   Book findBy(int no);
   Book findByTitle(String bookTitle);
   int update(Book book);
+  int updateIncreaseCount(String bookTitle);
+  int updateDecreaseCount(String bookTitle);
   int delete(int no);
 }

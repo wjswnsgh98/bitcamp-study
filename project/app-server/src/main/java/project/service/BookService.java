@@ -10,5 +10,7 @@ public interface BookService {
     Book get(int bookNo) throws Exception;
     Book get(String bookTitle) throws Exception;
     int update(Book book) throws Exception;
+    int increaseCount(String bookTitle) throws Exception;
+    int decreaseCount(String bookTitle) throws Exception;
     int delete(int bookNo) throws Exception;
 }

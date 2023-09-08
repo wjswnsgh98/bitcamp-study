@@ -77,6 +77,20 @@
     where 
       book_no=#{no}
   </update>
+
+  <update id="updateIncreaseCount" parameterType="String">
+    update project_book set
+      count=count + 1
+    where
+      book_title=#{bookTitle}
+  </update>
+
+  <update id="updateDecreaseCount" parameterType="String">
+    update project_book set
+      count=count - 1
+    where
+      book_title=#{bookTitle}
+  </update>
   
   <delete id="delete" parameterType="int">
     delete from project_book

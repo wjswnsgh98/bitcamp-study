@@ -85,4 +85,38 @@ public class DefaultBookService implements BookService{
             throw e;
         }
     }
+
+    @Override
+    public int increaseCount(String bookTitle) throws Exception {
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        def.setName("tx1");
+        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        TransactionStatus status = txManager.getTransaction(def);
+
+        try {
+            int count = bookDao.updateIncreaseCount(bookTitle);
+            txManager.commit(status);
+            return count;
+        } catch (Exception e) {
+            txManager.rollback(status);
+            throw e;
+        }
+    }
+
+    @Override
+    public int decreaseCount(String bookTitle) throws Exception {
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        def.setName("tx1");
+        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        TransactionStatus status = txManager.getTransaction(def);
+
+        try {
+            int count = bookDao.updateDecreaseCount(bookTitle);
+            txManager.commit(status);
+            return count;
+        } catch (Exception e) {
+            txManager.rollback(status);
+            throw e;
+        }
+    }
 }

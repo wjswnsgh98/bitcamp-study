@@ -19,9 +19,6 @@ public class RentAddController implements PageController {
     @Autowired
     BookService bookService;
 
-//    @Autowired
-//    NcpObjectStorageService ncpObjectStorageService;
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Member loginUser = (Member) request.getSession().getAttribute("loginUser");
@@ -33,20 +30,18 @@ public class RentAddController implements PageController {
             return "/WEB-INF/jsp/rent/form.jsp";
         }
 
-        String bookTitle = request.getParameter("bookTitle");
-        System.out.printf("%s\n", bookTitle);
-        Book title = bookService.get(bookTitle);
-        if(title == null){
-            request.setAttribute("message", "오류!");
-            // return "redirect:list";
-        }
-
         try {
+            String bookTitle = request.getParameter("bookTitle");
+            Book book = bookService.get(bookTitle);
+            if(book != null){
+                bookService.decreaseCount(bookTitle);
+                request.setAttribute("book", book);
+            }
+
             Rent rent = new Rent();
             rent.setLender(loginUser);
-            rent.setRentBook(title);
+            rent.setRentBook(book);
             request.setAttribute("message", "도서 대여 등록 완료!");
-
             rentService.add(rent);
             return "redirect:list";
 

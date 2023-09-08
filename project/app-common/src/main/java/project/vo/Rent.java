@@ -7,7 +7,6 @@ public class Rent {
     private int no;
     private Member lender;
     private Book rentBook;
-    private Book bookNo;
     private Timestamp rentalDate;
     private Timestamp returnDate;
 
@@ -22,10 +21,6 @@ public class Rent {
     public Book getRentBook() { return rentBook; }
 
     public void setRentBook(Book rentBook) { this.rentBook = rentBook; }
-
-    public Book getBookNo() { return bookNo; }
-
-    public void setBookNo(Book bookNo) { this.bookNo = bookNo;}
 
     public Timestamp getRentalDate() {
         return rentalDate;
