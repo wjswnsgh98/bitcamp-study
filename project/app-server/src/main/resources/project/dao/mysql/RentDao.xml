@@ -44,10 +44,12 @@
   <select id="findBy" parameterType="int" resultMap="rentMap">
     select
       r.rent_no,
-      m.name,
-      b.book_title,
       r.rental_date,
-      r.return_date
+      r.return_date,
+      m.member_no,
+      m.name,
+      b.book_no,
+      b.book_title
     from
       project_rent r
       inner join project_member m on r.lender=m.member_no

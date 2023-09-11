@@ -15,6 +15,19 @@ public class Book implements Serializable{
   private String photo;
 
   @Override
+  public String toString() {
+    return "Book{" +
+            "no=" + no +
+            ", bookTitle='" + bookTitle + '\'' +
+            ", author='" + author + '\'' +
+            ", publisher='" + publisher + '\'' +
+            ", content='" + content + '\'' +
+            ", count=" + count +
+            ", photo='" + photo + '\'' +
+            '}';
+  }
+
+  @Override
   public int hashCode() {
     return Objects.hash(no);
   }

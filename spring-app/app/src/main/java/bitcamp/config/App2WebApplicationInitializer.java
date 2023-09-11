@@ -16,7 +16,7 @@ public class App2WebApplicationInitializer extends AbstractAnnotationConfigDispa
 
   @Override
   protected Class<?>[] getServletConfigClasses() {
-    return new Class[] {App1Config.class};
+    return new Class[] {App2Config.class};
   }
 
   @Override

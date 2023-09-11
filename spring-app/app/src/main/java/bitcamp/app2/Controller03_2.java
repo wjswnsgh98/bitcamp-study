@@ -70,7 +70,6 @@ public class Controller03_2 {
       // => 요청 파라미터에 값이 없으면 아규먼트에 빈 문자열을 넣어 준다.
       // => @SessionAttributes에 등록한 이름이 아니기 때문에 세션에서 값을 꺼내지 않는다.
       @ModelAttribute("tel2") String tel2) {
-
     return String.format("name2=%s, age2=%s, tel2=%s", 
         name2, age2, tel2);
   }
@@ -94,22 +93,15 @@ public class Controller03_2 {
       @ModelAttribute("name2") String name2,
       @ModelAttribute("age2") String age2) {
 
+    // @ModelAttribute
+    // 1. @SessionAttribute에 지정된 이름인 경우,
+    //  1) 무조건 HttpSession 객체에 값을 꺼내 넘긴다.
+    //     만약 없다면, 예외 발생!
+    // 2. @SessionAttribute에 지정된 이름이 아닌 경우,
+    //  2) 요청 파라미터의 값을 꺼내 넘긴다.
+    //  3) 없으면, 빈 문자열을 넘긴다.
+
     return String.format("name=%s, age=%s, name2=%s, age2=%s", 
         name, age, name2, age2);
   }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

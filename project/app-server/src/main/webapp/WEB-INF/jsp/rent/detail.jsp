@@ -46,7 +46,7 @@
 
     <div>
     <button type='reset'>초기화</button>
-    <a href='delete?no=${param.no}'>반납</a>
+    <a href='delete?no=${rent.no}'>반납</a>
     <a href='list'>목록</a>
     </div>
 </c:if>

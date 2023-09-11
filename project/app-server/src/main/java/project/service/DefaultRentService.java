@@ -49,24 +49,6 @@ public class DefaultRentService implements RentService {
     }
 
     @Override
-    public int update(Rent rent) throws Exception {
-        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-        def.setName("tx1");
-        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        TransactionStatus status = txManager.getTransaction(def);
-
-        try {
-            int count = rentDao.update(rent);
-            txManager.commit(status);
-            return count;
-
-        } catch (Exception e) {
-            txManager.rollback(status);
-            throw e;
-        }
-    }
-
-    @Override
     public int delete(int rentNo) throws Exception {
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         def.setName("tx1");

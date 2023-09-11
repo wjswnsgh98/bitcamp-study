@@ -41,7 +41,7 @@ public class RentAddController implements PageController {
             Rent rent = new Rent();
             rent.setLender(loginUser);
             rent.setRentBook(book);
-            request.setAttribute("message", "도서 대여 등록 완료!");
+
             rentService.add(rent);
             return "redirect:list";
 

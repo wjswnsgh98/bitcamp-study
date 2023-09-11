@@ -34,7 +34,7 @@ public class Rent {
         return returnDate;
     }
 
-    public void setReturnDate(Timestamp rentaldate) {
+    public void setReturnDate(Timestamp rentalDate) {
         if (rentalDate != null) {
             // rentalDate로부터 7일 후의 returnDate를 계산합니다.
             Calendar calendar = Calendar.getInstance();
