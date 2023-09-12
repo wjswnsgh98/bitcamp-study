@@ -3,14 +3,19 @@ package project.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import project.service.BookService;
+import project.service.ReserveService;
 import project.vo.Book;
 import project.vo.Member;
+import project.vo.Reserve;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Component("/book/update")
-public class BookUpdateController implements PageController {
+@Component("/reserve/add")
+public class ReserveAddController implements PageController {
+    @Autowired
+    ReserveService reserveService;
+
     @Autowired
     BookService bookService;
 
@@ -21,22 +26,26 @@ public class BookUpdateController implements PageController {
             return "redirect:../auth/login";
         }
 
+        if (request.getMethod().equals("GET")) {
+            return "/WEB-INF/jsp/rent/form.jsp";
+        }
+
         try {
-            Book book = bookService.get(Integer.parseInt(request.getParameter("no")));
-            if (book == null) {
-                throw new Exception("해당 도서가 없습니다!");
+            String bookTitle = request.getParameter("bookTitle");
+            Book book = bookService.get(bookTitle);
+            if(book != null){
+                request.setAttribute("book", book);
             }
 
-            book.setBookTitle(request.getParameter("bookTitle"));
-            book.setAuthor(request.getParameter("author"));
-            book.setPublisher(request.getParameter("publisher"));
-            book.setContent(request.getParameter("content"));
-            book.setCount(Integer.parseInt(request.getParameter("count")));
+            Reserve reserve = new Reserve();
+            reserve.setReserveName(loginUser);
+            reserve.setReserveBook(book);
 
-            bookService.update(book);
+            reserveService.add(reserve);
             return "redirect:list";
 
         } catch (Exception e) {
+            request.setAttribute("message", "도서 예약 등록 오류!");
             request.setAttribute("refresh", "2;url=list");
             throw e;
         }

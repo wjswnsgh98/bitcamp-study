@@ -9,8 +9,8 @@ import project.vo.Member;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Component("/book/update")
-public class BookUpdateController implements PageController {
+@Component("/book/delete")
+public class BookDeleteController implements PageController {
     @Autowired
     BookService bookService;
 
@@ -23,18 +23,13 @@ public class BookUpdateController implements PageController {
 
         try {
             Book book = bookService.get(Integer.parseInt(request.getParameter("no")));
+
             if (book == null) {
-                throw new Exception("해당 도서가 없습니다!");
+                throw new Exception("해당 번호의 도서가 없습니다.");
+            } else {
+                bookService.delete(book.getNo());
+                return "redirect:list";
             }
-
-            book.setBookTitle(request.getParameter("bookTitle"));
-            book.setAuthor(request.getParameter("author"));
-            book.setPublisher(request.getParameter("publisher"));
-            book.setContent(request.getParameter("content"));
-            book.setCount(Integer.parseInt(request.getParameter("count")));
-
-            bookService.update(book);
-            return "redirect:list";
 
         } catch (Exception e) {
             request.setAttribute("refresh", "2;url=list");
