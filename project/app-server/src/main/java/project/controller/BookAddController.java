@@ -36,6 +36,7 @@ public class BookAddController implements PageController {
       book.setAuthor(request.getParameter("author"));
       book.setPublisher(request.getParameter("publisher"));
       book.setContent(request.getParameter("content"));
+      book.setCount(Integer.parseInt(request.getParameter("count")));
 
       Part photoPart = request.getPart("photo");
       if (photoPart.getSize() > 0) {

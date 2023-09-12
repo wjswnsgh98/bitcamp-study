@@ -9,6 +9,7 @@
     <a href='/app/member/list'>회원</a>
     <a href='/app/book/list'>도서</a>
     <a href='/app/rent/list'>도서 대여</a>
+    <a href='/app/reserve/list'>도서 예약</a>
     <a href='/app/board/list'>게시글</a>
 
 <c:choose>

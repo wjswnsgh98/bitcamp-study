@@ -16,8 +16,8 @@
   </resultMap>
 
   <insert id="insert" parameterType="book">
-    insert into project_book(book_title,author,publisher,content,photo)
-    values(#{bookTitle},#{author},#{publisher},#{content},#{photo})
+    insert into project_book(book_title,author,publisher,content,photo,count)
+    values(#{bookTitle},#{author},#{publisher},#{content},#{photo},#{count})
   </insert>
   
   <select id="findAll" resultMap="bookMap">

@@ -32,6 +32,9 @@
         <tr>
             <th>줄거리</th> <td><input type='text' name='content'></td>
         </tr>
+        <tr>
+            <th>수량</th> <td><input type='text' name='count'></td>
+        </tr>
     </table>
 <button>등록</button>
 </form>

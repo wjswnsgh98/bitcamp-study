@@ -5,8 +5,8 @@ plugins {
 }
 
 tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8';
-} 
+    options.encoding = 'UTF-8'
+}
 
 // // 이클립스에서 출력할 프로젝트 이름을 설정한다.
 // eclipse {
@@ -16,7 +16,7 @@ tasks.withType(JavaCompile) {
 // }
 
 war {
-  archiveBaseName = "spring-app"
+    archiveBaseName = "spring-app"
 }
 
 repositories {
