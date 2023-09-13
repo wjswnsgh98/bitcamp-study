@@ -1,13 +1,13 @@
 package project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import project.service.BoardService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Component("/board/list")
+@Controller("/board/list")
 public class BoardListController implements PageController {
   @Autowired
   BoardService boardService;

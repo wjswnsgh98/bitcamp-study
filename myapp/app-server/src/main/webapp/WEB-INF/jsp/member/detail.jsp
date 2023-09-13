@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<jsp:include page="../header.jsp"/>
+<jsp:include page="../../../../resources/templates/header.html"/>
 
 <h1>회원</h1>
 <c:if test="${empty member}">
@@ -62,7 +62,7 @@
   </form>
 </c:if>
 
-<jsp:include page="../footer.jsp"/>
+<jsp:include page="../../../../resources/templates/footer.html"/>
 
 </body>
 </html>

@@ -1,13 +1,13 @@
 package project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import project.service.BookService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Component("/book/list")
+@Controller("/book/list")
 public class BookListController implements PageController {
   @Autowired
   BookService bookService;

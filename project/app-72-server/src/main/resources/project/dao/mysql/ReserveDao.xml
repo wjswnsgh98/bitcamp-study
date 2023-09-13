@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.dao.ReserveDao">
+
+  <!-- 결과 레코드의 컬럼 값을 자바 객체에 어떻게 담을 것인지 설정한다. -->
+  <resultMap type="reserve" id="reserveMap">
+    <id     column="reserve_no"      property="no"/>
+    <result column="reserve_date"    property="reserveDate"/>
+    
+    <association property="reserveName" javaType="member">
+      <id     column="member_no"    property="no"/>
+      <result column="name"         property="name"/>
+    </association>
+
+    <association property="reserveBook" javaType="book">
+      <id     column="book_no"     property="no"/>
+      <result column="book_title"  property="bookTitle"/>
+    </association>
+    
+  </resultMap>
+
+  <insert id="insert" parameterType="reserve"
+          useGeneratedKeys="true" keyColumn="reserve_no" keyProperty="no">
+    insert into project_reserve(reserve_name,reserve_book,reserve_date)
+    values(#{reserveName.no},#{reserveBook.no},now())
+  </insert>
+
+  <select id="findAll" resultMap="reserveMap">
+    select
+      r.reserve_no,
+      m.name,
+      b.book_title,
+      r.reserve_date
+    from
+      project_reserve r
+      inner join project_member m on r.reserve_name=m.member_no
+      inner join project_book b on r.reserve_book=b.book_no
+  </select>
+
+  <select id="findBy" parameterType="int" resultMap="reserveMap">
+    select
+      r.reserve_no,
+      r.reserve_date,
+      m.member_no,
+      m.name,
+      b.book_no,
+      b.book_title
+    from
+      project_reserve r
+      inner join project_member m on r.reserve_name=m.member_no
+      inner join project_book b on r.reserve_book=b.book_no
+    where
+      r.reserve_no=#{reserveNo}
+  </select>
+
+  <delete id="delete" parameterType="reserve">
+    delete from project_reserve
+    where
+      reserve_no=#{no}
+  </delete>
+</mapper>

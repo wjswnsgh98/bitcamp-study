@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.dao.RentDao">
+
+  <!-- 결과 레코드의 컬럼 값을 자바 객체에 어떻게 담을 것인지 설정한다. -->
+  <resultMap type="rent" id="rentMap">
+    <id     column="rent_no"        property="no"/>
+    <result column="rental_date"    property="rentalDate"/>
+    <result column="return_date"    property="returnDate"/>
+    
+    <association property="lender" javaType="member">
+      <id     column="member_no"    property="no"/>
+      <result column="name"         property="name"/>
+    </association>
+
+    <association property="rentBook" javaType="book">
+      <id     column="book_no"     property="no"/>
+      <result column="book_title"  property="bookTitle"/>
+    </association>
+    
+  </resultMap>
+
+  <insert id="insert" parameterType="rent"
+          useGeneratedKeys="true" keyColumn="rent_no" keyProperty="no">
+    insert into project_rent(lender,rent_book,rental_date,return_date)
+    values(#{lender.no},#{rentBook.no},now(),DATE_ADD(now(), INTERVAL 7 DAY))
+  </insert>
+
+  <select id="findAll" resultMap="rentMap">
+    select
+      r.rent_no,
+      m.name,
+      b.book_title,
+      r.rental_date,
+      r.return_date
+    from
+      project_rent r
+      inner join project_member m on r.lender=m.member_no
+      inner join project_book b on r.rent_book=b.book_no
+  </select>
+
+  <select id="findBy" parameterType="int" resultMap="rentMap">
+    select
+      r.rent_no,
+      r.rental_date,
+      r.return_date,
+      m.member_no,
+      m.name,
+      b.book_no,
+      b.book_title
+    from
+      project_rent r
+      inner join project_member m on r.lender=m.member_no
+      inner join project_book b on r.rent_book=b.book_no
+    where
+      r.rent_no=#{rentNo}
+  </select>
+
+  <delete id="delete" parameterType="rent">
+    delete from project_rent
+    where
+      rent_no=#{no}
+  </delete>
+</mapper>

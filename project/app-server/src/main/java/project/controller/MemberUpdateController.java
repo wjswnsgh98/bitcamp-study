@@ -1,7 +1,7 @@
 package project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import project.service.MemberService;
 import project.service.NcpObjectStorageService;
 import project.vo.Member;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-@Component("/member/update")
+@Controller("/member/update")
 public class MemberUpdateController implements PageController {
     @Autowired
     MemberService memberService;

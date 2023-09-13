@@ -1,7 +1,7 @@
 package project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import project.service.BoardService;
 import project.service.NcpObjectStorageService;
 import project.vo.AttachedFile;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.util.ArrayList;
 
-@Component("/board/update")
+@Controller("/board/update")
 public class BoardUpdateController implements PageController {
     @Autowired
     BoardService boardService;

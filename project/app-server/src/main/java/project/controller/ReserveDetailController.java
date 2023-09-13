@@ -1,14 +1,14 @@
 package project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import project.service.ReserveService;
 import project.vo.Reserve;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Component("/reserve/detail")
+@Controller("/reserve/detail")
 public class ReserveDetailController implements PageController {
     @Autowired
     ReserveService reserveService;

@@ -1,7 +1,7 @@
 package project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import project.service.BookService;
 import project.vo.Book;
 import project.vo.Member;
@@ -9,7 +9,7 @@ import project.vo.Member;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Component("/book/delete")
+@Controller("/book/delete")
 public class BookDeleteController implements PageController {
     @Autowired
     BookService bookService;

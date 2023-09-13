@@ -1,7 +1,7 @@
 package project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import project.service.BookService;
 import project.service.RentService;
 import project.vo.Book;
@@ -11,7 +11,7 @@ import project.vo.Rent;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Component("/rent/add")
+@Controller("/rent/add")
 public class RentAddController implements PageController {
     @Autowired
     RentService rentService;

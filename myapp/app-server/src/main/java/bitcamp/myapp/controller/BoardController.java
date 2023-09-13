@@ -39,7 +39,7 @@ public class BoardController {
 
         Member loginUser = (Member) session.getAttribute("loginUser");
         if (loginUser == null) {
-            return "redirect:../auth/form";
+            return "redirect:/auth/form";
         }
         board.setWriter(loginUser);
 
@@ -57,11 +57,11 @@ public class BoardController {
             board.setAttachedFiles(attachedFiles);
 
             boardService.add(board);
-            return "redirect:list?category=" + board.getCategory();
+            return "redirect:/board/list?category=" + board.getCategory();
 
         } catch (Exception e) {
             model.addAttribute("message", "게시글 등록 오류!");
-            model.addAttribute("refresh", "2;url=list?category=" + board.getCategory());
+            model.addAttribute("refresh", "2;url=/board/list?category=" + board.getCategory());
             throw e;
         }
     }
@@ -74,7 +74,7 @@ public class BoardController {
             HttpSession session) throws Exception {
         Member loginUser = (Member) session.getAttribute("loginUser");
         if (loginUser == null) {
-            return "redirect:../auth/form";
+            return "redirect:/auth/form";
         }
 
         try {
@@ -84,11 +84,11 @@ public class BoardController {
                 throw new Exception("해당 번호의 게시글이 없거나 삭제 권한이 없습니다.");
             } else {
                 boardService.delete(b.getNo());
-                return "redirect:list?category=" + category;
+                return "redirect:/board/list?category=" + category;
             }
 
         } catch (Exception e) {
-            model.addAttribute("refresh", "2;url=list?category=" + category);
+            model.addAttribute("refresh", "2;url=/board/list?category=" + category);
             throw e;
         }
     }
@@ -134,7 +134,7 @@ public class BoardController {
 
         Member loginUser = (Member) session.getAttribute("loginUser");
         if (loginUser == null) {
-            return "redirect:../auth/form";
+            return "redirect:/auth/form";
         }
 
         try {
@@ -156,40 +156,40 @@ public class BoardController {
             board.setAttachedFiles(attachedFiles);
 
             boardService.update(board);
-            return "redirect:list?category=" + b.getCategory();
+            return "redirect:/board/list?category=" + b.getCategory();
 
         } catch (Exception e) {
-            model.addAttribute("refresh", "2;url=detail?no=" + board.getNo());
+            model.addAttribute("refresh", "2;url=/board/detail/" + board.getCategory() + "/" + board.getNo());
             throw e;
         }
     }
 
-    @GetMapping("fileDelete/{file}") // 예) .../fileDelete/fileNo=30
+    @GetMapping("fileDelete/{attachedFile}") // 예) .../fileDelete/attachedfile;no=30
     public String fileDelete(
-            @MatrixVariable(name="fileNo", pathVar = "file") int fileNo,
+            @MatrixVariable("no") int no,
             Model model,
             HttpSession session) throws Exception {
         Member loginUser = (Member) session.getAttribute("loginUser");
         if (loginUser == null) {
-            return "redirect:../auth/form";
+            return "redirect:/auth/form";
         }
 
         Board board = null;
         try {
-            AttachedFile attachedFile = boardService.getAttachedFile(fileNo);
+            AttachedFile attachedFile = boardService.getAttachedFile(no);
             board = boardService.get(attachedFile.getBoardNo());
             if (board.getWriter().getNo() != loginUser.getNo()) {
                 throw new Exception("게시글 변경 권한이 없습니다!");
             }
 
-            if (boardService.deleteAttachedFile(fileNo) == 0) {
+            if (boardService.deleteAttachedFile(no) == 0) {
                 throw new Exception("해당 번호의 첨부파일이 없습니다.");
             } else {
-                return "redirect:/app/board/detail/" + board.getCategory() + "/" + board.getNo();
+                return "redirect:/board/detail/" + board.getCategory() + "/" + board.getNo();
             }
 
         } catch (Exception e) {
-            model.addAttribute("refresh", "2;url=/app/board/detail/" + board.getCategory() + "/" + board.getNo());
+            model.addAttribute("refresh", "2;url=/board/detail/" + board.getCategory() + "/" + board.getNo());
             throw e;
         }
     }

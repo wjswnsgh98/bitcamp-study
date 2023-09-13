@@ -17,7 +17,7 @@
 </head>
 <body>
 
-<jsp:include page="header.jsp"/>
+<jsp:include page="../../../resources/templates/header.html"/>
 
 <h1>실행 오류!</h1>
 
@@ -28,7 +28,7 @@
 <hr>
 <p><%=exception%></p>
 
-<jsp:include page="footer.jsp"/>
+<jsp:include page="../../../resources/templates/footer.html"/>
 
 </body>
 </html>

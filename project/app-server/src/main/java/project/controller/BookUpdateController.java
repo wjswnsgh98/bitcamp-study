@@ -1,18 +1,23 @@
 package project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import project.service.BookService;
+import project.service.NcpObjectStorageService;
 import project.vo.Book;
 import project.vo.Member;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
-@Component("/book/update")
+@Controller("/book/update")
 public class BookUpdateController implements PageController {
     @Autowired
     BookService bookService;
+
+    @Autowired
+    NcpObjectStorageService ncpObjectStorageService;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -32,6 +37,13 @@ public class BookUpdateController implements PageController {
             book.setPublisher(request.getParameter("publisher"));
             book.setContent(request.getParameter("content"));
             book.setCount(Integer.parseInt(request.getParameter("count")));
+
+            Part photoPart = request.getPart("photo");
+            if (photoPart.getSize() > 0) {
+                String uploadFileUrl = ncpObjectStorageService.uploadFile(
+                        "bitcamp-nc7-bucket-10", "book/", photoPart);
+                book.setPhoto(uploadFileUrl);
+            }
 
             bookService.update(book);
             return "redirect:list";

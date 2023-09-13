@@ -11,6 +11,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
+import project.dao.*;
+import project.service.*;
+import util.TransactionProxyBuilder;
 
 import javax.sql.DataSource;
 
@@ -64,5 +67,41 @@ public class AppConfig {
         System.out.println("AppConfig.transactionManager() 호출됨!");
 
         return new DataSourceTransactionManager(dataSource);
+    }
+
+    @Bean
+    public TransactionProxyBuilder txProxyBuilder(PlatformTransactionManager txManager) {
+        // 주어진 객체에 트랜잭션 다루는 기능을 덧붙여서 새로운 객체를 만드는 일을 한다.
+        return new TransactionProxyBuilder(txManager);
+    }
+
+    @Bean
+    public BoardService boardService(TransactionProxyBuilder txProxyBuilder, BoardDao boardDao) {
+        // 서비스 객체 + 트랜잭션 다루는 기능  => 리턴
+        return (BoardService) txProxyBuilder.build(new DefaultBoardService(boardDao));
+    }
+
+    @Bean
+    public MemberService memberService(TransactionProxyBuilder txProxyBuilder, MemberDao memberDao) {
+        // 서비스 객체 + 트랜잭션 다루는 기능  => 리턴
+        return (MemberService) txProxyBuilder.build(new DefaultMemberService(memberDao));
+    }
+
+    @Bean
+    public BookService bookService(TransactionProxyBuilder txProxyBuilder, BookDao bookDao) {
+        // 서비스 객체 + 트랜잭션 다루는 기능  => 리턴
+        return (BookService) txProxyBuilder.build(new DefaultBookService(bookDao));
+    }
+
+    @Bean
+    public RentService rentService(TransactionProxyBuilder txProxyBuilder, RentDao rentDao) {
+        // 서비스 객체 + 트랜잭션 다루는 기능  => 리턴
+        return (RentService) txProxyBuilder.build(new DefaultRentService(rentDao));
+    }
+
+    @Bean
+    public ReserveService reserveService(TransactionProxyBuilder txProxyBuilder, ReserveDao reserveDao) {
+        // 서비스 객체 + 트랜잭션 다루는 기능  => 리턴
+        return (ReserveService) txProxyBuilder.build(new DefaultReserveService(reserveDao));
     }
 }

@@ -6,13 +6,15 @@
 
 <div style='height:50px;background-color:orange;'>
     <img src='https://www.ncloud.com/public/img/logo-m.png' style='height:40px'>
-    <a href='/admin/member/list'>회원</a>
-    <a href='/app/board/list?category=1'>게시글</a>
-    <a href='/app/board/list?category=2'>독서록</a>
+    <a href='/app/member/list'>회원</a>
+    <a href='/app/book/list'>도서</a>
+    <a href='/app/rent/list'>도서 대여</a>
+    <a href='/app/reserve/list'>도서 예약</a>
+    <a href='/app/board/list'>게시글</a>
 
 <c:choose>
     <c:when test="${empty sessionScope.loginUser}">
-        <a href='/app/auth/form'>로그인</a>
+        <a href='/app/auth/login'>로그인</a>
     </c:when>
     <c:otherwise>
         <c:if test="${empty sessionScope.loginUser.photo}">

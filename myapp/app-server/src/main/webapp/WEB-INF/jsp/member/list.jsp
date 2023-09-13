@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<jsp:include page="../header.jsp"/>
+<jsp:include page="../../../../resources/templates/header.html"/>
 
 <h1>회원 목록</h1>
 <div style='margin:5px;'>
@@ -36,7 +36,7 @@
 </table>
 <a href='/'>메인</a>
 
-<jsp:include page="../footer.jsp"/>
+<jsp:include page="../../../../resources/templates/footer.html"/>
 
 </body>
 </html>

@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<jsp:include page="../header.jsp"/>
+<jsp:include page="../../../../resources/templates/header.html"/>
 
 <h1>회원</h1>
 <form action='add' method='post' enctype='multipart/form-data'>
@@ -41,7 +41,7 @@
 <button>등록</button>
 </form>
 
-<jsp:include page="../footer.jsp"/>
+<jsp:include page="../../../../resources/templates/footer.html"/>
 
 </body>
 </html>

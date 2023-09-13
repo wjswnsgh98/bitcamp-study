@@ -1,41 +1,23 @@
 package project.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 import project.dao.ReserveDao;
 import project.vo.Reserve;
+import util.Transactional;
 
 import java.util.List;
 
-@Service
+// @Service
 public class DefaultReserveService implements ReserveService {
     ReserveDao reserveDao;
-    PlatformTransactionManager txManager;
 
-    public DefaultReserveService(ReserveDao reserveDao, PlatformTransactionManager txManager) {
+    public DefaultReserveService(ReserveDao reserveDao) {
         this.reserveDao = reserveDao;
-        this.txManager = txManager;
     }
 
+    @Transactional
     @Override
     public int add(Reserve reserve) throws Exception {
-        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-        def.setName("tx1");
-        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        TransactionStatus status = txManager.getTransaction(def);
-
-        try {
-            int count = reserveDao.insert(reserve);
-            txManager.commit(status);
-            return count;
-
-        } catch (Exception e) {
-            txManager.rollback(status);
-            throw e;
-        }
+        return reserveDao.insert(reserve);
     }
 
     @Override
@@ -48,21 +30,9 @@ public class DefaultReserveService implements ReserveService {
         return reserveDao.findBy(reserveNo);
     }
 
+    @Transactional
     @Override
     public int delete(int reserveNo) throws Exception {
-        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-        def.setName("tx1");
-        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        TransactionStatus status = txManager.getTransaction(def);
-
-        try {
-            int count = reserveDao.delete(reserveNo);
-            txManager.commit(status);
-            return count;
-
-        } catch (Exception e) {
-            txManager.rollback(status);
-            throw e;
-        }
+        return reserveDao.delete(reserveNo);
     }
 }

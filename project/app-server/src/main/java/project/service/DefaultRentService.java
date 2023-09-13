@@ -1,41 +1,23 @@
 package project.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 import project.dao.RentDao;
 import project.vo.Rent;
+import util.Transactional;
 
 import java.util.List;
 
-@Service
+// @Service
 public class DefaultRentService implements RentService {
     RentDao rentDao;
-    PlatformTransactionManager txManager;
 
-    public DefaultRentService(RentDao rentDao, PlatformTransactionManager txManager) {
+    public DefaultRentService(RentDao rentDao) {
         this.rentDao = rentDao;
-        this.txManager = txManager;
     }
 
+    @Transactional
     @Override
     public int add(Rent rent) throws Exception {
-        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-        def.setName("tx1");
-        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        TransactionStatus status = txManager.getTransaction(def);
-
-        try {
-            int count = rentDao.insert(rent);
-            txManager.commit(status);
-            return count;
-
-        } catch (Exception e) {
-            txManager.rollback(status);
-            throw e;
-        }
+        return rentDao.insert(rent);
     }
 
     @Override
@@ -48,21 +30,9 @@ public class DefaultRentService implements RentService {
         return rentDao.findBy(rentNo);
     }
 
+    @Transactional
     @Override
     public int delete(int rentNo) throws Exception {
-        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-        def.setName("tx1");
-        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        TransactionStatus status = txManager.getTransaction(def);
-
-        try {
-            int count = rentDao.delete(rentNo);
-            txManager.commit(status);
-            return count;
-
-        } catch (Exception e) {
-            txManager.rollback(status);
-            throw e;
-        }
+        return rentDao.delete(rentNo);
     }
 }
