@@ -27,52 +27,32 @@ public class MemberController {
     NcpObjectStorageService ncpObjectStorageService;
 
     @GetMapping("form")
-    public void form(){}
+    public void form() {
+    }
 
     @PostMapping("add")
-    public String add(
-            Member member,
-            MultipartFile photofile,
-            Model model) throws Exception {
-
-        try {
-            System.out.println(member);
-            if (photofile.getSize() > 0) {
-                String uploadFileUrl = ncpObjectStorageService.uploadFile(
-                        "bitcamp-nc7-bucket-10", "member/", photofile);
-                member.setPhoto(uploadFileUrl);
-            }
-            memberService.add(member);
-            return "redirect:list";
-
-        } catch (Exception e) {
-            model.addAttribute("message", "회원 등록 오류!");
-            model.addAttribute("refresh", "2;url=list");
-            throw e;
+    public String add(Member member, MultipartFile photofile) throws Exception {
+        System.out.println(member);
+        if (photofile.getSize() > 0) {
+            String uploadFileUrl = ncpObjectStorageService.uploadFile(
+                    "bitcamp-nc7-bucket-10", "member/", photofile);
+            member.setPhoto(uploadFileUrl);
         }
+        memberService.add(member);
+        return "redirect:list";
     }
 
     @GetMapping("delete")
-    public String delete(
-            int no,
-            Model model) throws Exception {
-        try {
-            if (memberService.delete(no) == 0) {
-                throw new Exception("해당 번호의 회원이 없습니다.");
-            } else {
-                return "redirect:list";
-            }
-
-        } catch (Exception e) {
-            model.addAttribute("refresh", "2;url=list");
-            throw e;
+    public String delete(int no) throws Exception {
+        if (memberService.delete(no) == 0) {
+            throw new Exception("해당 번호의 회원이 없습니다.");
+        } else {
+            return "redirect:list";
         }
     }
 
     @GetMapping("{no}")
-    public String detail(
-            @PathVariable int no,
-            Model model) throws Exception {
+    public String detail(@PathVariable int no, Model model) throws Exception {
         model.addAttribute("member", memberService.get(no));
         return "member/detail";
     }
@@ -83,25 +63,17 @@ public class MemberController {
     }
 
     @PostMapping("update")
-    public String update(
-            Member member,
-            MultipartFile photofile,
-            Model model) throws Exception {
-        try {
-            if (photofile.getSize() > 0) {
-                String uploadFileUrl = ncpObjectStorageService.uploadFile(
-                        "bitcamp-nc7-bucket-10", "member/", photofile);
-                member.setPhoto(uploadFileUrl);
-            }
+    public String update(Member member, MultipartFile photofile) throws Exception {
+        if (photofile.getSize() > 0) {
+            String uploadFileUrl = ncpObjectStorageService.uploadFile(
+                    "bitcamp-nc7-bucket-10", "member/", photofile);
+            member.setPhoto(uploadFileUrl);
+        }
 
-            if (memberService.update(member) == 0) {
-                throw new Exception("회원이 없습니다.");
-            } else {
-                return "redirect:list";
-            }
-        } catch (Exception e) {
-            model.addAttribute("refresh", "2;url=list");
-            throw e;
+        if (memberService.update(member) == 0) {
+            throw new Exception("회원이 없습니다.");
+        } else {
+            return "redirect:list";
         }
     }
 }
