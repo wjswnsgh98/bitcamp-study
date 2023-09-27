@@ -33,7 +33,7 @@
 
   <insert id="insert" parameterType="board"
           useGeneratedKeys="true" keyColumn="board_no" keyProperty="no">
-    insert into sns_board(title,content,writer,category)
+    insert into myapp_board(title,content,writer,category)
     values(#{title},#{content},#{writer.no},#{category})
   </insert>
   
